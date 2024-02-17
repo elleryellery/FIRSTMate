@@ -1,3 +1,5 @@
+//Ready for commit
+
 //Imports
 import javax.swing.*;
 import java.awt.*;
@@ -6,40 +8,30 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.Scanner;
 import java.awt.event.*; 
 
 //Management Method
 public class Game  extends JPanel implements Runnable, KeyListener, MouseListener, MouseMotionListener{
 
-	/*
-	   _       __    ___   _    __    ___   _     ____      ___   ____  __    _      __    ___    __   _____  _   ___   _     
-	  \ \  /  / /\  | |_) | |  / /\  | |_) | |   | |_      | | \ | |_  / /`  | |    / /\  | |_)  / /\   | |  | | / / \ | |\ | 
- 	   \_\/  /_/--\ |_| \ |_| /_/--\ |_|_) |_|__ |_|__     |_|_/ |_|__ \_\_, |_|__ /_/--\ |_| \ /_/--\  |_|  |_| \_\_/ |_| \| 
- 	   
- 	   TODO Variable Declaration
-	 */
+	//TODO Variable Declaration
 	
 	//Management Variables
 	private BufferedImage back; 
 	private File file;
-	
-	//Objects
-	private Character astronaut = new Character(300, 300, (int)(121/2), (int)(176/2), new ImageIcon("Astronaut.png"));
-	
-	//Integers
+		
+	//Numbers
 	private int key;
-	private int mvmfactor;
 
-	
-	/*
-	  _       __    _       __    __    ____  _      ____  _     _____ 
-	 | |\/|  / /\  | |\ |  / /\  / /`_ | |_  | |\/| | |_  | |\ |  | |  
-	 |_|  | /_/--\ |_| \| /_/--\ \_\_/ |_|__ |_|  | |_|__ |_| \|  |_|  
-	 
-	 TODO Management
-	 */
+	//Strings and Characters
+	private char keyChar;
+
+	//Objects
+
+	//Miscellaneous
+
+	//TODO Management
+
 	public Game() {
 		
 		//Thread Setup
@@ -47,9 +39,7 @@ public class Game  extends JPanel implements Runnable, KeyListener, MouseListene
 		this.addKeyListener(this);
 		this.addMouseListener(this);
 		this.addMouseMotionListener(this);
-		
-		mvmfactor = 5;
-		
+				
 	}
 
 	//Run Method
@@ -68,13 +58,7 @@ public class Game  extends JPanel implements Runnable, KeyListener, MouseListene
 	      }
 	  	}
 	
-	/*
- 	 _       __    _   _          ____  ___   _  _____  ___   ___  
-	| |\/|  / /\  | | | |\ |     | |_  | | \ | |  | |  / / \ | |_) 
-	|_|  | /_/--\ |_| |_| \|     |_|__ |_|_/ |_|  |_|  \_\_/ |_| \ 
-	
-	TODO Main Editor
-	 */
+	// TODO Main Editor
 	public void paint(Graphics g){
 		
 		Graphics2D twoDgraph = (Graphics2D) g; 
@@ -87,74 +71,24 @@ public class Game  extends JPanel implements Runnable, KeyListener, MouseListene
 		g2d.setFont( new Font("Courier New", Font.BOLD, 20));
 		g2d.setColor(Color.WHITE);
 		((Graphics2D) g2d).setStroke(new BasicStroke(10));
-				
-		g2d.drawImage(astronaut.getImg().getImage(), astronaut.getX(), astronaut.getY(), astronaut.getW(), astronaut.getH(), this);
-		
+						
 		//Management
 		twoDgraph.drawImage(back, null, 0, 0);
 }
 	
-	/*
- 	 ___   ___    __    _           _      ____ _____  _     ___   ___   __  
-	| | \ | |_)  / /\  \ \    /    | |\/| | |_   | |  | |_| / / \ | | \ ( (` 
-	|_|_/ |_| \ /_/--\  \_\/\/     |_|  | |_|__  |_|  |_| | \_\_/ |_|_/ _)_) 
-	
-	TODO Draw Methods
-	 */
+	//TODO Draw Methods
 
 	
 	
-	/*
- 	 __   __    ___   ____  ____  _          _      ____ _____  _     ___   ___   __  
-	( (` / /`  | |_) | |_  | |_  | |\ |     | |\/| | |_   | |  | |_| / / \ | | \ ( (` 
-	_)_) \_\_, |_| \ |_|__ |_|__ |_| \|     |_|  | |_|__  |_|  |_| | \_\_/ |_|_/ _)_) 
+	//TODO Screen Methods
 	
-	TODO Screen Methods
-	 */
+
 	
-	
-	
-	
-	/*
- 	 ___   _   __   ___   _      __    _    
-	| | \ | | ( (` | |_) | |    / /\  \ \_/ 
-	|_|_/ |_| _)_) |_|   |_|__ /_/--\  |_|  
-	
-	TODO Display
-	 */
-	
-	//Alien Components
-	
-	
-	/*
-	 __    ____  _      ____  ___    __   _____  _   ___   _     
-	/ /`_ | |_  | |\ | | |_  | |_)  / /\   | |  | | / / \ | |\ | 
-	\_\_/ |_|__ |_| \| |_|__ |_| \ /_/--\  |_|  |_| \_\_/ |_| \| 
-	
-	TODO Generation
-	 */
+	//TODO Display
 		
 	
-	
-	
-	
-	/*
- 	 __     __    _      ____  ___   _      __    _         _      ____  __    _      __    _      _   __    __  
-	/ /`_  / /\  | |\/| | |_  | |_) | |    / /\  \ \_/     | |\/| | |_  / /`  | |_|  / /\  | |\ | | | / /`  ( (` 
-	\_\_/ /_/--\ |_|  | |_|__ |_|   |_|__ /_/--\  |_|      |_|  | |_|__ \_\_, |_| | /_/--\ |_| \| |_| \_\_, _)_) 
-	
-	TODO Gameplay Mechanics
-	 */
-	
 
-	
-	/*
- 	 _     ____  _         _     _   __  _____  ____  _      ____  ___       _      ____ _____  _     ___   ___   __  
-	| |_/ | |_  \ \_/     | |   | | ( (`  | |  | |_  | |\ | | |_  | |_)     | |\/| | |_   | |  | |_| / / \ | | \ ( (` 
-	|_| \ |_|__  |_|      |_|__ |_| _)_)  |_|  |_|__ |_| \| |_|__ |_| \     |_|  | |_|__  |_|  |_| | \_\_/ |_|_/ _)_) 
-	
-	TODO Key Listener Methods
-	 */
+	//TODO Key Listener Methods
 	
 	@Override
 	public void keyTyped(KeyEvent e) {
@@ -165,20 +99,8 @@ public class Game  extends JPanel implements Runnable, KeyListener, MouseListene
 	public void keyPressed(KeyEvent e) {
 		
 		key= e.getKeyCode();
+		keyChar = e.getKeyChar();
 		System.out.println(key);
-		
-		if(key == 65 || key == 37) { // A or <-
-			astronaut.move(-mvmfactor, 0);
-		}
-		if(key == 87 || key == 38) { // W or ^
-			astronaut.move(0, -mvmfactor);
-		}
-		if(key == 68 || key == 39) { // D or ->
-			astronaut.move(mvmfactor, 0);
-		}
-		if(key == 83 || key == 40) { // D or ->
-			astronaut.move(0, mvmfactor);
-		}
 		
 	}
 
@@ -187,19 +109,12 @@ public class Game  extends JPanel implements Runnable, KeyListener, MouseListene
 	public void keyReleased(KeyEvent e) {
 		
 		key = e.getKeyCode();
-		
-		
-		
+		keyChar = e.getKeyChar();
+
 	}
 
 
-	/*
- 	 _      ___   _     __   ____      _     _   __  _____  ____  _      ____  ___       _      ____ _____  _     ___   ___   __  
-	| |\/| / / \ | | | ( (` | |_      | |   | | ( (`  | |  | |_  | |\ | | |_  | |_)     | |\/| | |_   | |  | |_| / / \ | | \ ( (` 
-	|_|  | \_\_/ \_\_/ _)_) |_|__     |_|__ |_| _)_)  |_|  |_|__ |_| \| |_|__ |_| \     |_|  | |_|__  |_|  |_| | \_\_/ |_|_/ _)_) 
-	
-	TODO Mouse Listener Methods
-	 */
+	//TODO Mouse Listener Methods
 	
 	@Override
 	public void mouseDragged(MouseEvent arg0) {
@@ -252,13 +167,7 @@ public class Game  extends JPanel implements Runnable, KeyListener, MouseListene
 	
 	
 
-	/*
- 	 ____  _   _     ____      _      ____ _____  _     ___   ___   __  
-	| |_  | | | |   | |_      | |\/| | |_   | |  | |_| / / \ | | \ ( (` 
-	|_|   |_| |_|__ |_|__     |_|  | |_|__  |_|  |_| | \_\_/ |_|_/ _)_) 
-	
-	TODO File Methods
-	 */
+	//TODO File Methods
 	
 		//Create File
 		public void createFile() {
@@ -294,7 +203,7 @@ public class Game  extends JPanel implements Runnable, KeyListener, MouseListene
 			try {
 				FileWriter myWriter = new FileWriter(file);
 
-				myWriter.write("Your cool file!");
+				myWriter.write("Keycode: " + key);
 		
 				myWriter.close();
 				System.out.println("Successfully wrote to file");
