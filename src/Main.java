@@ -1,20 +1,24 @@
-//2 CHANGES REQUIRED
+//Ready for commit
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 
 public class Main extends JFrame{
-	private static final int WIDTH =1400;
-	private static final int HEIGHT=725;
+	private static final int WIDTH =1200;
+	private static final int HEIGHT=650;
 	
 	public Main () {
-		super("Space Invaders");
+		super("FIRST Mate");
 		setSize(WIDTH, HEIGHT);
+
+		//iPhone: 	1170 x 2532 px
+		//Android: 414 × 896 px
+
 		Game play = new Game();
 		((Component) play).setFocusable(true);
 		
-		setBackground(Color.BLACK);
+		setBackground(Color.WHITE);
 		
 		getContentPane().add(play);
 		
@@ -70,9 +74,5 @@ public class Main extends JFrame{
 
 	public static void main(String[] args) {
 		Main run = new Main();
-		
-
 	}
-
-
 }
