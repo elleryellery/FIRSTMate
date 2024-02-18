@@ -2,7 +2,7 @@ package Screens;
 import java.awt.Graphics;
 import javax.swing.ImageIcon;
 
-import General.Credit;
+import General.*;
 
 public class Screen {
 
@@ -10,6 +10,7 @@ public class Screen {
     private String tag;
     private int ID;
     Credit[] credits;
+    Button[] buttons;
 
     public Screen() {
         back = new ImageIcon("IMG-Screens/SCREEN-ImageNotFound.png");
@@ -25,6 +26,14 @@ public class Screen {
 
     public void drawScreen(Graphics g2d, int screenWidth, int screenHeight){
         g2d.drawImage(back.getImage(),0,0,screenWidth,screenHeight,null);
+
+        for(Button b: buttons){
+            b.drawButton(g2d);
+        }
+    }
+
+    public void drawScreenFeatures(Graphics g2d){
+        System.err.println("In Screen.java: Default drawScreenFeatures(Graphics g2d) method called.");
     }
 
     public int ID(){
@@ -47,6 +56,13 @@ public class Screen {
         credits = inputCredits;
     }
 
+    public void setButtons(Button[] inputButtons){
+        buttons = inputButtons;
+    }
+
+    public Button[] buttons(){
+        return buttons;
+    }
 }
 
 

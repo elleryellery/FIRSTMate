@@ -31,11 +31,15 @@ public class Game  extends JPanel implements Runnable, KeyListener, MouseListene
 
 	//Strings and Characters
 	private char keyChar;
-	private String screen = "Opening Screen";
+	private static String screen = "Opening Screen";
+	private static Screen myScreen;
+	private static String previousScreen;
+	private static Screen previousScreenObject;
 
 	//Objects
 
 	OpeningScreen openingScreen = new OpeningScreen();
+	CreditsScreen creditsScreen = new CreditsScreen();
 
 	private ArrayList <Screen> gameScreens = new ArrayList <Screen> ();
 
@@ -83,13 +87,38 @@ public class Game  extends JPanel implements Runnable, KeyListener, MouseListene
 		g2d.setColor(Color.GREEN);
 		((Graphics2D) g2d).setStroke(new BasicStroke(10));
 
-		openingScreen.drawScreen(g2d,getWidth(),getHeight());
+		switch(screen){
+			case "Opening Screen":
+				myScreen = openingScreen;
+				break;
+			case "Credits Screen":
+				myScreen = creditsScreen;
+				break;
+		}
+
+		myScreen.drawScreen(g2d,getWidth(),getHeight());
 
 						
 		//Management
 		twoDgraph.drawImage(back, null, 0, 0);
 }
 	
+	//TODO Getters and Setters
+
+	public static void setScreen(String inputString){
+		previousScreen = screen;
+		previousScreenObject = myScreen;
+		screen = inputString;
+	}
+
+	public static String previousString(){
+		return previousScreen;
+	}
+
+	public Screen previousScreen(){
+		return previousScreenObject;
+	}
+
 	//TODO Draw Methods
 
 	
@@ -139,8 +168,9 @@ public class Game  extends JPanel implements Runnable, KeyListener, MouseListene
 	
 	@Override
 	public void mouseMoved(MouseEvent e) {
-		
-		
+		for(Button b: myScreen.buttons()){
+			b.checkHover(e.getX(),e.getY());
+		}
 	}
 
 	//Mouse Clicked Methods
@@ -169,7 +199,11 @@ public class Game  extends JPanel implements Runnable, KeyListener, MouseListene
 
 	@Override
 	public void mousePressed(MouseEvent e) {
-		
+		//System.out.println(e.getX() + ", " + e.getY());
+
+		for(Button b: myScreen.buttons()){
+			b.check(e.getX(),e.getY());
+		}
 	}
 
 
