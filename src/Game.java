@@ -8,6 +8,8 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.lang.reflect.Array;
+import java.util.ArrayList;
 import java.util.Scanner;
 import java.awt.event.*; 
 
@@ -25,8 +27,13 @@ public class Game  extends JPanel implements Runnable, KeyListener, MouseListene
 
 	//Strings and Characters
 	private char keyChar;
+	private String screen = "Opening Screen";
 
 	//Objects
+
+	Screen openingScreen = new Screen(1,"Opening Screen",new ImageIcon("SCREEN-OpeningScreen.gif"));
+
+	private ArrayList <Screen> gameScreens = new ArrayList <Screen> ();
 
 	//Miscellaneous
 
@@ -39,7 +46,7 @@ public class Game  extends JPanel implements Runnable, KeyListener, MouseListene
 		this.addKeyListener(this);
 		this.addMouseListener(this);
 		this.addMouseMotionListener(this);
-				
+			
 	}
 
 	//Run Method
@@ -62,15 +69,17 @@ public class Game  extends JPanel implements Runnable, KeyListener, MouseListene
 	public void paint(Graphics g){
 		
 		Graphics2D twoDgraph = (Graphics2D) g; 
-		if( back ==null)
+		if(back ==null)
 			back=(BufferedImage)( (createImage(getWidth(), getHeight()))); 
 				
 		//Back Graphics and Setup
 		Graphics g2d = back.createGraphics();
 		g2d.clearRect(0,0,getSize().width, getSize().height);
 		g2d.setFont( new Font("Courier New", Font.BOLD, 20));
-		g2d.setColor(Color.WHITE);
+		g2d.setColor(Color.GREEN);
 		((Graphics2D) g2d).setStroke(new BasicStroke(10));
+
+		openingScreen.drawScreen(g2d,getWidth(),getHeight());
 						
 		//Management
 		twoDgraph.drawImage(back, null, 0, 0);
