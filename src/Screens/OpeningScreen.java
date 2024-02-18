@@ -1,9 +1,12 @@
 package Screens;
 import General.*;
 
+import java.awt.Graphics;
+
 import javax.swing.ImageIcon;
 
 public class OpeningScreen extends Screen {
+
 
     public OpeningScreen(){
         super(1,"Opening Screen",new ImageIcon("IMG-Screens/SCREEN-OpeningScreen.gif"));
@@ -20,6 +23,10 @@ public class OpeningScreen extends Screen {
         
         this.setCredits(myCredits);
         this.setButtons(myButtons);
+    }
+
+    public void drawScreenFeatures(Graphics g2d){
+        
     }
 
 }

@@ -1,13 +1,17 @@
 package Screens;
 
+import java.awt.Color;
+import java.awt.Graphics;
+
 import javax.swing.ImageIcon;
 
-import General.Button;
-import General.Credit;
-import General.Game;
+import General.*;
 
 public class CreditsScreen extends Screen{
-    
+
+    Color blue = new Color(	89, 142, 244);
+    int creditsIndex = 0;
+
     public CreditsScreen(){
         super(2,"Credits Screen",new ImageIcon("IMG-Screens/SCREEN-Credits.png"));
         Credit[] myCredits = {
@@ -24,5 +28,17 @@ public class CreditsScreen extends Screen{
         
         this.setCredits(myCredits);
         this.setButtons(myButtons);
+    }
+    public void drawScreenFeatures(Graphics g2d){
+        g2d.setColor(blue);
+        g2d.fillRect(100,100,1000,400);
+
+        g2d.setColor(Color.WHITE);
+        g2d.drawString("Type: " + this.credits[creditsIndex].type(),150,150);
+        g2d.drawString("Item: " + this.credits[creditsIndex].item(),150,180);
+        g2d.drawString("Source: " + this.credits[creditsIndex].source(),150,210);
+        g2d.drawString("License: " + this.credits[creditsIndex].license(),150,240);
+
+
     }
 }
