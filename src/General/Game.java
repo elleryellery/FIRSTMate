@@ -97,8 +97,6 @@ public class Game  extends JPanel implements Runnable, KeyListener, MouseListene
 		}
 
 		myScreen.drawScreen(g2d,getWidth(),getHeight());
-		myScreen.drawScreenFeatures(g2d);
-
 						
 		//Management
 		twoDgraph.drawImage(back, null, 0, 0);

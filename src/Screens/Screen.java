@@ -27,6 +27,8 @@ public class Screen {
     public void drawScreen(Graphics g2d, int screenWidth, int screenHeight){
         g2d.drawImage(back.getImage(),0,0,screenWidth,screenHeight,null);
 
+        drawScreenFeatures(g2d);
+
         for(Button b: buttons){
             b.drawButton(g2d);
         }

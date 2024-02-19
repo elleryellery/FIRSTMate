@@ -10,7 +10,7 @@ import General.*;
 public class CreditsScreen extends Screen{
 
     Color blue = new Color(	89, 142, 244);
-    int creditsIndex = 0;
+    private static int creditsIndex = 0;
 
     public CreditsScreen(){
         super(2,"Credits Screen",new ImageIcon("IMG-Screens/SCREEN-Credits.png"));
@@ -22,9 +22,18 @@ public class CreditsScreen extends Screen{
         Button[] myButtons = {
             new Button("Credits Button", new ImageIcon("IMG-Buttons/BUTTON-Back.png"),new ImageIcon("IMG-Buttons/BUTTON-BackHover.png"),25, 25,60,60, () -> {
                 Game.setScreen(Game.previousString());
+            }),
+            new Button("Left Arrow Button",new ImageIcon("IMG-Buttons/BUTTON-Left.png"),new ImageIcon("IMG-Buttons/BUTTON-LeftHover.png"),420,430,50,50, () -> {
+                if (creditsIndex > 0) {
+                    creditsIndex --;
+                }
+            }),
+            new Button("Right Arrow Button",new ImageIcon("IMG-Buttons/BUTTON-Right.png"),new ImageIcon("IMG-Buttons/BUTTON-RightHover.png"),720,430,50,50, () -> {
+                if (creditsIndex < myCredits.length -1) {
+                    creditsIndex ++;
+                }
             })
         };
-
         
         this.setCredits(myCredits);
         this.setButtons(myButtons);
