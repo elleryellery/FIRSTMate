@@ -1,6 +1,7 @@
-//Ready for commit
-
 import javax.swing.*;
+
+import General.Game;
+
 import java.awt.*;
 import java.awt.event.*;
 
