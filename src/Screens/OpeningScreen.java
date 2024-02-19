@@ -18,6 +18,9 @@ public class OpeningScreen extends Screen {
         Button[] myButtons = {
             new Button("Credits Button", new ImageIcon("IMG-Buttons/BUTTON-Credits.png"),new ImageIcon("IMG-Buttons/BUTTON-CreditsHover.png"),1137, 561,50,50, () -> {
                 Game.setScreen("Credits Screen");
+            }),
+            new Button("Releases Button", new ImageIcon("IMG-Buttons/BUTTON-ReleaseNotes.png"),new ImageIcon("IMG-Buttons/BUTTON-ReleaseNotesHover.png"),1080, 561,50,50, () -> {
+                Game.setScreen("Releases Screen");
             })
         };
         

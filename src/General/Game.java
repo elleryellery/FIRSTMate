@@ -40,6 +40,7 @@ public class Game  extends JPanel implements Runnable, KeyListener, MouseListene
 
 	OpeningScreen openingScreen = new OpeningScreen();
 	CreditsScreen creditsScreen = new CreditsScreen();
+	ReleasesScreen releasesScreen = new ReleasesScreen();
 
 	private ArrayList <Screen> gameScreens = new ArrayList <Screen> ();
 
@@ -93,6 +94,9 @@ public class Game  extends JPanel implements Runnable, KeyListener, MouseListene
 				break;
 			case "Credits Screen":
 				myScreen = creditsScreen;
+				break;
+			case "Releases Screen":
+				myScreen = releasesScreen;
 				break;
 		}
 
