@@ -21,6 +21,7 @@ public class CreditsScreen extends Screen{
 
         Button[] myButtons = {
             new Button("Credits Button", new ImageIcon("IMG-Buttons/BUTTON-Back.png"),new ImageIcon("IMG-Buttons/BUTTON-BackHover.png"),25, 25,60,60, () -> {
+                creditsIndex = 0;
                 Game.setScreen(Game.previousString());
             }),
             new Button("Left Arrow Button",new ImageIcon("IMG-Buttons/BUTTON-Left.png"),new ImageIcon("IMG-Buttons/BUTTON-LeftHover.png"),420,430,50,50, () -> {
