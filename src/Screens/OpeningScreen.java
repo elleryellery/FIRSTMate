@@ -7,12 +7,17 @@ import javax.swing.ImageIcon;
 
 public class OpeningScreen extends Screen {
 
+    private boolean startPlayer = true;
+
+    SoundPlayer sfx = new SoundPlayer();
 
     public OpeningScreen(){
         super(1,"Opening Screen",new ImageIcon("IMG-Screens/SCREEN-OpeningScreen.gif"));
         Credit[] myCredits = {
             new Credit("Image","Seagull","pngimg.com: https://pngimg.com/image/5403","No Attribution Required"),
-            new Credit("Image","Pirate Ship","Vecteezy: https://www.vecteezy.com/png/21515322-seagull-flying-on-transparent-background-png-file","Attribution-NonCommercial 4.0 International (CC BY-NC 4.0)")
+            new Credit("Image","Pirate Ship","Vecteezy: https://www.vecteezy.com/png/21515322-seagull-flying-on-transparent-background-png-file","Attribution-NonCommercial 4.0 International (CC BY-NC 4.0)"),
+            new Credit("Sound","Seagull Sounds","'sg03' by Pixabay on Pixabay: https://pixabay.com/sound-effects/sg03-55932/","No Attribution Required"),
+            new Credit("Music","Title Screen Background Music","'Emerald Seas' by Aaron Kenny on YouTube Studio Audio Library: https://www.youtube.com/channel/UCVAggfwI4hnkA2WO6-xC06Q","YouTube Audio Library License (No Attribution Required)")
         };
 
         Button[] myButtons = {
@@ -29,7 +34,11 @@ public class OpeningScreen extends Screen {
     }
 
     public void drawScreenFeatures(Graphics g2d){
-        
+        if(startPlayer){
+            sfx.playmusic("SFX-SoundEffects/SOUNDEFFECT-Seagulls.wav", true,95.0f);
+            sfx.playmusic("SFX-Music/MUSIC-EmeraldSeas.wav", true,85.0f);
+            startPlayer = false;
+        }
     }
 
 }

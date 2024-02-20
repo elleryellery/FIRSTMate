@@ -118,7 +118,7 @@ public class Game  extends JPanel implements Runnable, KeyListener, MouseListene
 		return previousScreen;
 	}
 
-	public Screen previousScreen(){
+	public static Screen previousScreen(){
 		return previousScreenObject;
 	}
 
