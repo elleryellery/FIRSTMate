@@ -9,6 +9,8 @@ public class Screen {
 	private ImageIcon back;
     private String tag;
     private int ID;
+    private SoundPlayer sfx = new SoundPlayer();
+    private boolean startPlayer = true;
     Credit[] credits;
     Button[] buttons;
 
@@ -64,6 +66,17 @@ public class Screen {
 
     public Button[] buttons(){
         return buttons;
+    }
+
+    public SoundPlayer sfx(){
+        return sfx;
+    }
+
+    public boolean startPlayer(){
+        return startPlayer;
+    }
+    public void setStartPlayer(boolean inputStartPlayer){
+        startPlayer = inputStartPlayer;
     }
 }
 

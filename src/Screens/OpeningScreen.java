@@ -7,10 +7,6 @@ import javax.swing.ImageIcon;
 
 public class OpeningScreen extends Screen {
 
-    private boolean startPlayer = true;
-
-    SoundPlayer sfx = new SoundPlayer();
-
     public OpeningScreen(){
         super(1,"Opening Screen",new ImageIcon("IMG-Screens/SCREEN-OpeningScreen.gif"));
         Credit[] myCredits = {
@@ -26,7 +22,10 @@ public class OpeningScreen extends Screen {
             }),
             new Button("Releases Button", new ImageIcon("IMG-Buttons/BUTTON-ReleaseNotes.png"),new ImageIcon("IMG-Buttons/BUTTON-ReleaseNotesHover.png"),1080, 561,50,50, () -> {
                 Game.setScreen("Releases Screen");
-            })
+            }),
+            new Button("Settings Button", new ImageIcon("IMG-Buttons/BUTTON-Settings.png"),new ImageIcon("IMG-Buttons/BUTTON-SettingsHover.png"),1137, 10,50,50, () -> {
+                Game.setScreen("Settings Screen");
+            }, () -> Settings.volume()>50.0, new ImageIcon("IMG-Buttons/BUTTON-ReleaseNotes.png"))
         };
         
         this.setCredits(myCredits);
@@ -34,10 +33,10 @@ public class OpeningScreen extends Screen {
     }
 
     public void drawScreenFeatures(Graphics g2d){
-        if(startPlayer){
-            sfx.playmusic("SFX-SoundEffects/SOUNDEFFECT-Seagulls.wav", true,95.0f);
-            sfx.playmusic("SFX-Music/MUSIC-EmeraldSeas.wav", true,85.0f);
-            startPlayer = false;
+        if(startPlayer()){
+            sfx().playmusic('M',"SFX-SoundEffects/SOUNDEFFECT-Seagulls.wav", true,95.0f);
+            sfx().playmusic('S',"SFX-Music/MUSIC-EmeraldSeas.wav", true,85.0f);
+            setStartPlayer(false);
         }
     }
 

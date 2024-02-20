@@ -43,6 +43,10 @@ public class ReleasesScreen extends Screen{
         this.setButtons(myButtons);
     }
     public void drawScreenFeatures(Graphics g2d){
+        if(startPlayer()){
+            sfx().playmusic('M',"SFX-Music/MUSIC-Ballerina.wav", true,75.0f);
+            setStartPlayer(false);
+        }
         g2d.setColor(Color.BLACK);
         g2d.fillRect(100,100,1000,450);
 

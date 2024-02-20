@@ -38,9 +38,10 @@ public class Game  extends JPanel implements Runnable, KeyListener, MouseListene
 
 	//Objects
 
-	OpeningScreen openingScreen = new OpeningScreen();
-	CreditsScreen creditsScreen = new CreditsScreen();
-	ReleasesScreen releasesScreen = new ReleasesScreen();
+	private static OpeningScreen openingScreen = new OpeningScreen();
+	private static CreditsScreen creditsScreen = new CreditsScreen();
+	private static ReleasesScreen releasesScreen = new ReleasesScreen();
+	private static Settings settingsScreen = new Settings();
 
 	private ArrayList <Screen> gameScreens = new ArrayList <Screen> ();
 
@@ -87,7 +88,33 @@ public class Game  extends JPanel implements Runnable, KeyListener, MouseListene
 		g2d.setFont( new Font("Courier New", Font.BOLD, 20));
 		g2d.setColor(Color.GREEN);
 		((Graphics2D) g2d).setStroke(new BasicStroke(10));
+		setScreen();
+		myScreen.drawScreen(g2d,getWidth(),getHeight());
+						
+		//Management
+		twoDgraph.drawImage(back, null, 0, 0);
+}
+	
+	//TODO Getters and Setters
 
+	public static void setScreen(String inputString){
+		myScreen.sfx().stopAllSounds();
+		previousScreen = screen;
+		previousScreenObject = myScreen;
+		screen = inputString;
+		setScreen();
+		myScreen.setStartPlayer(true);
+	}
+
+	public static String previousString(){
+		return previousScreen;
+	}
+
+	public static Screen previousScreen(){
+		return previousScreenObject;
+	}
+
+	public static void setScreen(){
 		switch(screen){
 			case "Opening Screen":
 				myScreen = openingScreen;
@@ -98,28 +125,10 @@ public class Game  extends JPanel implements Runnable, KeyListener, MouseListene
 			case "Releases Screen":
 				myScreen = releasesScreen;
 				break;
+			case "Settings Screen":
+				myScreen = settingsScreen;
+				break;
 		}
-
-		myScreen.drawScreen(g2d,getWidth(),getHeight());
-						
-		//Management
-		twoDgraph.drawImage(back, null, 0, 0);
-}
-	
-	//TODO Getters and Setters
-
-	public static void setScreen(String inputString){
-		previousScreen = screen;
-		previousScreenObject = myScreen;
-		screen = inputString;
-	}
-
-	public static String previousString(){
-		return previousScreen;
-	}
-
-	public static Screen previousScreen(){
-		return previousScreenObject;
 	}
 
 	//TODO Draw Methods

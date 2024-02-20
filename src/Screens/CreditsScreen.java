@@ -16,7 +16,7 @@ public class CreditsScreen extends Screen{
         super(2,"Credits Screen",new ImageIcon("IMG-Screens/SCREEN-Credits.png"));
 
         Button[] myButtons = {
-            new Button("Credits Button", new ImageIcon("IMG-Buttons/BUTTON-Back.png"),new ImageIcon("IMG-Buttons/BUTTON-BackHover.png"),25, 25,60,60, () -> {
+            new Button("Back Button", new ImageIcon("IMG-Buttons/BUTTON-Back.png"),new ImageIcon("IMG-Buttons/BUTTON-BackHover.png"),25, 25,60,60, () -> {
                 creditsIndex = 0;
                 Game.setScreen(Game.previousString());
             }),
@@ -37,7 +37,10 @@ public class CreditsScreen extends Screen{
     public void drawScreenFeatures(Graphics g2d){
         g2d.setColor(blue);
         g2d.fillRect(100,100,1000,400);
-
+        if(startPlayer()){
+            sfx().playmusic('M',"SFX-Music/MUSIC-Ballerina.wav", true,75.0f);
+            setStartPlayer(false);
+        }
         g2d.setColor(Color.WHITE);
         g2d.drawString("Type: " +  Game.previousScreen().credits()[creditsIndex].type(),150,150);
         g2d.drawString("Item: " +  Game.previousScreen().credits()[creditsIndex].item(),150,180);
