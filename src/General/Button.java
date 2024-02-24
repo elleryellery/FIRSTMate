@@ -14,6 +14,7 @@ public class Button {
     private Runnable action;
     private Condition condition;
     private ImageIcon conditionalAppearance;
+    private ImageIcon conditionalAppearanceHover;
 
     public Button(){
         name = "Button.java: Empty Constructor";
@@ -36,7 +37,7 @@ public class Button {
         action = inputAction;
     }
 
-    public Button(String inputName, ImageIcon inputIconRegular, ImageIcon inputIconHover, int inputX, int inputY, int inputW, int inputH, Runnable inputAction, Condition inputCondition, ImageIcon inputConditionalAppearance){
+    public Button(String inputName, ImageIcon inputIconRegular, ImageIcon inputIconHover, int inputX, int inputY, int inputW, int inputH, Runnable inputAction, Condition inputCondition, ImageIcon inputConditionalAppearance, ImageIcon inputConditionalAppearanceHover){
         name = inputName;
         iconRegular = inputIconRegular;
         iconHover = inputIconHover;
@@ -48,6 +49,7 @@ public class Button {
         action = inputAction;
         condition = inputCondition;
         conditionalAppearance = inputConditionalAppearance;
+        conditionalAppearanceHover = inputConditionalAppearanceHover;
     }
 
     public interface Condition {
@@ -60,14 +62,6 @@ public class Button {
 
     public void drawButton (Graphics g2d){
         g2d.drawImage(icon.getImage(),x,y,w,h,null);
-        if (condition == null || condition.evaluate()) {
-            g2d.drawImage(icon.getImage(),x,y,w,h,null);
-        } else {
-            if(icon != iconHover){
-                icon = conditionalAppearance;
-            }
-            g2d.drawImage(icon.getImage(),x,y,w,h,null);
-        }
     }
 
     public void check(int mouseX, int mouseY){
@@ -77,6 +71,15 @@ public class Button {
         if(mouse.intersects(me)){
             executeButtonAction();
             icon = iconRegular;
+            startAppearance();
+        }
+    }
+
+    public void startAppearance(){
+        if(condition != null && condition.evaluate()){
+                icon = conditionalAppearance;
+        } else {
+                icon = iconRegular;
         }
     }
 
@@ -84,10 +87,18 @@ public class Button {
         Rectangle mouse = new Rectangle(mouseX,mouseY,1,1);
         Rectangle me = new Rectangle(x,y,w,h);
 
-        if(mouse.intersects(me)){
-            icon = iconHover;
+        if(condition != null && condition.evaluate()){
+            if(mouse.intersects(me)){
+                icon = conditionalAppearanceHover;
+            } else {
+                icon = conditionalAppearance;
+            }
         } else {
-            icon = iconRegular;
+            if(mouse.intersects(me)){
+                icon = iconHover;
+            } else {
+                icon = iconRegular;
+            }
         }
     }
 }

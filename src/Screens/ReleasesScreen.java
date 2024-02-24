@@ -43,7 +43,7 @@ public class ReleasesScreen extends Screen{
         this.setButtons(myButtons);
     }
     public void drawScreenFeatures(Graphics g2d){
-        if(startPlayer()){
+        if(startPlayer() && Settings.enabledMusic()){
             sfx().playmusic('M',"SFX-Music/MUSIC-Ballerina.wav", true,75.0f);
             setStartPlayer(false);
         }

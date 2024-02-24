@@ -98,11 +98,15 @@ public class Game  extends JPanel implements Runnable, KeyListener, MouseListene
 	//TODO Getters and Setters
 
 	public static void setScreen(String inputString){
+
 		myScreen.sfx().stopAllSounds();
 		previousScreen = screen;
 		previousScreenObject = myScreen;
 		screen = inputString;
 		setScreen();
+		for(Button b: myScreen.buttons()){
+			b.startAppearance();
+		}
 		myScreen.setStartPlayer(true);
 	}
 

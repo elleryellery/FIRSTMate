@@ -9,9 +9,9 @@ public class Settings extends Screen {
 
     private static boolean enabledSoundEffects = true;
     private static boolean enabledMusic = true;
-    private static double volume = 100.0;
+    private static float volume = 1.0f;
 
-    public static double volume(){
+    public static float volume(){
         return volume;
     }
 
@@ -32,7 +32,15 @@ public class Settings extends Screen {
         Button[] myButtons = {
             new Button("Back Button", new ImageIcon("IMG-Buttons/BUTTON-Back.png"),new ImageIcon("IMG-Buttons/BUTTON-BackHover.png"),25, 25,60,60, () -> {
                 Game.setScreen(Game.previousString());
-            })
+            }),
+            new Button("Music Toggle", new ImageIcon("IMG-Buttons/BUTTON-EnabledToggle.png"),new ImageIcon("IMG-Buttons/BUTTON-EnabledToggleHover.png"), 800,400,200,100, () -> {
+                enabledMusic = !enabledMusic;
+                if(!enabledMusic){
+                    sfx().stopAllSounds();
+                } else {
+                    setStartPlayer(true);
+                }
+            }, () -> !enabledMusic, new ImageIcon("IMG-Buttons/BUTTON-DisabledToggle.png"), new ImageIcon("IMG-Buttons/BUTTON-DisabledToggleHover.png"))
         };
         
         this.setCredits(myCredits);
@@ -40,10 +48,11 @@ public class Settings extends Screen {
     }
 
     public void drawScreenFeatures(Graphics g2d){
-        if(startPlayer()){
+        if(startPlayer() && enabledMusic){
             sfx().playmusic('M',"SFX-Music/MUSIC-Ballerina.wav", true,75.0f);
             setStartPlayer(false);
         }
+        g2d.drawImage(new ImageIcon("IMG-Miscellaneous/MISC-PlatypusAndGears.png").getImage(),108,103,628,431,null);
     }
 
 }

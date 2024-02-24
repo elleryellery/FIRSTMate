@@ -12,12 +12,12 @@ public class SoundPlayer {
     public void playmusic(char type,String musicfile, boolean repeat, float volume) {
         File soundFile = new File(musicfile);
         try {
-			if((type == 'S' && Settings.enabledSoundEffects()) || (type == 'M' && Settings.enabledMusic())) {
+			if((type == 'S' && Settings.enabledSoundEffects()) || type == 'M') {
 				Clip clip = AudioSystem.getClip();
 				AudioInputStream inputStream = AudioSystem.getAudioInputStream(soundFile);
 				clip.open(inputStream);
 
-				volume *= (Settings.volume()/100);
+				volume *= (Settings.volume());
 
 				FloatControl gainControl = (FloatControl) clip.getControl(FloatControl.Type.MASTER_GAIN);
 				float range = gainControl.getMaximum() - gainControl.getMinimum();

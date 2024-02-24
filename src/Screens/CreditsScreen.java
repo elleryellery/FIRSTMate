@@ -37,7 +37,7 @@ public class CreditsScreen extends Screen{
     public void drawScreenFeatures(Graphics g2d){
         g2d.setColor(blue);
         g2d.fillRect(100,100,1000,400);
-        if(startPlayer()){
+        if(startPlayer() && Settings.enabledMusic()){
             sfx().playmusic('M',"SFX-Music/MUSIC-Ballerina.wav", true,75.0f);
             setStartPlayer(false);
         }
