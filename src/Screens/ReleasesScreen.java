@@ -79,6 +79,5 @@ public class ReleasesScreen extends Screen{
             g2d.drawString("     ‣    " + p,620,yPlacement);
             yPlacement+=20;
         }
-
     }
 }

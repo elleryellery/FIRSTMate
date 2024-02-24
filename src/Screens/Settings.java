@@ -15,7 +15,6 @@ public class Settings extends Screen {
         return volume;
     }
 
-
     public static boolean enabledSoundEffects(){
         return enabledSoundEffects;
     }
@@ -47,7 +46,6 @@ public class Settings extends Screen {
                     sfx().stopSoundEffects();
                 }
             }, () -> !enabledSoundEffects, new ImageIcon("IMG-Buttons/BUTTON-DisabledToggle.png"), new ImageIcon("IMG-Buttons/BUTTON-DisabledToggleHover.png")),
-        
         };
 
         Sound[] myBackgroundSounds = {
@@ -62,5 +60,4 @@ public class Settings extends Screen {
     public void drawScreenFeatures(Graphics g2d){
         g2d.drawImage(new ImageIcon("IMG-Miscellaneous/MISC-PlatypusAndGears.png").getImage(),108,103,628,431,null);
     }
-
 }

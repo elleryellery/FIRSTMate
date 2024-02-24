@@ -7,9 +7,9 @@ public class TextInterpreter {
     
     public TextInterpreter(){}
 
-    public void drawText(Graphics g2d, String inputText, int x, int y){
+    public void drawText(Graphics g2d, String inputText, int x, int y){ //Draws text with word wrapping
         ArrayList <String> lines = new ArrayList <String>();
-        int thisLineStart = 0;
+        int thisLineStart = 0; //The index of the starting character of the line currently being processed
 
         //Word wrapping
         for(int i = 0; i<inputText.length(); i++){
@@ -37,7 +37,7 @@ public class TextInterpreter {
             }
         }
 
-        //Printing word-wrapped paragraph
+        //Draws word-wrapped paragraph on the screen
         int lineWriter = y;
         for(String l: lines){
             g2d.drawString(l,x,lineWriter);

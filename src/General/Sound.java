@@ -10,11 +10,10 @@ public class Sound {
     private float volume;
 
     public Sound() {
-        fileName = "Default file";
+        fileName = "No file";
         type = 'N';
         repeat = false;
     }
-
 
 	public Sound (String inputFileName, char inputType, boolean inputRepeat) {
         fileName = inputFileName;
@@ -22,6 +21,7 @@ public class Sound {
         repeat = inputRepeat;
         volume = 100.0f;
 	}
+    
     public Sound (String inputFileName, char inputType, boolean inputRepeat, float inputVolume) {
         fileName = inputFileName;
         type = inputType;
@@ -32,15 +32,19 @@ public class Sound {
     public String fileName(){
         return fileName;
     }
+
     public Clip clip() {
         return clip;
     }
+
     public char type(){
         return type;
     }
+
     public boolean repeat(){
         return repeat;
     }
+
     public float volume(){
         return volume;
     }
@@ -48,5 +52,4 @@ public class Sound {
     public void setClip(Clip inputClip){
         clip = inputClip;
     }
-
 }

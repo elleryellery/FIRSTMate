@@ -23,7 +23,7 @@ public class Button {
         y = 0;
         w = 0;
         h = 0;
-        icon = new ImageIcon("Empty.png");
+        icon = new ImageIcon("No Image");
     }
 
     public Button(String inputName, ImageIcon inputIconRegular, ImageIcon inputIconHover, int inputX, int inputY, int inputW, int inputH, Runnable inputAction){
@@ -69,6 +69,7 @@ public class Button {
         Rectangle mouse = new Rectangle(mouseX,mouseY,1,1);
         Rectangle me = new Rectangle(x,y,w,h);
 
+        //If the button has been pressed, executes the button's action, updates its appearance, and plays a sound effect
         if(mouse.intersects(me)){
             executeButtonAction();
             sfx.playmusic(new Sound("SFX-SoundEffects/SOUNDEFFECT-ButtonPressed.wav", 'S', false,70.0f));
@@ -78,6 +79,7 @@ public class Button {
     }
 
     public void startAppearance(){
+        //Checks the condition of conditional buttons and updates its appearance accordingly
         if(condition != null && condition.evaluate()){
                 icon = conditionalAppearance;
         } else {
@@ -85,7 +87,7 @@ public class Button {
         }
     }
 
-    public void checkHover(int mouseX, int mouseY){
+    public void checkHover(int mouseX, int mouseY){ //Changes the button's appearance if the user is hovering over the button
         Rectangle mouse = new Rectangle(mouseX,mouseY,1,1);
         Rectangle me = new Rectangle(x,y,w,h);
 

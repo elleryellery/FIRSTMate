@@ -39,6 +39,7 @@ public class CreditsScreen extends Screen{
         this.setButtons(myButtons);
         this.setBackgroundSounds(myBackgroundSounds);
     }
+    
     public void drawScreenFeatures(Graphics g2d){
         g2d.setColor(blue);
         g2d.fillRect(100,100,1000,400);
@@ -49,7 +50,5 @@ public class CreditsScreen extends Screen{
         "Item: " +  Game.previousScreen().credits()[creditsIndex].item() + "`" +
         "Source: " +  Game.previousScreen().credits()[creditsIndex].source() + "`" +
         "License: " +  Game.previousScreen().credits()[creditsIndex].license(),150,180);
-
-
     }
 }

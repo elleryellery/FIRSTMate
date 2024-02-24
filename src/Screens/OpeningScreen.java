@@ -43,5 +43,4 @@ public class OpeningScreen extends Screen {
     public void drawScreenFeatures(Graphics g2d){
 
     }
-
 }
