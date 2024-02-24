@@ -220,6 +220,10 @@ public class Game  extends JPanel implements Runnable, KeyListener, MouseListene
 		for(Button b: myScreen.buttons()){
 			b.check(e.getX(),e.getY());
 		}
+
+		for(Button b: myScreen.buttons()){
+			b.startAppearance();
+		}
 	}
 
 

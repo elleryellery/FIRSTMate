@@ -24,12 +24,12 @@ public class CreditsScreen extends Screen{
                 if (creditsIndex > 0) {
                     creditsIndex --;
                 }
-            }),
+            }, () -> !(creditsIndex > 0), new ImageIcon("IMG-Buttons/BUTTON-LeftDisabled.png"), new ImageIcon("IMG-Buttons/BUTTON-LeftDisabled.png")),
             new Button("Right Arrow Button",new ImageIcon("IMG-Buttons/BUTTON-Right.png"),new ImageIcon("IMG-Buttons/BUTTON-RightHover.png"),720,430,50,50, () -> {
                 if (creditsIndex < Game.previousScreen().credits().length -1) {
                     creditsIndex ++;
                 }
-            })
+            }, () -> !(creditsIndex < Game.previousScreen().credits().length -1), new ImageIcon("IMG-Buttons/BUTTON-RightDisabled.png"), new ImageIcon("IMG-Buttons/BUTTON-RightDisabled.png"))
         };
         Sound[] myBackgroundSounds = {
             new Sound("SFX-Music/MUSIC-Ballerina.wav",'M',true,75.0f)
