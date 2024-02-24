@@ -15,6 +15,7 @@ public class Button {
     private Condition condition;
     private ImageIcon conditionalAppearance;
     private ImageIcon conditionalAppearanceHover;
+    private SoundPlayer sfx = new SoundPlayer();
 
     public Button(){
         name = "Button.java: Empty Constructor";
@@ -70,6 +71,7 @@ public class Button {
 
         if(mouse.intersects(me)){
             executeButtonAction();
+            sfx.playmusic(new Sound("SFX-SoundEffects/SOUNDEFFECT-ButtonPressed.wav", 'S', false,70.0f));
             icon = iconRegular;
             startAppearance();
         }
