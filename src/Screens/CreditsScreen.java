@@ -31,16 +31,17 @@ public class CreditsScreen extends Screen{
                 }
             })
         };
+        Sound[] myBackgroundSounds = {
+            new Sound("SFX-Music/MUSIC-Ballerina.wav",'M',true,75.0f)
+        };
 
         this.setButtons(myButtons);
+        this.setBackgroundSounds(myBackgroundSounds);
     }
     public void drawScreenFeatures(Graphics g2d){
         g2d.setColor(blue);
         g2d.fillRect(100,100,1000,400);
-        if(startPlayer() && Settings.enabledMusic()){
-            sfx().playmusic('M',"SFX-Music/MUSIC-Ballerina.wav", true,75.0f);
-            setStartPlayer(false);
-        }
+
         g2d.setColor(Color.WHITE);
         g2d.drawString("Type: " +  Game.previousScreen().credits()[creditsIndex].type(),150,150);
         g2d.drawString("Item: " +  Game.previousScreen().credits()[creditsIndex].item(),150,180);

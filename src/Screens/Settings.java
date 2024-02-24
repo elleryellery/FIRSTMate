@@ -36,22 +36,30 @@ public class Settings extends Screen {
             new Button("Music Toggle", new ImageIcon("IMG-Buttons/BUTTON-EnabledToggle.png"),new ImageIcon("IMG-Buttons/BUTTON-EnabledToggleHover.png"), 800,400,200,100, () -> {
                 enabledMusic = !enabledMusic;
                 if(!enabledMusic){
-                    sfx().stopAllSounds();
+                    sfx().stopMusic();
                 } else {
                     setStartPlayer(true);
                 }
-            }, () -> !enabledMusic, new ImageIcon("IMG-Buttons/BUTTON-DisabledToggle.png"), new ImageIcon("IMG-Buttons/BUTTON-DisabledToggleHover.png"))
+            }, () -> !enabledMusic, new ImageIcon("IMG-Buttons/BUTTON-DisabledToggle.png"), new ImageIcon("IMG-Buttons/BUTTON-DisabledToggleHover.png")),
+            new Button("Sounds Toggle", new ImageIcon("IMG-Buttons/BUTTON-EnabledToggle.png"),new ImageIcon("IMG-Buttons/BUTTON-EnabledToggleHover.png"), 800,200,200,100, () -> {
+                enabledSoundEffects = !enabledSoundEffects;
+                if(!enabledSoundEffects){
+                    sfx().stopSoundEffects();
+                }
+            }, () -> !enabledSoundEffects, new ImageIcon("IMG-Buttons/BUTTON-DisabledToggle.png"), new ImageIcon("IMG-Buttons/BUTTON-DisabledToggleHover.png")),
+        
+        };
+
+        Sound[] myBackgroundSounds = {
+            new Sound("SFX-Music/MUSIC-Ballerina.wav",'M',true,75.0f)
         };
         
         this.setCredits(myCredits);
         this.setButtons(myButtons);
+        this.setBackgroundSounds(myBackgroundSounds);
     }
 
     public void drawScreenFeatures(Graphics g2d){
-        if(startPlayer() && enabledMusic){
-            sfx().playmusic('M',"SFX-Music/MUSIC-Ballerina.wav", true,75.0f);
-            setStartPlayer(false);
-        }
         g2d.drawImage(new ImageIcon("IMG-Miscellaneous/MISC-PlatypusAndGears.png").getImage(),108,103,628,431,null);
     }
 

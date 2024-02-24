@@ -39,14 +39,15 @@ public class ReleasesScreen extends Screen{
                 }
             })
         };
+        Sound[] myBackgroundSounds = {
+            new Sound("SFX-Music/MUSIC-Ballerina.wav",'M',true,75.0f)
+        };
         
+        this.setBackgroundSounds(myBackgroundSounds);
         this.setButtons(myButtons);
     }
     public void drawScreenFeatures(Graphics g2d){
-        if(startPlayer() && Settings.enabledMusic()){
-            sfx().playmusic('M',"SFX-Music/MUSIC-Ballerina.wav", true,75.0f);
-            setStartPlayer(false);
-        }
+
         g2d.setColor(Color.BLACK);
         g2d.fillRect(100,100,1000,450);
 

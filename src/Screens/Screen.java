@@ -11,6 +11,7 @@ public class Screen {
     private int ID;
     private SoundPlayer sfx = new SoundPlayer();
     private boolean startPlayer = true;
+    Sound[] backgroundSounds;
     Credit[] credits;
     Button[] buttons;
 
@@ -28,6 +29,13 @@ public class Screen {
 
     public void drawScreen(Graphics g2d, int screenWidth, int screenHeight){
         g2d.drawImage(back.getImage(),0,0,screenWidth,screenHeight,null);
+
+        if(startPlayer() && Settings.enabledMusic()){
+            for(Sound sound: backgroundSounds){
+                sfx().playmusic(sound);
+            }
+            setStartPlayer(false);
+        }
 
         drawScreenFeatures(g2d);
 
@@ -64,8 +72,16 @@ public class Screen {
         buttons = inputButtons;
     }
 
+    public void setBackgroundSounds(Sound[] inputBackgroundSounds){
+        backgroundSounds = inputBackgroundSounds;
+    }
+
     public Button[] buttons(){
         return buttons;
+    }
+
+    public Sound[] backgroundSounds(){
+        return backgroundSounds;
     }
 
     public SoundPlayer sfx(){

@@ -27,17 +27,19 @@ public class OpeningScreen extends Screen {
                 Game.setScreen("Settings Screen");
             })
         };
+
+        Sound[] myBackgroundSounds = {
+            new Sound("SFX-SoundEffects/SOUNDEFFECT-Seagulls.wav", 'M', true, 95.0f),
+            new Sound("SFX-Music/MUSIC-EmeraldSeas.wav", 'M', true,85.0f)
+        };
         
         this.setCredits(myCredits);
         this.setButtons(myButtons);
+        this.setBackgroundSounds(myBackgroundSounds);
     }
 
     public void drawScreenFeatures(Graphics g2d){
-        if(startPlayer() && Settings.enabledMusic()){
-            sfx().playmusic('M',"SFX-SoundEffects/SOUNDEFFECT-Seagulls.wav", true,95.0f);
-            sfx().playmusic('S',"SFX-Music/MUSIC-EmeraldSeas.wav", true,85.0f);
-            setStartPlayer(false);
-        }
+
     }
 
 }
