@@ -12,6 +12,10 @@ public class Button {
     private ImageIcon iconRegular;
     private ImageIcon iconHover;
     private Runnable action;
+    private Condition condition;
+    private ImageIcon conditionalAppearance;
+    private ImageIcon conditionalAppearanceHover;
+    private SoundPlayer sfx = new SoundPlayer();
 
     public Button(){
         name = "Button.java: Empty Constructor";
@@ -34,6 +38,25 @@ public class Button {
         action = inputAction;
     }
 
+    public Button(String inputName, ImageIcon inputIconRegular, ImageIcon inputIconHover, int inputX, int inputY, int inputW, int inputH, Runnable inputAction, Condition inputCondition, ImageIcon inputConditionalAppearance, ImageIcon inputConditionalAppearanceHover){
+        name = inputName;
+        iconRegular = inputIconRegular;
+        iconHover = inputIconHover;
+        icon = iconRegular;
+        x = inputX;
+        y = inputY;
+        w = inputW;
+        h = inputH;
+        action = inputAction;
+        condition = inputCondition;
+        conditionalAppearance = inputConditionalAppearance;
+        conditionalAppearanceHover = inputConditionalAppearanceHover;
+    }
+
+    public interface Condition {
+        boolean evaluate();
+    }
+
     public void executeButtonAction(){
         action.run();
     }
@@ -48,7 +71,17 @@ public class Button {
 
         if(mouse.intersects(me)){
             executeButtonAction();
+            sfx.playmusic(new Sound("SFX-SoundEffects/SOUNDEFFECT-ButtonPressed.wav", 'S', false,70.0f));
             icon = iconRegular;
+            startAppearance();
+        }
+    }
+
+    public void startAppearance(){
+        if(condition != null && condition.evaluate()){
+                icon = conditionalAppearance;
+        } else {
+                icon = iconRegular;
         }
     }
 
@@ -56,10 +89,18 @@ public class Button {
         Rectangle mouse = new Rectangle(mouseX,mouseY,1,1);
         Rectangle me = new Rectangle(x,y,w,h);
 
-        if(mouse.intersects(me)){
-            icon = iconHover;
+        if(condition != null && condition.evaluate()){
+            if(mouse.intersects(me)){
+                icon = conditionalAppearanceHover;
+            } else {
+                icon = conditionalAppearance;
+            }
         } else {
-            icon = iconRegular;
+            if(mouse.intersects(me)){
+                icon = iconHover;
+            } else {
+                icon = iconRegular;
+            }
         }
     }
 }

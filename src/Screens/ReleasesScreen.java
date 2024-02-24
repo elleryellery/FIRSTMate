@@ -39,10 +39,15 @@ public class ReleasesScreen extends Screen{
                 }
             })
         };
+        Sound[] myBackgroundSounds = {
+            new Sound("SFX-Music/MUSIC-Ballerina.wav",'M',true,75.0f)
+        };
         
+        this.setBackgroundSounds(myBackgroundSounds);
         this.setButtons(myButtons);
     }
     public void drawScreenFeatures(Graphics g2d){
+
         g2d.setColor(Color.BLACK);
         g2d.fillRect(100,100,1000,450);
 
@@ -55,7 +60,7 @@ public class ReleasesScreen extends Screen{
         g2d.setColor(Color.WHITE);
         g2d.setFont( new Font("Times New Roman", Font.BOLD, 17));
         g2d.drawString("Features: ",150,310);
-        g2d.drawString("Bug Fixes and Patches: ",700,310);
+        g2d.drawString("Bug Fixes and Patches: ",620,310);
 
         g2d.drawString("For more detailed release notes, visit our Github page linked on our team website!",310,580);
 
@@ -70,7 +75,7 @@ public class ReleasesScreen extends Screen{
 
         yPlacement = 330;
         for(String p: releases[releaseIndex].patches()){
-            g2d.drawString("     ‣    " + p,700,yPlacement);
+            g2d.drawString("     ‣    " + p,620,yPlacement);
             yPlacement+=20;
         }
 
