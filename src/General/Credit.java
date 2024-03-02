@@ -13,7 +13,6 @@ public class Credit {
         license = "No License";
     }
 
-
 	public Credit(String inputType, String inputItem, String inputSource, String inputLicense) {
         type = inputType;
         item = inputItem;
@@ -36,6 +35,4 @@ public class Credit {
     public String item(){
         return item;
     }
-
-
 }

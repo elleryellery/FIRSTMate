@@ -11,9 +11,9 @@ public class Screen {
     private int ID;
     private SoundPlayer sfx = new SoundPlayer();
     private boolean startPlayer = true;
-    Sound[] backgroundSounds;
-    Credit[] credits;
-    Button[] buttons;
+    Sound[] backgroundSounds; //Stores any background music or sound effects
+    Credit[] credits; //Stores all credits for images and sounds used on the screen
+    Button[] buttons; //Stores all of the buttons associated with the screen
 
     public Screen() {
         back = new ImageIcon("IMG-Screens/SCREEN-ImageNotFound.png");
@@ -27,7 +27,7 @@ public class Screen {
         back = inputBack;
 	}
 
-    public void drawScreen(Graphics g2d, int screenWidth, int screenHeight){
+    public void drawScreen(Graphics g2d, int screenWidth, int screenHeight){ //Draws the screen's background image, features, and buttons and, if necessary, starts the background music
         g2d.drawImage(back.getImage(),0,0,screenWidth,screenHeight,null);
 
         if(startPlayer() && Settings.enabledMusic()){
@@ -44,7 +44,7 @@ public class Screen {
         }
     }
 
-    public void drawScreenFeatures(Graphics g2d){
+    public void drawScreenFeatures(Graphics g2d){ //Method that is overriden by an identically named method in each screen class
         System.err.println("In Screen.java: Default drawScreenFeatures(Graphics g2d) method called.");
     }
 

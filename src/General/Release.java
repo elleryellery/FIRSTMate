@@ -18,7 +18,6 @@ public class Release {
         releaseDate = "No Date";
     }
 
-
 	public Release(String inputVersionNumber, String inputReleaseDate, String inputSummary, String [] inputPatches, String [] inputFeatures, ImageIcon inputBannerImage) {
         versionNumber = inputVersionNumber;
         releaseDate = inputReleaseDate;
@@ -75,6 +74,4 @@ public class Release {
     public int imageH(){
         return imageH;
     }
-
-
 }

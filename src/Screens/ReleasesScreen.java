@@ -28,16 +28,17 @@ public class ReleasesScreen extends Screen{
                 releaseIndex = 0;
                 Game.setScreen(Game.previousString());
             }),
-            new Button("Left Arrow Button",new ImageIcon("IMG-Buttons/BUTTON-Left.png"),new ImageIcon("IMG-Buttons/BUTTON-LeftHover.png"),420,480,50,50, () -> {
+            new Button("Left Arrow Button",new ImageIcon("IMG-Buttons/BUTTON-Left.png"),new ImageIcon("IMG-Buttons/BUTTON-LeftHover.png"),420,430,50,50, () -> {
                 if (releaseIndex > 0) {
                     releaseIndex --;
                 }
-            }),
-            new Button("Right Arrow Button",new ImageIcon("IMG-Buttons/BUTTON-Right.png"),new ImageIcon("IMG-Buttons/BUTTON-RightHover.png"),720,480,50,50, () -> {
+            }, () -> !(releaseIndex > 0), new ImageIcon("IMG-Buttons/BUTTON-LeftDisabled.png"), new ImageIcon("IMG-Buttons/BUTTON-LeftDisabled.png")),
+            new Button("Right Arrow Button",new ImageIcon("IMG-Buttons/BUTTON-Right.png"),new ImageIcon("IMG-Buttons/BUTTON-RightHover.png"),720,430,50,50, () -> {
                 if (releaseIndex < releases.length -1) {
                     releaseIndex ++;
                 }
-            })
+            }, () -> !(releaseIndex < releases.length -1), new ImageIcon("IMG-Buttons/BUTTON-RightDisabled.png"), new ImageIcon("IMG-Buttons/BUTTON-RightDisabled.png"))
+        
         };
         Sound[] myBackgroundSounds = {
             new Sound("SFX-Music/MUSIC-Ballerina.wav",'M',true,75.0f)
@@ -78,6 +79,5 @@ public class ReleasesScreen extends Screen{
             g2d.drawString("     ‣    " + p,620,yPlacement);
             yPlacement+=20;
         }
-
     }
 }
