@@ -30,6 +30,14 @@ public class Game  extends JPanel implements Runnable, KeyListener, MouseListene
 	private static CreditsScreen creditsScreen = new CreditsScreen();
 	private static ReleasesScreen releasesScreen = new ReleasesScreen();
 	private static Settings settingsScreen = new Settings();
+	private static BlankScreen blankScreen = new BlankScreen();
+	private static NewShipScreen newShipScreen = new NewShipScreen();
+	private static Graphics g2d;
+
+	private static boolean inputStatus = false;
+	private static TextInput inputBox = new TextInput();
+
+	private static Ship myShip = new Ship();
 
 	private ArrayList <Screen> gameScreens = new ArrayList <Screen> ();
 
@@ -62,9 +70,9 @@ public class Game  extends JPanel implements Runnable, KeyListener, MouseListene
 		if(back ==null)
 			back=(BufferedImage)( (createImage(getWidth(), getHeight()))); 
 				
-		Graphics g2d = back.createGraphics();
+		g2d = back.createGraphics();
 		g2d.clearRect(0,0,getSize().width, getSize().height);
-		g2d.setFont( new Font("Courier New", Font.BOLD, 20));
+		g2d.setFont( new Font("Times New Roman", Font.BOLD, 20));
 		g2d.setColor(Color.GREEN);
 		((Graphics2D) g2d).setStroke(new BasicStroke(10));
 
@@ -77,8 +85,11 @@ public class Game  extends JPanel implements Runnable, KeyListener, MouseListene
 	
 	public static void setScreen(String inputString){ //Set the current and previous screens and reset background music
 		myScreen.sfx().stopAllSounds();
-		previousScreen = screen;
-		previousScreenObject = myScreen;
+
+		if(myScreen != blankScreen){
+			previousScreen = screen;
+			previousScreenObject = myScreen;
+		}
 		screen = inputString;
 		setScreen();
 
@@ -103,7 +114,29 @@ public class Game  extends JPanel implements Runnable, KeyListener, MouseListene
 			case "Settings Screen":
 				myScreen = settingsScreen;
 				break;
+			case "Blank Screen":
+				myScreen = blankScreen;
+				break;
+			case "New Ship Screen":
+				myScreen = newShipScreen;
+				break;
 		}
+	}
+
+	public static void setBlankScreen(ImageIcon inputImage){
+		blankScreen = new BlankScreen(inputImage);
+	}
+
+	public static void setInputStatus(boolean inputInputStatus){
+		inputStatus = inputInputStatus;
+	}
+
+	public static void setInputBox(TextInput inputInputBox){
+		inputBox = inputInputBox;
+	}
+
+	public static boolean inputStatus(){
+		return inputStatus;
 	}
 
 	public static String previousString(){
@@ -112,6 +145,26 @@ public class Game  extends JPanel implements Runnable, KeyListener, MouseListene
 
 	public static Screen previousScreen(){
 		return previousScreenObject;
+	}
+
+	public Graphics2D g2d(){
+		return (Graphics2D)g2d;
+	}
+
+	public int getWidthOutside(){
+		return getWidth();
+	}
+
+	public int getHeightOutside(){
+		return getHeight();
+	}
+
+	public static void setShip(Ship inputShip){
+		myShip = inputShip;
+	}
+
+	public Ship ship(){
+		return myShip;
 	}
 	
 	@Override
@@ -122,13 +175,27 @@ public class Game  extends JPanel implements Runnable, KeyListener, MouseListene
 	@Override
 	public void keyPressed(KeyEvent e) {
 		key= e.getKeyCode();
-		keyChar = e.getKeyChar();		
+		keyChar = e.getKeyChar();	
+		if(inputStatus){
+			if(key == 8){
+				if(inputBox.contentsLength()>0) {
+					inputBox.deleteCharacter();
+				}
+			} else if(key == 10) {
+				if(inputBox.multiLineEnabled()){
+					inputBox.newLine();
+				}
+			} else if(key != 16){
+				inputBox.addCharacter(keyChar);
+			}
+		}	
 	}
 
 	@Override
 	public void keyReleased(KeyEvent e) {
 		key = e.getKeyCode();
 		keyChar = e.getKeyChar();
+
 	}
 	
 	@Override
@@ -161,7 +228,8 @@ public class Game  extends JPanel implements Runnable, KeyListener, MouseListene
 	@Override
 	public void mousePressed(MouseEvent e) {
 		//System.out.println(e.getX() + ", " + e.getY());
-
+		
+		inputStatus = false;
 		//Checks whether the user has clicked any buttons
 		for(Button b: myScreen.buttons()){
 			b.check(e.getX(),e.getY());

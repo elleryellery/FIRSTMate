@@ -27,6 +27,9 @@ public class OpeningScreen extends Screen {
             }),
             new Button("Settings Button", new ImageIcon("IMG-Buttons/BUTTON-Settings.png"),new ImageIcon("IMG-Buttons/BUTTON-SettingsHover.png"),1137, 10,50,50, () -> {
                 Game.setScreen("Settings Screen");
+            }),
+            new Button("New Ship Button", new ImageIcon("IMG-Buttons/BUTTON-NewShip.png"),new ImageIcon("IMG-Buttons/BUTTON-NewShipHover.png"),470, 400,250,78, () -> {
+                Game.setScreen("New Ship Screen");
             })
         };
 

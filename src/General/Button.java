@@ -105,4 +105,21 @@ public class Button {
             }
         }
     }
+
+    public int x(){
+        return x;
+    }
+    public int y(){
+        return y;
+    }
+    public int w(){
+        return w;
+    }
+    public int h(){
+        return h;
+    }
+
+    public void setAction(Runnable inputAction){
+        action = inputAction;
+    }
 }
