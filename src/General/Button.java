@@ -86,7 +86,12 @@ public class Button {
                 icon = iconRegular;
         }
     }
-
+    public void setH(int inputH){
+        h = inputH;
+    }
+    public void setW(int inputW){
+        w = inputW;
+    }
     public void checkHover(int mouseX, int mouseY){ //Changes the button's appearance if the user is hovering over the button
         Rectangle mouse = new Rectangle(mouseX,mouseY,1,1);
         Rectangle me = new Rectangle(x,y,w,h);

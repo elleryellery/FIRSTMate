@@ -9,7 +9,7 @@ import javax.swing.ImageIcon;
 public class NewShipScreen extends Screen {
 
     public NewShipScreen(){
-        super(6,"New Ship Screen",new ImageIcon("IMG-Screens/SCREEN-NewShip.png"));
+        super(6,"Name Your Ship!",new ImageIcon("IMG-Screens/SCREEN-NewShip.png"));
         Credit[] myCredits = {
 
         };

@@ -6,30 +6,17 @@ import javax.swing.ImageIcon;
 
 import General.*;
 import Screens.Screen;
+import Screens.NotebookInputScreen;
 
-public class Strategy_Step2 extends Screen{
+public class Strategy_Step2 extends NotebookInputScreen{
     Button[] myButtons2 = new Button[] {};
     int choice;
     private TextInterpreter text = new TextInterpreter();
     Notebook myNotebook;
 
     public Strategy_Step2(){
-    super(6,"New Ship Screen",new ImageIcon("IMG-Screens/SCREEN-NotebookEntry.png"));
-        Credit[] myCredits = {
-
-        };
-
-        Button[] myButtons = {
-            
-        };
-
-        Sound[] myBackgroundSounds = {
-            new Sound("SFX-Music/MUSIC-LazyLaura.wav",'M',true,75.0f)
-        };
-        
-        this.setCredits(myCredits);
-        this.setButtons(myButtons);
-        this.setBackgroundSounds(myBackgroundSounds);
+        super();
+        super.putTitle(Game.components()[0]);
     }
 
     public void drawScreenFeatures(Graphics g2d){

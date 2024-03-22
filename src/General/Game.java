@@ -26,6 +26,9 @@ public class Game  extends JPanel implements Runnable, KeyListener, MouseListene
 	private static String previousScreen;
 	private static Screen previousScreenObject;
 
+	private static String[] myComponents = new String[] {"empty"};
+
+
 	//Objects
 	private static OpeningScreen openingScreen = new OpeningScreen();
 	private static CreditsScreen creditsScreen = new CreditsScreen();
@@ -150,6 +153,10 @@ public class Game  extends JPanel implements Runnable, KeyListener, MouseListene
 		inputBox = inputInputBox;
 	}
 
+	public static TextInput inputBox(){
+		return inputBox;
+	}
+
 	public static boolean inputStatus(){
 		return inputStatus;
 	}
@@ -160,6 +167,15 @@ public class Game  extends JPanel implements Runnable, KeyListener, MouseListene
 
 	public static Screen previousScreen(){
 		return previousScreenObject;
+	}
+
+	public static String[] components(){
+		return myComponents;
+	}
+
+	public static void setComponents(String[] inputComponents){
+		myComponents = inputComponents;
+		strategyStep2.putTitle(myComponents[0]);
 	}
 
 	public Graphics2D g2d(){

@@ -14,6 +14,19 @@ public class Strategy_Step1 extends Screen{
 
     public Strategy_Step1(){
     super(6,"New Ship Screen",new ImageIcon("IMG-Screens/SCREEN-Strategy_Step1.png"));
+
+        String[] cruiserComponents = {
+            "Restaurant", "Movie Theater", "Party Room", "Fun Area 1", "Fun Area 2"
+        };
+
+        String[] pearlComponents = {
+            "Cannons", "Ship Boarding", "Treasure Room", "Fighting Mechanism"
+        };
+
+        String[] ghoulComponents = {
+            "Trap 1", "Trap 2", "Protective Layer", "Scary Flag"
+        };
+
         Credit[] myCredits = {
 
         };
@@ -47,11 +60,13 @@ public class Strategy_Step1 extends Screen{
                         Game.ship().myNotebook().fields().add(new Field("Your New Cruiser", 
                         "The cruiser is made for pirate fun!" + "`" +
                         "As a cruiser, your ship will be designed to give pirate riders a great time. Your cruiser must include:" + "`" +
-                        "Your Ghoul must include:" + "`" +
+                        "Your cruiser must include:" + "`" +
                         "  ‣   A restaurant" + "`" +
                         "  ‣   A movie theater" + "`" +
                         "  ‣   A party room" + "`" +
                         "  ‣   At least two other fun areas of your choosing!"));
+                        Game.setComponents(cruiserComponents);
+                        
                         break;
                     case 2:
                         Game.ship().myNotebook().fields().add(new Field("Your New Pearl",
@@ -62,6 +77,8 @@ public class Strategy_Step1 extends Screen{
                         "  ‣   A way to board other ships" + "`" +
                         "  ‣   A treasure room for stolen goodies" + "`" +
                         "  ‣   Your own creative design for fighting other pirate ships"));
+
+                        Game.setComponents(pearlComponents);
                         break;
                     case 3:
                         Game.ship().myNotebook().fields().add(new Field("Your New Ghoul",
@@ -71,6 +88,8 @@ public class Strategy_Step1 extends Screen{
                         "  ‣   At least two traps" + "`" +
                         "  ‣   A protective layer for the ship’s deck" + "`" +
                         "  ‣   A scary flag of your own design to intimidate invaders"));
+
+                        Game.setComponents(ghoulComponents);
                         break;
                 }
                 Game.ship().myNotebook().addFieldDate();
