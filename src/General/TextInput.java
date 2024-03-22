@@ -16,13 +16,13 @@ public class TextInput extends Button {
     private int characterLimit;
     private int fontSize;
     private Color fontColor;
-    private Game game;
     private boolean multiLineEnabled;
+    private int lineCharLim;
 
     public TextInput(){
 
     }
-    public TextInput(String inputName, int inputX, int inputY, int inputCharacterLimit, int inputFontSize, Color inputFontColor, boolean inputMultiLineEnabled){
+    public TextInput(String inputName, int inputX, int inputY, int inputCharacterLimit, int inputFontSize, Color inputFontColor, boolean inputMultiLineEnabled, int inputLineCharLim){
         super(inputName, new ImageIcon(""), new ImageIcon(""),inputX, inputY, (int)(inputCharacterLimit*inputFontSize*0.517), inputFontSize+(int)(inputFontSize*0.2), () -> {});
 
         this.setAction(() -> {
@@ -34,6 +34,7 @@ public class TextInput extends Button {
         fontSize = inputFontSize;
         fontColor = inputFontColor;
         multiLineEnabled = inputMultiLineEnabled;
+        lineCharLim = inputLineCharLim;
     }
 
     public void addCharacter(char c){
@@ -48,9 +49,9 @@ public class TextInput extends Button {
         g2d.drawRect(x()-10,y()-10,w()+20,h()+20);
 
         if(System.currentTimeMillis()%1000 < 500 && Game.inputStatus()) {
-            textInterpreter.drawText(g2d,contents + "|",x(),y()+fontSize);
+            textInterpreter.drawText(g2d,contents + "|",x(),y()+fontSize, lineCharLim);
         } else {
-            textInterpreter.drawText(g2d,contents,x(),y()+fontSize);
+            textInterpreter.drawText(g2d,contents,x(),y()+fontSize, lineCharLim);
         }
 
     }

@@ -1,6 +1,7 @@
 package Screens;
 
 import java.awt.Color;
+import java.awt.Font;
 import java.awt.Graphics;
 
 import javax.swing.ImageIcon;
@@ -45,10 +46,12 @@ public class CreditsScreen extends Screen{
         g2d.fillRect(100,100,1000,400);
 
         g2d.setColor(Color.WHITE);
+        g2d.setFont( new Font("Times New Roman", Font.BOLD, 28));
+
 
         text.drawText(g2d,"Type: " +  Game.previousScreen().credits()[creditsIndex].type() + "`" +
         "Item: " +  Game.previousScreen().credits()[creditsIndex].item() + "`" +
         "Source: " +  Game.previousScreen().credits()[creditsIndex].source() + "`" +
-        "License: " +  Game.previousScreen().credits()[creditsIndex].license(),150,180);
+        "License: " +  Game.previousScreen().credits()[creditsIndex].license(),150,180,73);
     }
 }

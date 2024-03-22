@@ -1,5 +1,6 @@
 package General;
 import Screens.*;
+import Screens.Strategy.*;
 
 import javax.swing.*;
 import Screens.Screen;
@@ -32,6 +33,10 @@ public class Game  extends JPanel implements Runnable, KeyListener, MouseListene
 	private static Settings settingsScreen = new Settings();
 	private static BlankScreen blankScreen = new BlankScreen();
 	private static NewShipScreen newShipScreen = new NewShipScreen();
+	private static NotebookScreen notebookScreen = new NotebookScreen();
+	private static Strategy_Step1 strategyStep1 = new Strategy_Step1();
+	private static Strategy_Step2 strategyStep2 = new Strategy_Step2();
+
 	private static Graphics g2d;
 
 	private static boolean inputStatus = false;
@@ -120,6 +125,16 @@ public class Game  extends JPanel implements Runnable, KeyListener, MouseListene
 			case "New Ship Screen":
 				myScreen = newShipScreen;
 				break;
+			case "Strategy Step 1 Screen":
+				myScreen = strategyStep1;
+				break;
+			case "Strategy Step 2 Screen":
+				myScreen = strategyStep2;
+				break;
+			case "Notebook Screen":
+				notebookScreen.setNotebook(myShip.myNotebook());
+				myScreen = notebookScreen;
+				break;
 		}
 	}
 
@@ -163,7 +178,7 @@ public class Game  extends JPanel implements Runnable, KeyListener, MouseListene
 		myShip = inputShip;
 	}
 
-	public Ship ship(){
+	public static Ship ship(){
 		return myShip;
 	}
 	

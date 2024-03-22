@@ -72,6 +72,10 @@ public class Screen {
         buttons = inputButtons;
     }
 
+    public void setBack(ImageIcon inputBack){
+        back = inputBack;
+    }
+
     public void setBackgroundSounds(Sound[] inputBackgroundSounds){
         backgroundSounds = inputBackgroundSounds;
     }
@@ -93,6 +97,10 @@ public class Screen {
     }
     public void setStartPlayer(boolean inputStartPlayer){
         startPlayer = inputStartPlayer;
+    }
+    public void clearButtons(){
+        Button[] empty = {};
+        buttons = empty;
     }
 }
 
