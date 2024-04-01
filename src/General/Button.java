@@ -72,8 +72,10 @@ public class Button {
         //If the button has been pressed, executes the button's action, updates its appearance, and plays a sound effect
         if(mouse.intersects(me)){
             executeButtonAction();
-            sfx.playmusic(new Sound("SFX-SoundEffects/SOUNDEFFECT-ButtonPressed.wav", 'S', false,70.0f));
-            icon = iconRegular;
+            if(!(this instanceof TextInput)){
+                sfx.playmusic(new Sound("SFX-SoundEffects/SOUNDEFFECT-ButtonPressed.wav", 'S', false,70.0f));
+            }
+                icon = iconRegular;
             startAppearance();
         }
     }
@@ -86,11 +88,18 @@ public class Button {
                 icon = iconRegular;
         }
     }
+
+    public void setRunnable(Runnable inputAction){
+        action = inputAction;
+    }
     public void setH(int inputH){
         h = inputH;
     }
     public void setW(int inputW){
         w = inputW;
+    }
+    public void addY(int inputY){
+        y+=inputY;
     }
     public void checkHover(int mouseX, int mouseY){ //Changes the button's appearance if the user is hovering over the button
         Rectangle mouse = new Rectangle(mouseX,mouseY,1,1);

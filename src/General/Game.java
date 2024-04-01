@@ -39,6 +39,9 @@ public class Game  extends JPanel implements Runnable, KeyListener, MouseListene
 	private static NotebookScreen notebookScreen = new NotebookScreen();
 	private static Strategy_Step1 strategyStep1 = new Strategy_Step1();
 	private static Strategy_Step2 strategyStep2 = new Strategy_Step2();
+	private static Strategy_Step3 strategyStep3 = new Strategy_Step3();
+
+	private static ArrayList <Button> additionalButtons = new ArrayList<Button> ();
 
 	private static Graphics g2d;
 
@@ -93,6 +96,7 @@ public class Game  extends JPanel implements Runnable, KeyListener, MouseListene
 	
 	public static void setScreen(String inputString){ //Set the current and previous screens and reset background music
 		myScreen.sfx().stopAllSounds();
+		additionalButtons.clear();
 
 		if(myScreen != blankScreen){
 			previousScreen = screen;
@@ -129,7 +133,8 @@ public class Game  extends JPanel implements Runnable, KeyListener, MouseListene
 				myScreen = newShipScreen;
 				break;
 			case "Strategy Step 1 Screen":
-				myScreen = strategyStep1;
+				myScreen = strategyStep1
+				;
 				break;
 			case "Strategy Step 2 Screen":
 				myScreen = strategyStep2;
@@ -138,6 +143,19 @@ public class Game  extends JPanel implements Runnable, KeyListener, MouseListene
 				notebookScreen.setNotebook(myShip.myNotebook());
 				myScreen = notebookScreen;
 				break;
+			case "Strategy Step 3 Screen":
+				myScreen = strategyStep3;
+				break;
+		}
+	}
+
+	public static void setAdditionalButtons(ArrayList <Button> inputAdditionalButtons){
+		additionalButtons = inputAdditionalButtons;
+	}
+
+	public static void addArrayToAdditionalButtons(Button[] array){
+		for(Button b: array){
+			additionalButtons.add(b);
 		}
 	}
 
@@ -220,6 +238,10 @@ public class Game  extends JPanel implements Runnable, KeyListener, MouseListene
 				inputBox.addCharacter(keyChar);
 			}
 		}	
+		// if(keyChar == 'n'){
+		// 	setScreen("Notebook Screen");
+		// }
+
 	}
 
 	@Override
@@ -264,6 +286,12 @@ public class Game  extends JPanel implements Runnable, KeyListener, MouseListene
 		//Checks whether the user has clicked any buttons
 		for(Button b: myScreen.buttons()){
 			b.check(e.getX(),e.getY());
+		}
+
+		if(additionalButtons.size()>0){
+			for(Button b: additionalButtons){
+				b.check(e.getX(),e.getY());
+			}
 		}
 
 		//Changes the appearance of any conditional buttons

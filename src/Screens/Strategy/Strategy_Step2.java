@@ -13,10 +13,14 @@ public class Strategy_Step2 extends NotebookInputScreen{
     int choice;
     private TextInterpreter text = new TextInterpreter();
     Notebook myNotebook;
+    int componentIndex =0;
 
     public Strategy_Step2(){
         super();
-        super.putTitle(Game.components()[0]);
+        super.putTitle(Game.components()[componentIndex]);
+        super.setContinueButtonAction(() -> {
+            componentIndex ++;
+        });
     }
 
     public void drawScreenFeatures(Graphics g2d){

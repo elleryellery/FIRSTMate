@@ -8,10 +8,6 @@ import General.*;
 import Screens.Screen;
 
 public class NotebookInputScreen extends Screen{
-    Button[] myButtons = {
-        new TextInput("Title", 400, 60, 24, 30, Color.BLACK,false,73),
-        new TextInput("Type here...", 400, 100, 15, 23, Color.BLACK,true,32)
-    };
     int choice;
     private TextInterpreter text = new TextInterpreter();
     Notebook myNotebook;
@@ -25,15 +21,26 @@ public class NotebookInputScreen extends Screen{
         Sound[] myBackgroundSounds = {
             new Sound("SFX-Music/MUSIC-LazyLaura.wav",'M',true,75.0f)
         };
-        
+        Button[] myButtons = {
+            new TextInput("Title", 400, 60, 24, 30, Color.BLACK,false,73, false),
+            new TextInput("Type here...", 400, 100, 15, 23, Color.BLACK,true,32, false),
+            new Button("Continue", new ImageIcon("IMG-Buttons/BUTTON-NextComponent.png"),new ImageIcon("IMG-Buttons/BUTTON-NextComponentHover.png"),10, 10,250,78,
+            () -> {
+
+            })
+        };
         this.setCredits(myCredits);
         this.setButtons(myButtons);
         this.setBackgroundSounds(myBackgroundSounds);
     }
 
+    public void setContinueButtonAction(Runnable inputAction){
+        this.buttons()[2].setAction(inputAction);
+    }
+
     public void putTitle(String inputTitle){
-        if(myButtons[0] instanceof TextInput){
-            TextInput(myButtons[0]).setContents(inputTitle);
+        if(this.buttons()[0] instanceof TextInput){
+            TextInput(this.buttons()[0]).setContents(inputTitle);
         }
     }
 

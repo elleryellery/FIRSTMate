@@ -20,7 +20,7 @@ public class NewShipScreen extends Screen {
                 strategyScreen.completeTransition();
                 Game.setShip(new Ship(((TextInput)(this.buttons()[1])).contents()));
             }),
-            new TextInput("Input Ship Name", 298, 293, 24, 50, Color.WHITE,false,73)
+            new TextInput("Input Ship Name", 298, 293, 24, 50, Color.WHITE,false,73, true)
         };
 
         Sound[] myBackgroundSounds = {
