@@ -21,7 +21,7 @@ public class Game  extends JPanel implements Runnable, KeyListener, MouseListene
 
 	//Strings and Characters
 	private char keyChar;
-	private static String screen = "Opening Screen";
+	private static String screen = "Demo Screen";
 	private static Screen myScreen;
 	private static String previousScreen;
 	private static Screen previousScreenObject;
@@ -30,6 +30,7 @@ public class Game  extends JPanel implements Runnable, KeyListener, MouseListene
 
 
 	//Objects
+	private static Demo demoScreen = new Demo();
 	private static OpeningScreen openingScreen = new OpeningScreen();
 	private static CreditsScreen creditsScreen = new CreditsScreen();
 	private static ReleasesScreen releasesScreen = new ReleasesScreen();
@@ -114,6 +115,9 @@ public class Game  extends JPanel implements Runnable, KeyListener, MouseListene
 
 	public static void setScreen(){ //Translates the screenString into an object of the screen class
 		switch(screen){
+			case "Demo Screen":
+				myScreen = demoScreen;
+				break;
 			case "Opening Screen":
 				myScreen = openingScreen;
 				break;
