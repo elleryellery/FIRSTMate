@@ -17,4 +17,8 @@ public class Ship {
     public Notebook myNotebook(){
         return myNotebook;
     }
+
+    public void setNotebook(Notebook inputNotebook){
+        myNotebook = inputNotebook;
+    }
 }

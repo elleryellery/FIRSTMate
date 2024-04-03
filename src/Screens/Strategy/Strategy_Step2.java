@@ -18,9 +18,9 @@ public class Strategy_Step2 extends NotebookInputScreen{
     public Strategy_Step2(){
         super();
         super.putTitle(Game.components()[componentIndex]);
-        super.setContinueButtonAction(() -> {
-            componentIndex ++;
-        });
+        // super.setContinueButtonAction(() -> {
+        //     componentIndex ++;
+        // });
     }
 
     public void drawScreenFeatures(Graphics g2d){

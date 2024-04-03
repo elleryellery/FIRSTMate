@@ -37,10 +37,11 @@ public class Game  extends JPanel implements Runnable, KeyListener, MouseListene
 	private static Settings settingsScreen = new Settings();
 	private static BlankScreen blankScreen = new BlankScreen();
 	private static NewShipScreen newShipScreen = new NewShipScreen();
-	private static NotebookScreen notebookScreen = new NotebookScreen();
+	public static NotebookScreen notebookScreen = new NotebookScreen();
 	private static Strategy_Step1 strategyStep1 = new Strategy_Step1();
-	private static Strategy_Step2 strategyStep2 = new Strategy_Step2();
+	public static Strategy_Step2 strategyStep2 = new Strategy_Step2();
 	private static Strategy_Step3 strategyStep3 = new Strategy_Step3();
+	private static BlueprintScreen blueprintScreen = new BlueprintScreen();
 
 	private static ArrayList <Button> additionalButtons = new ArrayList<Button> ();
 
@@ -150,7 +151,14 @@ public class Game  extends JPanel implements Runnable, KeyListener, MouseListene
 			case "Strategy Step 3 Screen":
 				myScreen = strategyStep3;
 				break;
+			case "Blueprint Screen":
+				myScreen = blueprintScreen;
+				break;
 		}
+	}
+
+	public static Ship myShip(){
+		return myShip;
 	}
 
 	public static void setAdditionalButtons(ArrayList <Button> inputAdditionalButtons){
@@ -256,8 +264,10 @@ public class Game  extends JPanel implements Runnable, KeyListener, MouseListene
 	}
 	
 	@Override
-	public void mouseDragged(MouseEvent arg0) {
-		
+	public void mouseDragged(MouseEvent e) {
+		if(screen == "Blueprint Screen"){
+			blueprintScreen.addCoordinate(e.getX(),e.getY(),Color.RED, 10);
+		}
 	}
 	
 	@Override

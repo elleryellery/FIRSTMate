@@ -20,14 +20,17 @@ public class NotebookScreen extends Screen{
         super(2,"Credits Screen",new ImageIcon("IMG-Screens/SCREEN-Notebook.png"));
 
         Button[] myButtons = {
-            new Button("Left Arrow Button",new ImageIcon("IMG-Buttons/BUTTON-Left.png"),new ImageIcon("IMG-Buttons/BUTTON-LeftHover.png"),200,500,50,50, () -> {
+            new Button("Back Button", new ImageIcon("IMG-Buttons/BUTTON-Back.png"),new ImageIcon("IMG-Buttons/BUTTON-BackHover.png"),25, 25,60,60, () -> {
+                Game.setScreen(Game.previousString());
+            }),
+            new Button("Left Arrow Button",new ImageIcon("IMG-Buttons/BUTTON-Left.png"),new ImageIcon("IMG-Buttons/BUTTON-LeftHoverAlt.png"),200,500,50,50, () -> {
                 if (page > 0) {
-                    page --;
+                    page -= 2;
                 }
             }, () -> !(page > 0), new ImageIcon("IMG-Buttons/BUTTON-LeftDisabled.png"), new ImageIcon("IMG-Buttons/BUTTON-LeftDisabled.png")),
-            new Button("Right Arrow Button",new ImageIcon("IMG-Buttons/BUTTON-Right.png"),new ImageIcon("IMG-Buttons/BUTTON-RightHover.png"),940,500,50,50, () -> {
+            new Button("Right Arrow Button",new ImageIcon("IMG-Buttons/BUTTON-Right.png"),new ImageIcon("IMG-Buttons/BUTTON-RightHoverAlt.png"),940,500,50,50, () -> {
                 if (page < myNotebook.fields().size() -2) {
-                    page +=2;
+                    page += 2;
                 }
             }, () -> !(page < myNotebook.fields().size() -2), new ImageIcon("IMG-Buttons/BUTTON-RightDisabled.png"), new ImageIcon("IMG-Buttons/BUTTON-RightDisabled.png"))
         };
@@ -39,18 +42,20 @@ public class NotebookScreen extends Screen{
         this.setBackgroundSounds(myBackgroundSounds);
     }
     
-    public void drawScreenFeatures(Graphics g2d){        
+    public void drawScreenFeatures(Graphics g2d){  
+        
         g2d.setColor(Color.BLACK);
         g2d.setFont( new Font("Times New Roman", Font.BOLD, 23));
+
 
         text.drawText(g2d,myNotebook.fieldDates().get(page) + "`" +
         myNotebook.fields().get(page).name() + "``" +
         myNotebook.fields().get(page).entry() + "`",220,90,30);
 
-        if(myNotebook.fields().size()%2 == 0){
+        if((myNotebook.fields().size()-page)%2 == 0){
             text.drawText(g2d,myNotebook.fieldDates().get(page+1) + "`" +
             myNotebook.fields().get(page+1).name() + "``" +
-            myNotebook.fields().get(page+1).entry(),640,90,35);
+            myNotebook.fields().get(page+1).entry(),640,90,30);
         }
     }
 
