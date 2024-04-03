@@ -8,11 +8,19 @@ public class Paintbrush {
     private boolean fill;
     private int size;
     private ImageIcon icon;
+    private ImageIcon selectedIcon;
+    private boolean eraser;
 
-    public Paintbrush(int inputSize, boolean inputFill, ImageIcon inputIcon){
+    public Paintbrush(int inputSize, boolean inputFill, ImageIcon inputIcon, ImageIcon inputSelectedIcon, boolean inputEraser){
         fill = inputFill;
         size = inputSize;
         icon = inputIcon;
+        selectedIcon = inputSelectedIcon;
+        eraser = inputEraser;
+    }
+
+    public boolean eraser(){
+        return eraser;
     }
 
     public boolean fill(){
@@ -25,6 +33,10 @@ public class Paintbrush {
 
     public ImageIcon icon(){
         return icon;
+    }
+
+    public ImageIcon selectedIcon(){
+        return selectedIcon;
     }
 
     public void drawOption(int x, int y, Graphics g2d){

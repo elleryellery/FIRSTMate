@@ -14,9 +14,12 @@ public class BlueprintScreen extends Screen{
     private TextInterpreter text = new TextInterpreter();
     Notebook myNotebook;
     private ArrayList <Coordinate> coordinates = new ArrayList<Coordinate>();
-    private Paintbrush[] paintbrushes = {new Paintbrush(1,true, new ImageIcon("IMG-Buttons/BUTTON-Crayon.png"))};
-    private Paintbrush selectedPaintbrush = paintbrushes[0];
+
     private boolean erase = false;
+
+    private static Paintbrush crayon = new Paintbrush(1,true, new ImageIcon("IMG-Buttons/BUTTON-Crayon.png"), new ImageIcon("IMG-Buttons/BUTTON-CrayonSelected.png"), false);
+
+    private static Paintbrush selectedPaintbrush = crayon;
 
     public BlueprintScreen(){
     super(6,"Blueprint Screen",new ImageIcon("IMG-Screens/SCREEN-BlueprintScreen.png"));
@@ -28,9 +31,9 @@ public class BlueprintScreen extends Screen{
             new Sound("SFX-Music/MUSIC-LazyLaura.wav",'M',true,75.0f)
         };
         Button[] myButtons = {
-            new Button("Back Button", new ImageIcon("IMG-Buttons/BUTTON-Back.png"),new ImageIcon("IMG-Buttons/BUTTON-BackHover.png"),25, 25,60,60, () -> {
-                erase = !erase;
-            }),
+            new Button("Crayon", crayon, 5,5),
+            new Button("Eraser", new Paintbrush(1,true, new ImageIcon("IMG-Buttons/BUTTON-Eraser.png"), new ImageIcon("IMG-Buttons/BUTTON-EraserSelected.png"), true), 5,75)
+
         };
         this.setCredits(myCredits);
         this.setButtons(myButtons);
@@ -42,6 +45,7 @@ public class BlueprintScreen extends Screen{
     // }
 
     public void addCoordinate(int x, int y, Color color, int size){
+        erase = selectedPaintbrush.eraser();
         if(!erase){
             coordinates.add(new Coordinate(x,y,color,size));
         } else {
@@ -64,6 +68,12 @@ public class BlueprintScreen extends Screen{
         }
     }
 
+    public static void setSelectedPaintbrush (Paintbrush inputPaintbrush){
+        selectedPaintbrush = inputPaintbrush;
+    }
+    public static Paintbrush selectedPaintbrush(){
+        return selectedPaintbrush;
+    }
     public TextInput TextInput(Button b){
         return (General.TextInput)(b);
     }
@@ -76,13 +86,6 @@ public class BlueprintScreen extends Screen{
         g2d.setColor(Color.WHITE);
 
         g2d.fillRect(0,0,200,650);
-
-        int paintbrushY = 5;
-
-        for(Paintbrush p: paintbrushes){
-            p.drawOption(5,paintbrushY,g2d);
-            paintbrushY += 50;
-        }
 
         g2d.setColor(Color.BLACK);
 

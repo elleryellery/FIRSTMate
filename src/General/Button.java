@@ -1,6 +1,8 @@
 package General;
 import java.awt.Graphics;
 import java.awt.Rectangle;
+import Screens.Paintbrush;
+import Screens.BlueprintScreen;
 
 import javax.swing.ImageIcon;
 
@@ -24,6 +26,20 @@ public class Button {
         w = 0;
         h = 0;
         icon = new ImageIcon("No Image");
+    }
+
+    public Button(String inputName, Paintbrush base, int inputX, int inputY){
+        name = inputName;
+        iconRegular = base.icon();
+        iconHover = base.icon();
+        conditionalAppearance = base.selectedIcon();
+        conditionalAppearanceHover = base.selectedIcon();
+        x = inputX;
+        y = inputY;
+        w = 70;
+        h = 70;
+        condition = () -> BlueprintScreen.selectedPaintbrush().icon() == iconRegular;
+        action = () -> {BlueprintScreen.setSelectedPaintbrush(base);};
     }
 
     public Button(String inputName, ImageIcon inputIconRegular, ImageIcon inputIconHover, int inputX, int inputY, int inputW, int inputH, Runnable inputAction){
