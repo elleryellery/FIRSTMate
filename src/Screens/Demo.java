@@ -27,7 +27,7 @@ public class Demo extends Screen {
                 Game.myShip().setNotebook(defaultNotebook);
                 Game.setScreen("Notebook Screen");
             }),
-            new Button("Notebook Read", new ImageIcon("IMG-Buttons/BUTTON-DesignNotebookReadHover.png"),new ImageIcon("IMG-Buttons/BUTTON-DesignNotebookRead.png"),850, 250,200,200, () -> {
+            new Button("Drawing Blueprints", new ImageIcon("IMG-Buttons/BUTTON-DrawingBlueprints.png"),new ImageIcon("IMG-Buttons/BUTTON-DrawingBlueprintsHover.png"),850, 250,200,200, () -> {
                 Notebook defaultNotebook = new Notebook();
                 defaultNotebook.addDefaultEntry();
                 Game.myShip().setNotebook(defaultNotebook);

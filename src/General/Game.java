@@ -266,7 +266,7 @@ public class Game  extends JPanel implements Runnable, KeyListener, MouseListene
 	@Override
 	public void mouseDragged(MouseEvent e) {
 		if(screen == "Blueprint Screen"){
-			blueprintScreen.addCoordinate(e.getX(),e.getY(),Color.RED, 10);
+			blueprintScreen.addCoordinate(e.getX(),e.getY(),BlueprintScreen.selectedColor(), 10);
 		}
 	}
 	

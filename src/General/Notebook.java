@@ -52,6 +52,5 @@ public class Notebook {
     public void addFieldDate(){
         java.time.LocalDateTime date = java.time.LocalDateTime.now();
         fieldDates.add(date.getMonthValue() + "/" + date.getDayOfMonth() + "/" + date.getYear() + " " + date.getHour() + ":" + date.getMinute());
-        System.out.println(fieldDates);
     }
 }
