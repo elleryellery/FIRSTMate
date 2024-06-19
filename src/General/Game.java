@@ -1,5 +1,6 @@
 package General;
 import Screens.*;
+import Screens.Strategy.*;
 
 import javax.swing.*;
 import Screens.Screen;
@@ -20,18 +21,30 @@ public class Game  extends JPanel implements Runnable, KeyListener, MouseListene
 
 	//Strings and Characters
 	private char keyChar;
-	private static String screen = "Opening Screen";
+	private static String screen = "Demo Screen";
 	private static Screen myScreen;
 	private static String previousScreen;
 	private static Screen previousScreenObject;
 
+	private static String[] myComponents = new String[] {"empty"};
+
+
 	//Objects
+	private static Demo demoScreen = new Demo();
 	private static OpeningScreen openingScreen = new OpeningScreen();
 	private static CreditsScreen creditsScreen = new CreditsScreen();
 	private static ReleasesScreen releasesScreen = new ReleasesScreen();
 	private static Settings settingsScreen = new Settings();
 	private static BlankScreen blankScreen = new BlankScreen();
 	private static NewShipScreen newShipScreen = new NewShipScreen();
+	public static NotebookScreen notebookScreen = new NotebookScreen();
+	private static Strategy_Step1 strategyStep1 = new Strategy_Step1();
+	public static Strategy_Step2 strategyStep2 = new Strategy_Step2();
+	private static Strategy_Step3 strategyStep3 = new Strategy_Step3();
+	private static BlueprintScreen blueprintScreen = new BlueprintScreen();
+
+	private static ArrayList <Button> additionalButtons = new ArrayList<Button> ();
+
 	private static Graphics g2d;
 
 	private static boolean inputStatus = false;
@@ -85,6 +98,7 @@ public class Game  extends JPanel implements Runnable, KeyListener, MouseListene
 	
 	public static void setScreen(String inputString){ //Set the current and previous screens and reset background music
 		myScreen.sfx().stopAllSounds();
+		additionalButtons.clear();
 
 		if(myScreen != blankScreen){
 			previousScreen = screen;
@@ -102,6 +116,9 @@ public class Game  extends JPanel implements Runnable, KeyListener, MouseListene
 
 	public static void setScreen(){ //Translates the screenString into an object of the screen class
 		switch(screen){
+			case "Demo Screen":
+				myScreen = demoScreen;
+				break;
 			case "Opening Screen":
 				myScreen = openingScreen;
 				break;
@@ -120,6 +137,37 @@ public class Game  extends JPanel implements Runnable, KeyListener, MouseListene
 			case "New Ship Screen":
 				myScreen = newShipScreen;
 				break;
+			case "Strategy Step 1 Screen":
+				myScreen = strategyStep1
+				;
+				break;
+			case "Strategy Step 2 Screen":
+				myScreen = strategyStep2;
+				break;
+			case "Notebook Screen":
+				notebookScreen.setNotebook(myShip.myNotebook());
+				myScreen = notebookScreen;
+				break;
+			case "Strategy Step 3 Screen":
+				myScreen = strategyStep3;
+				break;
+			case "Blueprint Screen":
+				myScreen = blueprintScreen;
+				break;
+		}
+	}
+
+	public static Ship myShip(){
+		return myShip;
+	}
+
+	public static void setAdditionalButtons(ArrayList <Button> inputAdditionalButtons){
+		additionalButtons = inputAdditionalButtons;
+	}
+
+	public static void addArrayToAdditionalButtons(Button[] array){
+		for(Button b: array){
+			additionalButtons.add(b);
 		}
 	}
 
@@ -135,6 +183,10 @@ public class Game  extends JPanel implements Runnable, KeyListener, MouseListene
 		inputBox = inputInputBox;
 	}
 
+	public static TextInput inputBox(){
+		return inputBox;
+	}
+
 	public static boolean inputStatus(){
 		return inputStatus;
 	}
@@ -145,6 +197,15 @@ public class Game  extends JPanel implements Runnable, KeyListener, MouseListene
 
 	public static Screen previousScreen(){
 		return previousScreenObject;
+	}
+
+	public static String[] components(){
+		return myComponents;
+	}
+
+	public static void setComponents(String[] inputComponents){
+		myComponents = inputComponents;
+		strategyStep2.putTitle(myComponents[0]);
 	}
 
 	public Graphics2D g2d(){
@@ -163,7 +224,7 @@ public class Game  extends JPanel implements Runnable, KeyListener, MouseListene
 		myShip = inputShip;
 	}
 
-	public Ship ship(){
+	public static Ship ship(){
 		return myShip;
 	}
 	
@@ -189,6 +250,10 @@ public class Game  extends JPanel implements Runnable, KeyListener, MouseListene
 				inputBox.addCharacter(keyChar);
 			}
 		}	
+		// if(keyChar == 'n'){
+		// 	setScreen("Notebook Screen");
+		// }
+
 	}
 
 	@Override
@@ -199,9 +264,11 @@ public class Game  extends JPanel implements Runnable, KeyListener, MouseListene
 	}
 	
 	@Override
-	public void mouseDragged(MouseEvent arg0) {
-		
-	}
+	public void mouseDragged(MouseEvent e) {
+		if(screen == "Blueprint Screen"){
+			blueprintScreen.addCoordinate(e.getX(),e.getY(),Color.RED, 10);
+		}
+	} 
 	
 	@Override
 	public void mouseMoved(MouseEvent e) {
@@ -233,6 +300,12 @@ public class Game  extends JPanel implements Runnable, KeyListener, MouseListene
 		//Checks whether the user has clicked any buttons
 		for(Button b: myScreen.buttons()){
 			b.check(e.getX(),e.getY());
+		}
+
+		if(additionalButtons.size()>0){
+			for(Button b: additionalButtons){
+				b.check(e.getX(),e.getY());
+			}
 		}
 
 		//Changes the appearance of any conditional buttons
