@@ -33,8 +33,7 @@ public class BlueprintScreen extends Screen{
         };
         Button[] myButtons = {
             new Button("Crayon", crayon, 5,5),
-            new Button("Eraser", new Paintbrush(1,true, new ImageIcon("IMG-Buttons/BUTTON-Eraser.png"), new ImageIcon("IMG-Buttons/BUTTON-EraserSelected.png"), true), 5,75),
-            
+                        
             new Button("AAAA", new ImageIcon("IMG-Buttons\\Colors\\BUTTON-AAAA.png"),new ImageIcon("IMG-Buttons\\Colors\\BUTTON-AAAAHover.png"), 90,0,80,80, () -> { //AAAA
                 setSelectedColor(new Color(0,0,0)); //AAAA
                 selectedColorName = "AAAA";
@@ -111,11 +110,17 @@ public class BlueprintScreen extends Screen{
                 selectedColorName = "Lavender";
             }, () -> selectedColorName.equals("Lavender"), new ImageIcon("IMG-Buttons\\Colors\\BUTTON-LavenderSelected.png"), new ImageIcon("IMG-Buttons\\Colors\\BUTTON-LavenderSelectedHover.png")),
 
+            new Button("Eraser", new Paintbrush(1,true, new ImageIcon("IMG-Buttons/BUTTON-Eraser.png"), new ImageIcon("IMG-Buttons/BUTTON-EraserSelected.png"), true), 5,75)
+
         };
         this.setCredits(myCredits);
         this.setButtons(myButtons);
         this.setBackgroundSounds(myBackgroundSounds);
     }
+
+    // public void setContinueButtonAction(Runnable inputAction){
+    //     this.buttons()[2].setAction(inputAction);
+    // }
 
     public void addCoordinate(int x, int y, Color color, int size){
         erase = selectedPaintbrush.eraser();

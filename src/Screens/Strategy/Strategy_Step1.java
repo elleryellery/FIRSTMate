@@ -93,7 +93,7 @@ public class Strategy_Step1 extends Screen{
                         break;
                 }
                 Game.ship().myNotebook().addFieldDate();
-                Game.setScreen("Strategy Step 3 Screen");
+                Game.setScreen("Strategy Step 2 Screen");
             })
         };
 
