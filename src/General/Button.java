@@ -150,6 +150,18 @@ public class Button {
         return h;
     }
 
+    public String name(){
+        return name;
+    }
+
+    public void setX(int x){
+        this.x = x;
+    }
+
+    public void setY(int y){
+        this.y = y;
+    }
+
     public void setAction(Runnable inputAction){
         action = inputAction;
     }

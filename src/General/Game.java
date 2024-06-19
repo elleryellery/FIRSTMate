@@ -52,6 +52,9 @@ public class Game  extends JPanel implements Runnable, KeyListener, MouseListene
 
 	private static Ship myShip = new Ship();
 
+	public static boolean devMode = false;
+	private static Button devButton = strategyStep3.myButtons[3];
+
 	private ArrayList <Screen> gameScreens = new ArrayList <Screen> ();
 
 	public Game() {
@@ -92,6 +95,10 @@ public class Game  extends JPanel implements Runnable, KeyListener, MouseListene
 		//Draw all characteristics of the current screen
 		setScreen();
 		myScreen.drawScreen(g2d,getWidth(),getHeight());
+
+		if(devMode){
+			g2d.drawImage(new ImageIcon("IMG-Miscellaneous\\MISC-DevModeAlert.png").getImage(), 0, 0, getWidth(), getHeight(), this);
+		}
 						
 		twoDgraph.drawImage(back, null, 0, 0);
 	}
@@ -250,9 +257,14 @@ public class Game  extends JPanel implements Runnable, KeyListener, MouseListene
 				inputBox.addCharacter(keyChar);
 			}
 		}	
-		// if(keyChar == 'n'){
-		// 	setScreen("Notebook Screen");
-		// }
+		if(keyChar == '`'){
+			devMode = !devMode;
+		}
+		if(devMode && keyChar == ' '){
+			if(!(devButton == null)){
+				System.out.println("DEVMODE MSG: Please set the coordinates of button " + devButton.name() + " to (" + devButton.x() + ", " + devButton.y() + ").");
+			}
+		}
 
 	}
 
@@ -294,7 +306,12 @@ public class Game  extends JPanel implements Runnable, KeyListener, MouseListene
 
 	@Override
 	public void mousePressed(MouseEvent e) {
-		//System.out.println(e.getX() + ", " + e.getY());
+		if(devMode){
+			if(!(devButton == null)){
+				devButton.setX(e.getX());
+				devButton.setY(e.getY());
+			}
+		}
 		
 		inputStatus = false;
 		//Checks whether the user has clicked any buttons

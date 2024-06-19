@@ -12,7 +12,6 @@ import java.util.ArrayList;
 
 
 public class Strategy_Step3 extends Screen{
-    Button[] myButtons2 = new Button[] {};
     int choice;
     private TextInterpreter text = new TextInterpreter();
     Notebook myNotebook;
@@ -27,7 +26,8 @@ public class Strategy_Step3 extends Screen{
     Credit[] myCredits = {
 
     };
-    Button[] myButtons = {
+
+    public Button[] myButtons = {
         new Button("Add Need", new ImageIcon("IMG-Buttons/BUTTON-Add.png"),new ImageIcon("IMG-Buttons/BUTTON-AddHover.png"),170, 180,50,50, () -> {
             addNeed();
         }),
@@ -36,6 +36,9 @@ public class Strategy_Step3 extends Screen{
         }),
         new Button("Add Dream", new ImageIcon("IMG-Buttons/BUTTON-Add.png"),new ImageIcon("IMG-Buttons/BUTTON-AddHover.png"),930, 180,50,50, () -> {
             addDream();
+        }),
+        new Button("Next Step", new ImageIcon("IMG-Buttons/BUTTON-NextStep.png"),new ImageIcon("IMG-Buttons/BUTTON-NextStepHover.png"), 967, 523,188,59, () -> {
+            
         })
     };
 

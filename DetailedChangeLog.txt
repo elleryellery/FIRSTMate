@@ -1,0 +1,2 @@
+June 18, 2024
+Added developer mode to the game and added a button to the Needs/Wants/Dreams list screen. Made it easier to find the perfect position for buttons using devButton.
