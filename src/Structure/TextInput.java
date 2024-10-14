@@ -2,15 +2,12 @@ package Structure;
 import Elements.DataCache;
 
 import java.awt.Color;
-import java.awt.Graphics;
 import java.awt.Rectangle;
 import java.awt.Font;
 
 
 public class TextInput extends Button {
     private String contents = "";
-    private int x, y, h, w;
-    private String id;
     private TextInterpreter textInterpreter = new TextInterpreter();
     private int characterLimit;
     private int fontSize;
@@ -23,22 +20,23 @@ public class TextInput extends Button {
 
     }
 
-    public TextInput(String _id, int _x, int _y, int _characterLimit, int _fontSize, Color _fontColor, boolean _multiLineEnabled, int _characterLimitPerLine, boolean _outlineTextBox, String _defaultText){
-        super(_id, _x, _y, (int)(_characterLimitPerLine*_fontSize*0.517), _characterLimit*(_fontSize+10)+(int)(_fontSize*0.2), () -> {});
+    public TextInput(int _x, int _y, int _characterLimit, int _fontSize, Color _fontColor, boolean _multiLineEnabled, int _characterLimitPerLine, boolean _outlineTextBox, String _defaultText){
+        super("XXX", _x, _y, (int)(_characterLimit*_fontSize*0.517), _fontSize + (int)(_fontSize*0.2), () -> {});
 
         if(_multiLineEnabled){
-            h = _characterLimit*(_fontSize+10)+(int)(_fontSize*0.2);
-            w = (int)(_characterLimitPerLine*_fontSize*0.517);
+            this.setW((int)(_characterLimitPerLine*_fontSize*0.517));
+            this.setH(_characterLimit*(_fontSize+10)+(int)(_fontSize*0.2));
         }
 
         outlineTextBox = _outlineTextBox;
-        id = _id;
         contents = _defaultText;
         characterLimit = _characterLimit;
         fontSize = _fontSize;
         fontColor = _fontColor;
         multiLineEnabled = _multiLineEnabled;
         lineCharLim = _characterLimitPerLine;
+
+        System.out.println(this.w() + ", " + this.h());
     }
 
     public void actionOnClick(){
@@ -56,18 +54,18 @@ public class TextInput extends Button {
         contents = inputContents;
     }
 
-    public void drawBox(Graphics g2d){
-        g2d.setColor(fontColor);
-        g2d.setFont(new Font("Times New Roman",Font.BOLD,fontSize));
+    public void drawButton(){
+        Game.Graphics().setColor(fontColor);
+        Game.Graphics().setFont(new Font("Times New Roman",Font.BOLD,fontSize));
         
-        if(outlineTextBox){
-            g2d.drawRect(x-10,y-10,w+20,h+20);
+        if(outlineTextBox || DataCache.debug){
+            Game.Graphics().drawRect(super.x()-10,super.y()-10,super.w()+20,super.h()+20);
         }
         
         if(System.currentTimeMillis()%1000 < 500 && DataCache.inputStatus && DataCache.inputBox == this) {
-            textInterpreter.drawText(g2d,contents + "|",x,y+fontSize, lineCharLim);
+            textInterpreter.drawText(Game.Graphics(),contents + "|", super.x(), super.y()+fontSize, lineCharLim);
         } else {
-            textInterpreter.drawText(g2d,contents,x,y+fontSize, lineCharLim);
+            textInterpreter.drawText(Game.Graphics(),contents, super.x(), super.y()+fontSize, lineCharLim);
         }
 
     }
@@ -82,13 +80,14 @@ public class TextInput extends Button {
         }
     }
 
-    public void check(int mouseX, int mouseY) {
+    public boolean check(int mouseX, int mouseY) {
         Rectangle mouse = new Rectangle(mouseX,mouseY,1,1);
-        Rectangle me = new Rectangle(x,y,w,h);
+        Rectangle me = new Rectangle(super.x(), super.y(), super.w(), super.h());
 
         if(mouse.intersects(me)){
             actionOnClick();
         } 
+        return mouse.intersects(me);
     }
 
     public int contentsLength() {

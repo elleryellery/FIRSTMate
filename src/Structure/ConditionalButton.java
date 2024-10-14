@@ -32,7 +32,7 @@ public class ConditionalButton extends Button{
         boolean evaluate();
     }
 
-    public void check(int mouseX, int mouseY){
+    public boolean check(int mouseX, int mouseY){
         Rectangle mouse = new Rectangle(mouseX,mouseY,1,1);
         Rectangle me = new Rectangle(super.x(), super.y(), super.w(), super.h());
 
@@ -45,6 +45,8 @@ public class ConditionalButton extends Button{
         } else {
             super.icon = regular_;
         }
+
+        return mouse.intersects(me);
     }
 
     public void checkHover(int mouseX, int mouseY){

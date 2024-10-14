@@ -4,7 +4,7 @@ import java.awt.Color;
 import Structure.*;
 
 public abstract class GraphicsDatabase {
-    public static Button B01, B02, B03, B04, B05, B06, B07, B08, B09, B10, B11, B12, B13, B14, B15, B16, B17, B18, B19;
+    public static Button B01, B02, B03, B04, B05, B06, B07, B08, B09, B10, B11, B12, B13, B14, B15, B16, B17, B18, B19, B20, B21;
 
     public static TextInput I01, I02, I03, I04;
 
@@ -13,7 +13,7 @@ public abstract class GraphicsDatabase {
     public static Screen S01, S02, S03, S04, S05, S06, S07, S08, S09, S10, S11, S12, S13, S14, S15, S16, S17, S18, S19, S20;
 
     public static void init(){
-        B01 = new Button("B01", 1108, 17, 50, 50, () -> {Game.setScreen(S16);}); //Settings
+        B01 = new Button("B01", 1130, 0, 50, 50, () -> {Game.setScreen(S16);}); //Settings
         B02 = new Button("B02", 470, 400, 250, 78, () -> {Game.setScreen(S02);}); //New Design
         B03 = new Button("B03", 0, 0, 50, 50, () -> {Game.setScreen(S01);}); //Home TODO Save progress
         B04 = new Button("B04", 470, 400, 250, 78, () -> { //Create ship
@@ -78,18 +78,40 @@ public abstract class GraphicsDatabase {
             Game.setScreen(S07);
         });
         B09 = new Button("B09", 0, 0, 50, 50, () -> {Game.previousScreen();}); //Back/Previous
-        B10 = new Button("B10", 721, 428, 250, 78, () -> {
+        
+        B10 = new Button("B10", 0, 561, 50, 50, () -> {//TODO Check ship and provide relevant animation
+            Game.setScreen(S17);
+        });
+
+        B11 = new Button("B11", 721, 428, 250, 78, () -> {
             NotebookEntry entry = new NotebookEntry(I02.contents(), I03.contents());
             entry.recordMetadata();
             DataCache.myShip.retrieveData().Notebook.addEntry(entry);
+            Game.setScreen(S14);
+        });
+
+        B12 = new Button("B12", 1095, 78, 80, 80, () -> {
+            Game.setScreen(S15);
         });
 
         B19 = new Button("B11", 493, 532, 250, 78, () -> { //TODO Save notebook entry
             Game.setScreen(S08);
         });
 
+        B20 = new Button("B11", 493, 532, 250, 78, () -> { //TODO Save notebook entry
+            Game.setScreen(S01);
+        });
+
+        B21 = new Button("B21", 55, 561, 50, 50, () -> {//TODO Check ship and provide relevant animation
+            Game.setScreen(S18);
+        });
+
         C01 = new ConditionalButton("C01", 100, 100, 50, 50, () -> (Settings.enabledMusic), () -> {
             Settings.enabledMusic = !Settings.enabledMusic;
+        });
+
+        C07 = new ConditionalButton("C07", 470, 125, 250, 78, () -> (false), () -> { //TODO add condition
+            Game.setScreen(S19);
         });
 
         C44 = new ConditionalButton("C03", 100, 100, 50, 50, () -> (true), () -> { //TODO add condition
@@ -108,70 +130,75 @@ public abstract class GraphicsDatabase {
             Game.setScreen(S12);
         });
 
-        I01 = new TextInput("I01", 298, 293, 24, 50, Color.WHITE,false,73, true, "Input Ship Name");
-        I02 = new TextInput("I02", 400, 60, 24, 30, Color.BLACK, false, 73, false, "Title");
-        I03 = new TextInput("I03", 400, 100, 15, 23, Color.BLACK, true, 32, false, "Type here...");
+        I01 = new TextInput(298, 293, 24, 50, Color.WHITE,false,73, true, "Input Ship Name");
+        I02 = new TextInput(400, 60, 24, 30, Color.BLACK, false, 73, false, "Title");
+        I03 = new TextInput(400, 100, 15, 23, Color.BLACK, true, 32, false, "Type here...");
 
 
         S01 = new Screen("S01");
-            Button[] BS01 = {B01, B02};
+            Button[] BS01 = {B01, B02, B10, B21, C07};
             S01.addButtons(BS01);
             S01.overrideImage("S01.gif");
     
         S02 = new Screen("S02");
-            Button[] BS02 = {I01, B01, B03, B04};
+            Button[] BS02 = {B01, B03, B04, B10, I01};
             S02.addButtons(BS02);
     
         S03 = new Screen("S03");
-            Button[] BS03 = {B01, B05, B06, B07, B09};
+            Button[] BS03 = {B01, B05, B06, B07, B09, B10};
             S03.addButtons(BS03);
     
         S04 = new Screen("S04");
-            Button[] BS04 = {B01, B08, B09};
+            Button[] BS04 = {B01, B08, B09, B10};
             S04.addButtons(BS04);
             S04.excludeFromHistory();
     
         S05 = new Screen("S05");
-            Button[] BS05 = {B01, B08, B09};
+            Button[] BS05 = {B01, B08, B09, B10};
             S05.addButtons(BS05);
             S05.excludeFromHistory();
 
         S06 = new Screen("S06");
-            Button[] BS06 = {B01, B08, B09};
+            Button[] BS06 = {B01, B08, B09, B10};
             S06.addButtons(BS06);
             S06.excludeFromHistory();
     
         S07 = new Screen("S07");
-            Button[] BS07 = {B01, B09, B19};
+            Button[] BS07 = {B01, B09, B19, I02, I03};
             S07.addButtons(BS07);
+            S07.excludeFromHistory();
     
         S08 = new Screen("S08");
-            Button[] BS08 = {B01, B09, C44};
+            Button[] BS08 = {B01, B09, B12, C44};
             S08.addButtons(BS08);
     
         S09 = new Screen("S09");
-            Button[] BS09 = {B01, B09, C45};
+            Button[] BS09 = {B01, B09, B12, C45};
             S09.addButtons(BS09);
     
         S10 = new Screen("S10");
-            Button[] BS10 = {B01, B09, C46};
+            Button[] BS10 = {B01, B09, B12, C46};
             S10.addButtons(BS10);
     
         S11 = new Screen("S11");
-            Button[] BS11 = {B01, B09, C47};
+            Button[] BS11 = {B01, B09, B12, C47};
             S11.addButtons(BS11);
     
         S12 = new Screen("S12");
-        Button[] BS12 = {B01};
+            Button[] BS12 = {B01, B09, B11};
+            S12.addButtons(BS12);
     
         S13 = new Screen("S13");
-        Button[] BS13 = {B01};
+            Button[] BS13 = {B01};
     
         S14 = new Screen("S14");
-        Button[] BS14 = {B01};
+            Button[] BS14 = {B01, B20};
+            S14.addButtons(BS14);
     
         S15 = new Screen("S15");
-        Button[] BS15 = {B01};
+            Button[] BS15 = {B01, B09};
+            S15.addButtons(BS15);
+            S15.excludeFromHistory();
     
         S16 = new Screen("S16");
         Button[] BS16 = {B01};
@@ -183,7 +210,7 @@ public abstract class GraphicsDatabase {
         Button[] BS18 = {B01};
     
         S19 = new Screen("S19");
-        Button[] BS19 = {B01};
+            Button[] BS19 = {B01};
     
         S20 = new Screen("S20");
         Button[] BS20 = {B01};

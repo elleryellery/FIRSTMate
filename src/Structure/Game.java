@@ -61,6 +61,7 @@ public class Game  extends JPanel implements Runnable, KeyListener, MouseListene
 	public static void previousScreen() {
 		setScreen(DataCache.history.get(DataCache.history.size()-1));
 		DataCache.history.remove(DataCache.history.size()-1);
+		DataCache.history.remove(DataCache.history.size()-1);
 	}
 
 	public static void setScreen(Screen _screen){
@@ -79,9 +80,23 @@ public class Game  extends JPanel implements Runnable, KeyListener, MouseListene
 	
 	@Override
 	public void keyPressed(KeyEvent e) {
-		char key = e.getKeyChar();
+		int key= e.getKeyCode();
+		char keyChar = e.getKeyChar();	
+		if(DataCache.inputStatus){
+			if(key == 8){
+				if(DataCache.inputBox.contentsLength()>0) {
+					DataCache.inputBox.deleteCharacter();
+				}
+			} else if(key == 10) {
+				if(DataCache.inputBox.multiLineEnabled()){
+					DataCache.inputBox.newLine();
+				}
+			} else if(key != 16){
+				DataCache.inputBox.addCharacter(keyChar);
+			}
+		}	
 
-		if(key == '`'){
+		if(key == '~'){
 			DataCache.debug = !DataCache.debug;
 		}
 	}
@@ -125,6 +140,9 @@ public class Game  extends JPanel implements Runnable, KeyListener, MouseListene
 		}
 		if(DataCache.debug){
 			System.out.println("DEBUG: Mouse coordinates: (" + e.getX() + ", " + e.getY() + ")");
+		}
+		if(DataCache.inputStatus && !DataCache.inputBox.check(e.getX(), e.getY())){
+			DataCache.inputStatus = false;
 		}
 	}
 

@@ -41,13 +41,15 @@ public class Button {
         Game.Graphics().drawImage(icon.getImage(),x,y,w,h,null);
     }
 
-    public void check(int mouseX, int mouseY){
+    public boolean check(int mouseX, int mouseY){
         Rectangle mouse = new Rectangle(mouseX,mouseY,1,1);
         Rectangle me = new Rectangle(x,y,w,h);
 
         if(mouse.intersects(me)){
             executeButtonAction();
         }
+
+        return mouse.intersects(me);
     }
 
     public void setRunnable(Runnable inputAction){
