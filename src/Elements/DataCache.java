@@ -12,4 +12,5 @@ public class DataCache {
     public static ArrayList<Screen> history = new ArrayList<Screen> ();
     public static Ship myShip;
     public static ArrayList<Ship> ships = new ArrayList<Ship>();
+    public static int pageNumber = 0;
 }

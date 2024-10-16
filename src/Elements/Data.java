@@ -12,4 +12,8 @@ public class Data {
     public Data(){
         Notebook = new Notebook();
     }
+
+    public Notebook Notebook(){
+        return Notebook;
+    }
 }

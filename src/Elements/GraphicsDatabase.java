@@ -94,11 +94,11 @@ public abstract class GraphicsDatabase {
             Game.setScreen(S15);
         });
 
-        B19 = new Button("B11", 493, 532, 250, 78, () -> { //TODO Save notebook entry
+        B19 = new Button("B20", 719, 533, 50, 50, () -> { //TODO Save notebook entry
             Game.setScreen(S08);
         });
 
-        B20 = new Button("B11", 493, 532, 250, 78, () -> { //TODO Save notebook entry
+        B20 = new Button("B20", 493, 532, 250, 78, () -> { //TODO Save notebook entry
             Game.setScreen(S01);
         });
 
@@ -108,6 +108,14 @@ public abstract class GraphicsDatabase {
 
         C01 = new ConditionalButton("C01", 100, 100, 50, 50, () -> (Settings.enabledMusic), () -> {
             Settings.enabledMusic = !Settings.enabledMusic;
+        });
+
+        C04 = new ConditionalButton("C04", 395, 535, 50, 50, () -> !(DataCache.pageNumber > 0), () -> { //Back
+            DataCache.pageNumber --;
+        });
+
+        C03 = new ConditionalButton("C03", 200, 100, 50, 50, () -> !(DataCache.myShip == null || DataCache.pageNumber < DataCache.myShip.retrieveData().Notebook().entries().size() -1), () -> {
+            DataCache.pageNumber ++;
         });
 
         C07 = new ConditionalButton("C07", 470, 125, 250, 78, () -> (false), () -> { //TODO add condition
@@ -163,8 +171,8 @@ public abstract class GraphicsDatabase {
             S06.addButtons(BS06);
             S06.excludeFromHistory();
     
-        S07 = new Screen("S07");
-            Button[] BS07 = {B01, B09, B19, I02, I03};
+        S07 = new Screen("S07"); //Notebook entry
+            Button[] BS07 = {B01, B09, B19, C03, C04, I02, I03};
             S07.addButtons(BS07);
             S07.excludeFromHistory();
     

@@ -96,7 +96,7 @@ public class Game  extends JPanel implements Runnable, KeyListener, MouseListene
 			}
 		}	
 
-		if(key == '~'){
+		if(keyChar == '~'){
 			DataCache.debug = !DataCache.debug;
 		}
 	}
