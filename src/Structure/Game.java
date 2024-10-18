@@ -82,6 +82,7 @@ public class Game  extends JPanel implements Runnable, KeyListener, MouseListene
 	public void keyPressed(KeyEvent e) {
 		int key= e.getKeyCode();
 		char keyChar = e.getKeyChar();	
+
 		if(DataCache.inputStatus){
 			if(key == 8){
 				if(DataCache.inputBox.contentsLength()>0) {
@@ -91,6 +92,10 @@ public class Game  extends JPanel implements Runnable, KeyListener, MouseListene
 				if(DataCache.inputBox.multiLineEnabled()){
 					DataCache.inputBox.newLine();
 				}
+			} else if(key == 37){
+				DataCache.inputBox.arrowLeft();
+			} else if(key == 39){
+				DataCache.inputBox.arrowRight();
 			} else if(key != 16){
 				DataCache.inputBox.addCharacter(keyChar);
 			}
@@ -136,7 +141,12 @@ public class Game  extends JPanel implements Runnable, KeyListener, MouseListene
 	@Override
 	public void mousePressed(MouseEvent e) {
 		for(Button b: DataCache.myScreen.buttons()){
-			b.check(e.getX(), e.getY());
+			if(b.check(e.getX(), e.getY())){
+				break;
+			}
+		}
+		for(Button b: DataCache.myScreen.buttons()){
+			b.checkHover(e.getX(), e.getY());
 		}
 		if(DataCache.debug){
 			System.out.println("DEBUG: Mouse coordinates: (" + e.getX() + ", " + e.getY() + ")");

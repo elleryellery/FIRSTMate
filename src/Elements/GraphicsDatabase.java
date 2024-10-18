@@ -4,7 +4,7 @@ import java.awt.Color;
 import Structure.*;
 
 public abstract class GraphicsDatabase {
-    public static Button B01, B02, B03, B04, B05, B06, B07, B08, B09, B10, B11, B12, B13, B14, B15, B16, B17, B18, B19, B20, B21;
+    public static Button B01, B02, B03, B04, B05, B06, B07, B08, B09, B10, B11, B12, B13, B14, B15, B16, B17, B18, B19, B20, B21, B22;
 
     public static TextInput I01, I02, I03, I04;
 
@@ -74,8 +74,10 @@ public abstract class GraphicsDatabase {
                         "  ‣   A protective layer for the ship’s deck" + TextInterpreter.newLineKey +
                         "  ‣   A scary flag of your own design to intimidate invaders");
             }
-            DataCache.myShip.retrieveData().Notebook.addEntry(entry);
+            entry.recordMetadata();
+            DataCache.myShip.retrieveData().Notebook.replaceEntry(2, entry);
             Game.setScreen(S07);
+            ScreenScripts.PullNotebookPageToTextBox();
         });
         B09 = new Button("B09", 0, 0, 50, 50, () -> {Game.previousScreen();}); //Back/Previous
         
@@ -106,16 +108,26 @@ public abstract class GraphicsDatabase {
             Game.setScreen(S18);
         });
 
+        B22 = new Button("B22", 809, 290, 50, 50, () -> {
+            DataCache.myShip.myNotebook().addEntry(DataCache.pageNumber+1, new NotebookEntry());
+        });
+
         C01 = new ConditionalButton("C01", 100, 100, 50, 50, () -> (Settings.enabledMusic), () -> {
             Settings.enabledMusic = !Settings.enabledMusic;
         });
 
         C04 = new ConditionalButton("C04", 395, 535, 50, 50, () -> !(DataCache.pageNumber > 0), () -> { //Back
-            DataCache.pageNumber --;
+            if(DataCache.pageNumber > 0){
+                DataCache.pageNumber --;
+                ScreenScripts.PullNotebookPageToTextBox();
+            }
         });
 
-        C03 = new ConditionalButton("C03", 200, 100, 50, 50, () -> !(DataCache.myShip == null || DataCache.pageNumber < DataCache.myShip.retrieveData().Notebook().entries().size() -1), () -> {
-            DataCache.pageNumber ++;
+        C03 = new ConditionalButton("C03", 664, 535, 50, 50, () -> !(DataCache.myShip == null || DataCache.pageNumber < DataCache.myShip.retrieveData().Notebook().entries().size() -1), () -> {
+            if(DataCache.pageNumber < DataCache.myShip.retrieveData().Notebook().entries().size() -1){
+                DataCache.pageNumber ++;
+                ScreenScripts.PullNotebookPageToTextBox();
+            }
         });
 
         C07 = new ConditionalButton("C07", 470, 125, 250, 78, () -> (false), () -> { //TODO add condition
@@ -172,10 +184,9 @@ public abstract class GraphicsDatabase {
             S06.excludeFromHistory();
     
         S07 = new Screen("S07"); //Notebook entry
-            Button[] BS07 = {B01, B09, B19, C03, C04, I02, I03};
+            Button[] BS07 = {B01, B09, B19, B22, C03, C04, I02, I03};
             S07.addButtons(BS07);
             S07.excludeFromHistory();
-    
         S08 = new Screen("S08");
             Button[] BS08 = {B01, B09, B12, C44};
             S08.addButtons(BS08);
@@ -222,7 +233,5 @@ public abstract class GraphicsDatabase {
     
         S20 = new Screen("S20");
         Button[] BS20 = {B01};
-
-        ScreenScripts.init();
     }
 }

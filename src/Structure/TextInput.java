@@ -15,6 +15,7 @@ public class TextInput extends Button {
     private boolean multiLineEnabled;
     private int lineCharLim;
     private boolean outlineTextBox;
+    private int cursorIndex = 0;
 
     public TextInput(){
 
@@ -42,11 +43,13 @@ public class TextInput extends Button {
     public void actionOnClick(){
         DataCache.inputStatus = true;
         DataCache.inputBox = this;
+        cursorIndex = contents.length();
     }
 
     public void addCharacter(char c){
-        if(contents.length()<characterLimit || (multiLineEnabled && textInterpreter.simulateLines(contents + c + '|', lineCharLim) <= characterLimit) ){
-            contents += c;
+        if(contents.length()<characterLimit || (multiLineEnabled && textInterpreter.simulateLines(contents + c, lineCharLim) <= characterLimit) ){
+            contents = contents.substring(0, cursorIndex) + c + contents.substring(cursorIndex);
+            cursorIndex ++;
         }
     }
 
@@ -63,20 +66,43 @@ public class TextInput extends Button {
         }
         
         if(System.currentTimeMillis()%1000 < 500 && DataCache.inputStatus && DataCache.inputBox == this) {
-            textInterpreter.drawText(Game.Graphics(),contents + "|", super.x(), super.y()+fontSize, lineCharLim);
+            textInterpreter.drawText(Game.Graphics(), contentsWithCursor(), super.x(), super.y()+fontSize, lineCharLim);
         } else {
             textInterpreter.drawText(Game.Graphics(),contents, super.x(), super.y()+fontSize, lineCharLim);
         }
 
     }
 
+    public void arrowLeft(){
+        if(cursorIndex > 0){
+            cursorIndex --;
+        }
+    }
+
+    public void arrowRight(){
+        if(cursorIndex < contents.length()){
+            cursorIndex ++;
+        }
+    }
+
     public void newLine(){
         contents += textInterpreter.newLineKey;
+    }
+
+    public String contentsWithCursor() {
+        String temp = "";
+
+        temp += contents.substring(0, cursorIndex);
+        temp += "|";
+        temp += contents.substring(cursorIndex);
+
+        return temp;
     }
     
     public void deleteCharacter(){
         if(contents.length()>0){
-            contents = contents.substring(0,contents.length()-1);
+            contents = contents.substring(0, cursorIndex -1) + contents.substring(cursorIndex);
+            cursorIndex --;
         }
     }
 
@@ -87,6 +113,7 @@ public class TextInput extends Button {
         if(mouse.intersects(me)){
             actionOnClick();
         } 
+
         return mouse.intersects(me);
     }
 

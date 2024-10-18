@@ -40,20 +40,13 @@ public class ConditionalButton extends Button{
             executeButtonAction();
         }
 
-        if(condition.evaluate()){
-            super.icon = conditional_;
-        } else {
-            super.icon = regular_;
-        }
+        startAppearance(mouse.intersects(me));
 
         return mouse.intersects(me);
     }
 
-    public void checkHover(int mouseX, int mouseY){
-        Rectangle mouse = new Rectangle(mouseX,mouseY,1,1);
-        Rectangle me = new Rectangle(super.x(), super.y(), super.w(), super.h());
-
-        if(mouse.intersects(me)){
+    private void startAppearance(boolean hover){
+        if(hover){
             if(condition.evaluate()){
                 super.icon = conditional_;
             } else {
@@ -66,6 +59,12 @@ public class ConditionalButton extends Button{
                 super.icon = regular;
             }
         }
-        
+    }
+
+    public void checkHover(int mouseX, int mouseY){
+        Rectangle mouse = new Rectangle(mouseX,mouseY,1,1);
+        Rectangle me = new Rectangle(super.x(), super.y(), super.w(), super.h());
+
+        startAppearance(mouse.intersects(me));
     }
 }
