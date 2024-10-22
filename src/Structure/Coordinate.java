@@ -8,6 +8,11 @@ public class Coordinate {
     Color color;
     int size;
 
+    public Coordinate(){
+        x = 0;
+        y = 0;
+    }
+
     public Coordinate(int inputX, int inputY, Color inputColor, int inputSize){
         x = inputX;
         y = inputY;

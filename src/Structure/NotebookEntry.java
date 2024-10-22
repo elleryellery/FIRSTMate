@@ -1,4 +1,5 @@
 package Structure;
+import Elements.GraphicsDatabase;
 
 public class NotebookEntry {
     private String name;
@@ -35,5 +36,10 @@ public class NotebookEntry {
 
     public String toString(){
         return "\n\n(" + metadata + ")\n" + name + "\n" + entry;
+    }
+
+    public void update(){
+        name = GraphicsDatabase.I02.contents();
+        entry = GraphicsDatabase.I03.contents();
     }
 }

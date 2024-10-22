@@ -113,7 +113,9 @@ public class Game  extends JPanel implements Runnable, KeyListener, MouseListene
 	
 	@Override
 	public void mouseDragged(MouseEvent e) {
-
+		if(DataCache.drawingEnabled){
+			ScreenScripts.drawAt(e.getX(), e.getY());
+		}
 	}
 	
 	@Override
@@ -135,7 +137,7 @@ public class Game  extends JPanel implements Runnable, KeyListener, MouseListene
 
 	@Override
 	public void mouseExited(MouseEvent e) {
-		
+		DataCache.connectPoints = false;
 	}
 
 	@Override

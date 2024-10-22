@@ -40,4 +40,10 @@ public class Notebook {
         }
     }
 
+    public void deleteEntry(int index){
+        if(entries.size()>1){
+            entries.remove(index);
+        }
+    }
+
 }
