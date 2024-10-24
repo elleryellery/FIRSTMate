@@ -22,4 +22,5 @@ public class DataCache {
     public static boolean drawingEnabled = false;
     public static Coordinate previousCoordinate = new Coordinate();
     public static boolean connectPoints = false;
+    public static boolean inFrame = true;
 }

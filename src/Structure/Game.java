@@ -104,6 +104,10 @@ public class Game  extends JPanel implements Runnable, KeyListener, MouseListene
 		if(keyChar == '~'){
 			DataCache.debug = !DataCache.debug;
 		}
+
+		if(keyChar == 'e'){
+			System.exit(0);
+		}
 	}
 
 	@Override
@@ -113,7 +117,7 @@ public class Game  extends JPanel implements Runnable, KeyListener, MouseListene
 	
 	@Override
 	public void mouseDragged(MouseEvent e) {
-		if(DataCache.drawingEnabled){
+		if(DataCache.drawingEnabled && DataCache.inFrame){
 			ScreenScripts.drawAt(e.getX(), e.getY());
 		}
 	}
@@ -132,12 +136,12 @@ public class Game  extends JPanel implements Runnable, KeyListener, MouseListene
 
 	@Override
 	public void mouseEntered(MouseEvent e) {
-		
+		DataCache.inFrame = true;
 	}
 
 	@Override
 	public void mouseExited(MouseEvent e) {
-		DataCache.connectPoints = false;
+		DataCache.inFrame = false;
 	}
 
 	@Override
@@ -156,10 +160,11 @@ public class Game  extends JPanel implements Runnable, KeyListener, MouseListene
 		if(DataCache.inputStatus && !DataCache.inputBox.check(e.getX(), e.getY())){
 			DataCache.inputStatus = false;
 		}
+
 	}
 
 	@Override
 	public void mouseReleased(MouseEvent e) {
-		
+		DataCache.previousCoordinate = null;
 	}
 }

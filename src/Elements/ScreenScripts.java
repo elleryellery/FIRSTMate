@@ -9,52 +9,62 @@ public class ScreenScripts {
     }
 
     public static void drawAt(int x, int y) {
+        double tolerance = 5;
+        double resolution = 1;
         switch(DataCache.penType){
             case "Scribble":
-                if(DataCache.connectPoints){
-                    drawPoint(x, y, DataCache.previousCoordinate.x(), DataCache.previousCoordinate.y(), 0, 0);
+            if(DataCache.previousCoordinate != null){
+                double xDist = Math.abs(DataCache.previousCoordinate.x() - x);
+                double yDist = Math.abs(DataCache.previousCoordinate.y() - y);
+                if(xDist > resolution && yDist > resolution){
+                    //System.err.println("Starting a new connection.");
+                    startPointConnection(10, x, y, DataCache.previousCoordinate.x(), DataCache.previousCoordinate.y());
+                    //System.err.println("End connection.\n");
                 } else {
-                    DataCache.drawing.add(new Coordinate(x, y,  DataCache.penColor, DataCache.penSize)); 
-                    DataCache.previousCoordinate = DataCache.drawing.get(DataCache.drawing.size()-1);
-                    DataCache.connectPoints = true;
-                }
+                    drawDisconnectedPoint(x, y);
+               }
+            } else {
+                drawDisconnectedPoint(x, y);
+            }
         }
     }
 
-    public static void drawPoint(int goalX, int goalY, double x, double y, double x_increment, double y_increment){
-        int resolution = 10;
+    public static void drawDisconnectedPoint(int x, int y){
+        DataCache.drawing.add(new Coordinate(x, y,  DataCache.penColor, DataCache.penSize)); 
+        DataCache.previousCoordinate = DataCache.drawing.get(DataCache.drawing.size()-1);
+
+    }
+
+
+    public static void startPointConnection(int resolution, int goalX, int goalY, int x, int y){
         double xDist = goalX - x;
         double yDist = goalY - y;
+        double distance = Math.sqrt(Math.pow(xDist, 2) + Math.pow(yDist, 2));
+        double scale = resolution/distance;
 
-        if(Math.abs(yDist) > resolution && Math.abs(xDist) > resolution){
-            double yCrement;
-            double xCrement;
-            int xNeg = (int)(xDist/Math.abs(xDist));
-            int yNeg = (int)(yDist/Math.abs(yDist));
-            if(x_increment > 0 && y_increment > 0){
-                xCrement = x_increment;
-                yCrement = y_increment;
-            } else {
-                if(Math.abs(yDist) >= Math.abs(xDist)){
-                    yCrement = resolution * yNeg;
-                    xCrement = (Math.abs(yDist)/Math.abs(xDist)) * resolution * xNeg;
-                } else {
-                    xCrement = resolution * xNeg;
-                    yCrement = (Math.abs(xDist)/Math.abs(yDist)) * resolution * yNeg;
-                }
-            }
+        double xIncrement = xDist * scale;
+        double yIncrement = yDist * scale;
 
-            System.out.println(xCrement + " " + yCrement);
+        int numPoints = (int)(distance/resolution);
 
-            double newx = x + xCrement;
-            double newy = y + yCrement;
-            System.out.println("Move point from (" + x + ", " + y + ") to (" + newx + ", " + newy + ") -- "  + xNeg + " " + yNeg);
-            System.out.println("goalX: " + goalX + "; goalY: " + goalY + "; x: " + x + "; y: " + y + "; xDist: " + xDist + "; yDist: "+ yDist + "; xCrement: " + xCrement + "; yCrement: "+ yCrement);
-            System.out.println("\n");
-
-            DataCache.previousCoordinate = DataCache.drawing.get(DataCache.drawing.size()-1);
-            DataCache.drawing.add(new Coordinate((int)newx, (int)newy,  DataCache.penColor, DataCache.penSize));
-            drawPoint(goalX, goalY, newx, newy, xCrement, yCrement);
+        for(int i = 0; i < numPoints; i++) {
+            drawPoints(resolution, goalX, goalY, xIncrement, yIncrement);
         }
+
+            //System.out.println("You want to draw a point at (" + goalX + ", " + goalY + ") from (" + x + ", " + y + ")");
+            //System.out.println("To do so, draw approximately " + numPoints + " points.");
+            //System.out.println("I have set the increment values to the following: (" + xCrement + ", " + yCrement);
+}
+
+    public static void drawPoints(int resolution, int goalX, int goalY, double xIncrement, double yIncrement){
+        Coordinate prev = DataCache.previousCoordinate;
+
+        int newX = (int)(prev.x() + xIncrement);
+        int newY = (int)(prev.y() + yIncrement);
+
+        Coordinate me = new Coordinate(newX, newY, DataCache.penColor, DataCache.penSize);
+        DataCache.previousCoordinate = me;
+        DataCache.drawing.add(me);
+        
     }
 }
