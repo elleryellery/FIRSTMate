@@ -6,6 +6,8 @@ import java.awt.*;
 
 import javax.swing.ImageIcon;
 
+import Elements.DataCache;
+
 public class Drawing {
     private ArrayList<Coordinate> points = new ArrayList<Coordinate>();
     private Image picture;
@@ -61,15 +63,13 @@ public class Drawing {
                 y2 = p.y();
             }
         }
-        int width = x1 - x2;
-        int height = y1-y2;
+        int width = x1 - x2 + DataCache.penSize;
+        int height = y1-y2 + DataCache.penSize;
 
-        System.out.println(width + ", " + height);
-
-        back = new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);
+        back = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
         Graphics2D g = back.createGraphics();
         for(Coordinate p: points){
-            p.drawCoordinate(g);
+            p.drawCoordinate(g, -x2, -y2);
         }
 
         g.dispose();

@@ -33,8 +33,8 @@ public class Coordinate {
         Game.Graphics().fillOval(x,y,size,size);
     }
 
-    public void drawCoordinate(Graphics g){
+    public void drawCoordinate(Graphics g, int xModifier, int yModifier){
         g.setColor(color);
-        g.fillOval(x,y,size,size);
+        g.fillOval(x + xModifier, y + yModifier,size,size);
     }
 }

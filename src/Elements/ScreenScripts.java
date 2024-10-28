@@ -70,7 +70,7 @@ public class ScreenScripts {
         for(int i = 0; i < numPoints; i++) {
             drawPoints(resolution, goalX, goalY, xIncrement, yIncrement);
         }
-}
+    }
 
     public static void drawPoints(int resolution, int goalX, int goalY, double xIncrement, double yIncrement){
         Coordinate prev = DataCache.previousCoordinate;
@@ -81,5 +81,19 @@ public class ScreenScripts {
         Coordinate me = new Coordinate(newX, newY, DataCache.penColor, DataCache.penSize);
         DataCache.previousCoordinate = me;
         DataCache.drawing.add(me);
+    }
+
+    public static Draggable[] convertSketchesToDraggables(){
+        Draggable[] temp = new Draggable[ DataCache.myShip.retrieveData().ShipSketches.length];
+
+        int x = 100;
+        int y = 100;
+
+        for(int i = 0; i < DataCache.myShip.retrieveData().ShipSketches.length; i++){
+            Drawing d = DataCache.myShip.retrieveData().ShipSketches[i];
+            temp[i] = (new Draggable(x, y, d.width(), d.height(), d.asPicture()));
+        }
+
+        return temp;
     }
 }

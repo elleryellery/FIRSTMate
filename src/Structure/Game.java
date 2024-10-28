@@ -104,10 +104,6 @@ public class Game  extends JPanel implements Runnable, KeyListener, MouseListene
 		if(keyChar == '~'){
 			DataCache.debug = !DataCache.debug;
 		}
-
-		if(keyChar == 'e'){
-			System.exit(0);
-		}
 	}
 
 	@Override
@@ -119,6 +115,9 @@ public class Game  extends JPanel implements Runnable, KeyListener, MouseListene
 	public void mouseDragged(MouseEvent e) {
 		if(DataCache.drawingEnabled && DataCache.inFrame){
 			ScreenScripts.drawAt(e.getX(), e.getY());
+		}
+		if(DataCache.holding != null && DataCache.inFrame){
+			DataCache.holding.setCoords(e.getX(), e.getY());
 		}
 	}
 	
@@ -152,7 +151,15 @@ public class Game  extends JPanel implements Runnable, KeyListener, MouseListene
 			}
 		}
 		for(Button b: DataCache.myScreen.buttons()){
-			b.checkHover(e.getX(), e.getY());
+			if(b instanceof Draggable){
+				if(b.check(e.getX(), e.getY())){
+					DataCache.holding = (Draggable)b;
+					System.out.println(b);
+					break;
+				}
+			} else {
+				b.checkHover(e.getX(), e.getY());
+			}
 		}
 		if(DataCache.debug){
 			System.out.println("DEBUG: Mouse coordinates: (" + e.getX() + ", " + e.getY() + ")");
@@ -166,5 +173,6 @@ public class Game  extends JPanel implements Runnable, KeyListener, MouseListene
 	@Override
 	public void mouseReleased(MouseEvent e) {
 		DataCache.previousCoordinate = null;
+		DataCache.holding = null;
 	}
 }

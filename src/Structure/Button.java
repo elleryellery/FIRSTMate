@@ -3,6 +3,8 @@ import java.awt.Rectangle;
 
 import javax.swing.ImageIcon;
 
+import Elements.DataCache;
+
 public class Button {
     
     private String tag;
@@ -39,6 +41,9 @@ public class Button {
 
     public void drawButton (){
         Game.Graphics().drawImage(icon.getImage(),x,y,w,h,null);
+        if(DataCache.debug){
+            Game.Graphics().drawRect(x, y, w, h);
+        }
     }
 
     public boolean check(int mouseX, int mouseY){

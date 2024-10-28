@@ -2,6 +2,8 @@ package Structure;
 import java.awt.Graphics;
 import javax.swing.ImageIcon;
 
+import Elements.DataCache;
+
 public class Screen {
 
 	private ImageIcon back;
@@ -30,6 +32,7 @@ public class Screen {
 
     public void drawScreen(Graphics g2d, int screenWidth, int screenHeight){ //Draws the screen's background image, features, and buttons and, if necessary, starts the background music
         g2d.drawImage(back.getImage(),0,0,screenWidth,screenHeight,null);
+        DataCache.drawingEnabled = false;
         script.run();
         if(buttons.length > 0){
             for(Button b: buttons){

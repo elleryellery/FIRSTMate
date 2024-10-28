@@ -1,5 +1,7 @@
 package Elements;
 import java.awt.Color;
+import java.util.Arrays;
+import java.util.stream.Stream;
 
 import Structure.*;
 
@@ -148,7 +150,6 @@ public abstract class GraphicsDatabase {
                 DataCache.componentIndex ++;
                 DataCache.drawing = DataCache.myShip.retrieveData().ShipSketches[DataCache.componentIndex].getPoints();
             }
-            System.out.println(DataCache.componentIndex);
         });
         
         C06 = new ConditionalButton("C06", 519, 70, 50, 50, () -> !(DataCache.componentIndex > 0), () -> { //Previous component
@@ -156,7 +157,6 @@ public abstract class GraphicsDatabase {
                 DataCache.componentIndex --;
                 DataCache.drawing = DataCache.myShip.retrieveData().ShipSketches[DataCache.componentIndex].getPoints();
             }
-            System.out.println(DataCache.componentIndex);
         });
 
         C07 = new ConditionalButton("C07", 470, 125, 250, 78, () -> (false), () -> { //TODO add condition
@@ -268,6 +268,9 @@ public abstract class GraphicsDatabase {
                 d.constructImage();
             }
             Game.setScreen(S09);
+            Button[] BS09 = {B01, B09, B12, C45};
+            Button[] temp = Stream.concat(Arrays.stream(BS09), Arrays.stream(ScreenScripts.convertSketchesToDraggables())).toArray(Button[]::new);
+            S09.addButtons(temp);
         });
 
         
@@ -324,13 +327,13 @@ public abstract class GraphicsDatabase {
         S09 = new Screen("S09");
             Button[] BS09 = {B01, B09, B12, C45};
             S09.addButtons(BS09);
-            S09.addScript(() -> {
-                int x = 0;
-                for(Drawing d: DataCache.myShip.retrieveData().ShipSketches){
-                    Game.Graphics().drawImage(d.asPicture(), x, 100, d.width(), d.height(), null);
-                    x += 50;
-                }
-            });
+            // S09.addScript(() -> {
+            //     int x = 0;
+            //     for(Drawing d: DataCache.myShip.retrieveData().ShipSketches){
+            //         Game.Graphics().drawImage(d.asPicture(), x, 100, d.width(), d.height(), null);
+            //         x += 50;
+            //     }
+            // });
     
         S10 = new Screen("S10");
             Button[] BS10 = {B01, B09, B12, C46};

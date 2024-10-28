@@ -24,4 +24,5 @@ public class DataCache {
     public static boolean connectPoints = false;
     public static boolean inFrame = true;
     public static int componentIndex = 0;
+    public static Draggable holding;
 }
