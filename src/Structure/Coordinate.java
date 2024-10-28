@@ -32,4 +32,9 @@ public class Coordinate {
         Game.Graphics().setColor(color);
         Game.Graphics().fillOval(x,y,size,size);
     }
+
+    public void drawCoordinate(Graphics g){
+        g.setColor(color);
+        g.fillOval(x,y,size,size);
+    }
 }

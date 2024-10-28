@@ -8,9 +8,11 @@ public abstract class GraphicsDatabase {
 
     public static TextInput I01, I02, I03, I04;
 
-    public static ConditionalButton C01, C02, C03, C04, C05, C06, C07, C08, C44, C45, C46, C47;
+    public static ConditionalButton C01, C02, C03, C04, C05, C06, C07, C08, C14, C15, C16, C17, C18, C19, C20, C21, C22, C23, C24, C25, C26, C27, C28, C29, C30, C31, C32, C33, C34, C35, C36, C44, C45, C46, C47, C48;
 
     public static Screen S01, S02, S03, S04, S05, S06, S07, S08, S09, S10, S11, S12, S13, S14, S15, S16, S17, S18, S19, S20;
+
+    public static Color black, white, yellow, lightBlue, red, turquoise, purple, hotPink, orange, darkPurple, lightGreen, lightPink, skyBlue, green, burgundy, blue, pink;
 
     public static void init(){
         B01 = new Button("B01", 1130, 0, 50, 50, () -> {Game.setScreen(S16);}); //Settings
@@ -24,7 +26,7 @@ public abstract class GraphicsDatabase {
             String[] components = {         
                 "Restaurant", "Movie Theater", "Party Room", "Fun Area 1", "Fun Area 2"
             };
-            DataCache.myShip.retrieveData().ShipRequirements = components;
+            DataCache.myShip.retrieveData().setShipRequirements(components);
             DataCache.myShip.retrieveData().ShipType = "Cruiser";
             Game.setScreen(S05);
         });
@@ -32,7 +34,7 @@ public abstract class GraphicsDatabase {
             String[] components = {            
                 "Cannons", "A way to board other ships", "Treasure Room", "Fighting mechanism"
             };
-            DataCache.myShip.retrieveData().ShipRequirements = components;
+            DataCache.myShip.retrieveData().setShipRequirements(components);
             DataCache.myShip.retrieveData().ShipType = "The Pearl";
             Game.setScreen(S06);
         });
@@ -40,7 +42,7 @@ public abstract class GraphicsDatabase {
             String[] components = {            
                 "Trap #1", "Trap #2", "Protective Layer", "Scary Flag"
             };
-            DataCache.myShip.retrieveData().ShipRequirements = components;
+            DataCache.myShip.retrieveData().setShipRequirements(components);
             DataCache.myShip.retrieveData().ShipType = "The Ghoul";
             Game.setScreen(S04);
         });
@@ -114,7 +116,6 @@ public abstract class GraphicsDatabase {
         });
 
         B23 = new Button("B23", 283, 290, 50, 50, () -> {
-            System.out.println(DataCache.pageNumber);
             if(DataCache.pageNumber > 0){
                 DataCache.pageNumber --;
             }
@@ -142,8 +143,108 @@ public abstract class GraphicsDatabase {
             }
         });
 
+        C05 = new ConditionalButton("C05", 760, 70, 50, 50, () -> !(DataCache.componentIndex < DataCache.myShip.retrieveData().ShipRequirements.length - 1), () -> { //Next component
+            if(DataCache.componentIndex < DataCache.myShip.retrieveData().ShipRequirements.length - 1){
+                DataCache.componentIndex ++;
+                DataCache.drawing = DataCache.myShip.retrieveData().ShipSketches[DataCache.componentIndex].getPoints();
+            }
+            System.out.println(DataCache.componentIndex);
+        });
+        
+        C06 = new ConditionalButton("C06", 519, 70, 50, 50, () -> !(DataCache.componentIndex > 0), () -> { //Previous component
+            if(DataCache.componentIndex > 0){
+                DataCache.componentIndex --;
+                DataCache.drawing = DataCache.myShip.retrieveData().ShipSketches[DataCache.componentIndex].getPoints();
+            }
+            System.out.println(DataCache.componentIndex);
+        });
+
         C07 = new ConditionalButton("C07", 470, 125, 250, 78, () -> (false), () -> { //TODO add condition
             Game.setScreen(S19);
+        });
+
+        C14 = new ConditionalButton("C14", 15, 150, 75, 75, () -> (DataCache.penColor == black), () -> {
+            DataCache.penColor = black;
+        });
+
+        C15 = new ConditionalButton("C15", 90, 150, 75, 75, () -> (DataCache.penColor == white), () -> {
+            DataCache.penColor = white;
+        });
+
+        C16 = new ConditionalButton("C16", 165, 150, 75, 75, () -> (DataCache.penColor == yellow), () -> {
+            DataCache.penColor = yellow;
+        });
+
+        C17 = new ConditionalButton("C17", 15, 225, 75, 75, () -> (DataCache.penColor == lightBlue), () -> {
+            DataCache.penColor = lightBlue;
+        });
+
+        C18 = new ConditionalButton("C18", 90, 225, 75, 75, () -> (DataCache.penColor == red), () -> {
+            DataCache.penColor = red;
+        });
+
+        C19 = new ConditionalButton("C19", 165, 225, 75, 75, () -> (DataCache.penColor == turquoise), () -> {
+            DataCache.penColor = turquoise;
+        });
+
+        C20 = new ConditionalButton("C20", 15, 300, 75, 75, () -> (DataCache.penColor == purple), () -> {
+            DataCache.penColor = purple;
+        });
+
+        C21 = new ConditionalButton("C21", 90, 300, 75, 75, () -> (DataCache.penColor == hotPink), () -> {
+            DataCache.penColor = hotPink;
+        });
+
+        C22 = new ConditionalButton("C22", 165, 300, 75, 75, () -> (DataCache.penColor == orange), () -> {
+            DataCache.penColor = orange;
+        });
+
+        C23 = new ConditionalButton("C23", 15, 375, 75, 75, () -> (DataCache.penColor == darkPurple), () -> {
+            DataCache.penColor = darkPurple;
+        });
+
+        C24 = new ConditionalButton("C24", 90, 375, 75, 75, () -> (DataCache.penColor == lightGreen), () -> {
+            DataCache.penColor = lightGreen;
+        });
+
+        C25 = new ConditionalButton("C25", 165, 375, 75, 75, () -> (DataCache.penColor == lightPink), () -> {
+            DataCache.penColor = lightPink;
+        });
+
+        C26 = new ConditionalButton("C26", 15, 450, 75, 75, () -> (DataCache.penColor == skyBlue), () -> {
+            DataCache.penColor = skyBlue;
+        });
+
+        C27 = new ConditionalButton("C27", 90, 450, 75, 75, () -> (DataCache.penColor == green), () -> {
+            DataCache.penColor = green;
+        });
+
+        C28 = new ConditionalButton("C28", 165, 450, 75, 75, () -> (DataCache.penColor == burgundy), () -> {
+            DataCache.penColor = burgundy;
+        });
+
+        C31 = new ConditionalButton("C31", 120, 108, 40, 40, () -> (DataCache.penType.equals("Scribble")), () -> {
+            DataCache.penType = "Scribble";
+        });
+
+        C32 = new ConditionalButton("C32", 160, 108, 40, 40, () -> (DataCache.penType.equals("Erase")), () -> {
+            DataCache.penType = "Erase";
+        });
+
+        C33 = new ConditionalButton("C33", 200, 108, 40, 40, () -> (DataCache.penType.equals("Line")), () -> {
+            DataCache.penType = "Line";
+        });
+
+        C34 = new ConditionalButton("C34", 15, 108, 35, 35, () -> DataCache.penSize == Constants.largePen, () -> {
+            DataCache.penSize = Constants.largePen;
+        });
+
+        C35 = new ConditionalButton("C35", 50, 108, 35, 35, () -> DataCache.penSize == Constants.mediumPen, () -> {
+            DataCache.penSize = Constants.mediumPen;
+        });
+
+        C36 = new ConditionalButton("C36", 85, 108, 35, 35, () -> DataCache.penSize == Constants.smallPen, () -> {
+            DataCache.penSize = Constants.smallPen;
         });
 
         C44 = new ConditionalButton("C03", 100, 100, 50, 50, () -> (true), () -> { //TODO add condition
@@ -161,6 +262,15 @@ public abstract class GraphicsDatabase {
         C47 = new ConditionalButton("C03", 100, 100, 50, 50, () -> (true), () -> { //TODO add condition
             Game.setScreen(S12);
         });
+
+        C48 = new ConditionalButton("C48", 642, 67, 50, 50, () -> !DataCache.myShip.retrieveData().hasAllDrawings(), () -> {
+            for(Drawing d: DataCache.myShip.retrieveData().ShipSketches){
+                d.constructImage();
+            }
+            Game.setScreen(S09);
+        });
+
+        
 
         I01 = new TextInput(298, 293, 24, 50, Color.WHITE,false,73, true, "Input Ship Name");
         I02 = new TextInput(400, 60, 24, 30, Color.BLACK, false, 73, false, "Title");
@@ -201,18 +311,26 @@ public abstract class GraphicsDatabase {
             S07.excludeFromHistory();
 
         S08 = new Screen("S08"); //Drawing
-            Button[] BS08 = {B01, B09, B12, C44};
+            Button[] BS08 = {B01, B09, B12, C05, C06, C14, C15, C16, C17, C18, C19, C20, C21, C22, C23, C24, C25, C26, C27, C28, C31, C32, C33, C34, C35, C36, C48};
             S08.addButtons(BS08);
             S08.addScript(() -> {
                 DataCache.drawingEnabled = true;
-                for(Coordinate c: DataCache.drawing){
-                    c.drawCoordinate();
-                }
+                DataCache.myShip.retrieveData().ShipSketches[DataCache.componentIndex].savePoints(DataCache.drawing);
+                DataCache.myShip.retrieveData().ShipSketches[DataCache.componentIndex].draw();
+                Game.Graphics().setColor(Color.BLACK);
+                Game.Graphics().drawString(DataCache.myShip.retrieveData().ShipRequirements[DataCache.componentIndex], 326, 75);
             });
     
         S09 = new Screen("S09");
             Button[] BS09 = {B01, B09, B12, C45};
             S09.addButtons(BS09);
+            S09.addScript(() -> {
+                int x = 0;
+                for(Drawing d: DataCache.myShip.retrieveData().ShipSketches){
+                    Game.Graphics().drawImage(d.asPicture(), x, 100, d.width(), d.height(), null);
+                    x += 50;
+                }
+            });
     
         S10 = new Screen("S10");
             Button[] BS10 = {B01, B09, B12, C46};
@@ -252,5 +370,25 @@ public abstract class GraphicsDatabase {
     
         S20 = new Screen("S20");
         Button[] BS20 = {B01};
+
+        black = new Color(0, 0, 0);
+        white = new Color(255, 255, 255);
+        yellow = new Color(235, 212, 91);
+        lightBlue = new Color(159, 215, 225);
+        red = new Color(182, 78, 78);
+        turquoise = new Color(59, 144, 171);
+        purple = new Color(122, 48, 116);
+        hotPink = new Color (200, 0, 168);
+        orange = new Color(219, 143, 81);
+        darkPurple = new Color(73, 49, 118);
+        lightGreen = new Color(160, 223, 134);
+        lightPink = new Color(214, 162, 219);
+        skyBlue = new Color(187, 208, 255);
+        green = new Color(98, 139, 98);
+        burgundy = new Color(130, 19, 19);
+        blue = new Color(83, 94, 150);
+        pink = new Color(235, 176, 218);
+
+        DataCache.penColor = black;
     }
 }

@@ -8,11 +8,14 @@ public class Ship {
 
     public Ship(){
         name = "No Name";
+        String[] temp = {};
+        Drawing[] temp2 = {};
+        data.ShipRequirements = temp;
+        data.ShipSketches = temp2;
     }
 
     public Ship(String inputName){
         name = inputName;
-        System.out.println(name);
     }
 
     public Ship(String _name, Data _data){

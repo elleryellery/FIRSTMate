@@ -36,8 +36,6 @@ public class TextInput extends Button {
         fontColor = _fontColor;
         multiLineEnabled = _multiLineEnabled;
         lineCharLim = _characterLimitPerLine;
-
-        System.out.println(this.w() + ", " + this.h());
     }
 
     public void actionOnClick(){
