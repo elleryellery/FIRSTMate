@@ -25,4 +25,6 @@ public class DataCache {
     public static boolean inFrame = true;
     public static int componentIndex = 0;
     public static Draggable holding;
+    public static int dragXOffset;
+    public static int dragYOffset;
 }
