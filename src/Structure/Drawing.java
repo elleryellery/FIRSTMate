@@ -69,7 +69,7 @@ public class Drawing {
         back = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
         Graphics2D g = back.createGraphics();
         for(Coordinate p: points){
-            p.drawCoordinate(g, -x2, -y2);
+            p.drawCoordinate(g, -x2-DataCache.dragXOffset, -y2-DataCache.dragYOffset);
         }
 
         g.dispose();

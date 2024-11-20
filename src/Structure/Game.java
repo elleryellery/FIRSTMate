@@ -117,7 +117,7 @@ public class Game  extends JPanel implements Runnable, KeyListener, MouseListene
 			ScreenScripts.drawAt(e.getX(), e.getY());
 		}
 		if(DataCache.holding != null && DataCache.inFrame){
-			DataCache.holding.setCoords(e.getX(), e.getY());
+			DataCache.holding.setCoords(e.getX() - DataCache.dragXOffset, e.getY() - DataCache.dragYOffset);
 		}
 	}
 	
@@ -150,11 +150,14 @@ public class Game  extends JPanel implements Runnable, KeyListener, MouseListene
 				break;
 			}
 		}
-		for(Button b: DataCache.myScreen.buttons()){
+		for(int i = DataCache.myScreen.buttons().length - 1; i >= 0; i--){
+			Button b = DataCache.myScreen.buttons()[i];
 			if(b instanceof Draggable){
 				if(b.check(e.getX(), e.getY())){
 					DataCache.holding = (Draggable)b;
-					System.out.println(b);
+					DataCache.dragXOffset = e.getX()-b.x();
+					DataCache.dragYOffset = e.getY()-b.y();
+					DataCache.myScreen.rearrangeToLast(b);
 					break;
 				}
 			} else {

@@ -107,6 +107,19 @@ public class Screen {
     public String toString(){
         return tag;
     }
+
+    public void rearrangeToLast(Button button){
+        Button[] temp = new Button[buttons.length];
+        int index = 0;
+        for(int i = 0; i < buttons.length; i++){
+            if(!(buttons[i] == button)){
+                temp[index] = buttons[i];
+                index ++;
+            }
+        }
+        temp[buttons.length - 1] = button;
+        buttons = temp;
+    }
 }
 
 
