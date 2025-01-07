@@ -13,6 +13,12 @@ public class Coordinate {
         y = 0;
     }
 
+    public Coordinate(String x, String y, String color, String size){
+        this.x = Integer.parseInt(x);
+        this.y = Integer.parseInt(y);
+        this.size = Integer.parseInt(size);
+    }
+
     public Coordinate(int inputX, int inputY, Color inputColor, int inputSize){
         x = inputX;
         y = inputY;
@@ -36,5 +42,9 @@ public class Coordinate {
     public void drawCoordinate(Graphics g, int xModifier, int yModifier){
         g.setColor(color);
         g.fillOval(x + xModifier, y + yModifier,size,size);
+    }
+
+    public String toString(){
+        return x + "\n" + y + "\n" + color + "\n" + size;
     }
 }

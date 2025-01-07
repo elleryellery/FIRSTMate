@@ -3,6 +3,11 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Scanner;
 import java.awt.event.*; 
 
 import Elements.*;
@@ -52,6 +57,7 @@ public class Game  extends JPanel implements Runnable, KeyListener, MouseListene
 		DataCache.myScreen.drawScreen(g2d, getWidth(), getHeight());
 
 		twoDgraph.drawImage(back, null, 0, 0);
+		//System.out.println("a: " + DataCache.coordinates1 + " b: " + DataCache.coordinates2);
 	}
 
 	public static Graphics Graphics(){
@@ -71,7 +77,66 @@ public class Game  extends JPanel implements Runnable, KeyListener, MouseListene
 		DataCache.myScreen = _screen;
 	}
 
+	public boolean createFile() {
+		File file = new File("data-" + DataCache.myShip.retrieveData().ShipName + ".txt");
+		try {
+			if(file.createNewFile()){
+				System.out.println("File Created");
+				return true;
+			} else {
+				System.out.println("File Already Exists");
+			}
+		} catch (IOException e){
+			e.printStackTrace();
+		}
+		return false;
+	}
 
+	public void saveFile(){
+		File file = new File("data-" + DataCache.myShip.retrieveData().ShipName + ".txt");
+		try {
+			FileWriter myWriter = new FileWriter(file);
+			
+			for(ArrayList v: DataCache.saveVariables){
+				myWriter.write(v.size());
+				myWriter.write("\n");
+				for(int i = 0; i < v.size(); i++){
+					myWriter.write(v.get(i).toString());
+					myWriter.write("\n");
+				}
+				System.out.println(v);
+			}
+
+			myWriter.close();
+		} catch (IOException e){
+			e.printStackTrace();
+		}
+	}
+
+	public void readFromFile(){
+		File file = new File("data-" + DataCache.myShip.retrieveData().ShipName + ".txt");
+		System.out.println(DataCache.coordinates1.getClass().getComponentType().getName());
+		try{
+			Scanner sc = new Scanner(file);
+			// // for(Object v: DataCache.saveVariables){
+			// // 	if(v instanceof MyInt){
+			// // 		((MyInt)v).setNumber(sc.nextLine());
+			// // 	} else {
+			// // 		v = sc.nextLine();
+			// // 	}
+			// // 	System.out.println(v);
+			// // }
+			// for(ArrayList v: DataCache.saveVariables){
+			// 	for(int i = 0; i < Integer.parseInt(sc.nextLine()); i ++){
+			// 		// if(v.getClass().getName().equals("Coordinate")){
+			// 		// 	v.
+			// 		// }
+			// 	}
+			// }
+		} catch (Exception e){
+			e.printStackTrace();
+		}
+	}
 	
 	@Override
 	public void keyTyped(KeyEvent e) {

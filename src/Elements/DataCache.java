@@ -27,4 +27,9 @@ public class DataCache {
     public static Draggable holding;
     public static int dragXOffset;
     public static int dragYOffset;
+
+    public static ArrayList<Coordinate> coordinates1 = new ArrayList <Coordinate>();
+    public static ArrayList<Coordinate> coordinates2 = new ArrayList <Coordinate>();
+
+    public static ArrayList[] saveVariables = {coordinates1, coordinates2};
 }
