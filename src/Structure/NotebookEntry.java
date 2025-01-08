@@ -16,6 +16,12 @@ public class NotebookEntry {
         entry = inputEntry;
     }
 
+    
+    public NotebookEntry(String inputName, String metadata, String inputEntry){
+        name = inputName;
+        entry = inputEntry;
+        this.metadata = metadata;
+    }
 
     public String name(){
         return name;
@@ -41,5 +47,6 @@ public class NotebookEntry {
     public void update(){
         name = GraphicsDatabase.I02.contents();
         entry = GraphicsDatabase.I03.contents();
+        recordMetadata();
     }
 }

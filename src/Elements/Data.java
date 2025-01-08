@@ -17,8 +17,19 @@ public class Data {
         Notebook = new Notebook();
     }
 
+    public Data(String[] shipRequirements, String shipType, Notebook notebook, Drawing[] shipSketches){
+        ShipRequirements = shipRequirements;
+        ShipType = shipType;
+        Notebook = notebook;
+        ShipSketches = shipSketches;
+    }
+
     public Notebook Notebook(){
         return Notebook;
+    }
+
+    public void setNotebook(Notebook notebook){
+        Notebook = notebook;
     }
 
     public void setShipRequirements(String[] customRequirements){
@@ -38,5 +49,16 @@ public class Data {
             }
         }
         return true;
+    }
+
+    public String toString(){
+        String s = "";
+        s += ShipRequirements.length + "\n";
+        for(String r: ShipRequirements){
+            s += r + "\n";
+        }
+        s += ShipType + "\n";
+        s += Notebook + "\n";
+        return s;
     }
 }

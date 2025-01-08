@@ -102,11 +102,12 @@ public abstract class GraphicsDatabase {
 
         B19 = new Button("B20", 719, 533, 50, 50, () -> { //TODO Save notebook entry
             Game.setScreen(S08);
+            DataCache.myShip.myNotebook().entries().get(DataCache.pageNumber).update();
         });
 
         B20 = new Button("B20", 493, 532, 250, 78, () -> { //TODO Save notebook entry
             Game.setScreen(S01);
-            DataCache.myShip.myNotebook().entries().get(DataCache.pageNumber-1).update();
+            DataCache.myShip.myNotebook().entries().get(DataCache.pageNumber).update();
         });
 
         B21 = new Button("B21", 55, 561, 50, 50, () -> {//TODO Check ship and provide relevant animation

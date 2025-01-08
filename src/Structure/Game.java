@@ -77,11 +77,14 @@ public class Game  extends JPanel implements Runnable, KeyListener, MouseListene
 		DataCache.myScreen = _screen;
 	}
 
-	public boolean createFile() {
-		File file = new File("data-" + DataCache.myShip.retrieveData().ShipName + ".txt");
+	public static boolean createFile() {
+		File file = new File("Saves\\data-" + DataCache.myShip.name() + ".txt");
 		try {
 			if(file.createNewFile()){
 				System.out.println("File Created");
+				if(DataCache.myShip != null){
+					saveFile();
+				}
 				return true;
 			} else {
 				System.out.println("File Already Exists");
@@ -92,19 +95,13 @@ public class Game  extends JPanel implements Runnable, KeyListener, MouseListene
 		return false;
 	}
 
-	public void saveFile(){
-		File file = new File("data-" + DataCache.myShip.retrieveData().ShipName + ".txt");
+	public static void saveFile(){
+		File file = new File("Saves\\data-" + DataCache.myShip.name() + ".txt");
 		try {
 			FileWriter myWriter = new FileWriter(file);
 			
-			for(ArrayList v: DataCache.saveVariables){
-				myWriter.write(v.size());
-				myWriter.write("\n");
-				for(int i = 0; i < v.size(); i++){
-					myWriter.write(v.get(i).toString());
-					myWriter.write("\n");
-				}
-				System.out.println(v);
+			if(DataCache.myShip.retrieveData().ShipRequirements.length >= 0){
+				myWriter.write(DataCache.myShip.toString());
 			}
 
 			myWriter.close();
@@ -114,28 +111,45 @@ public class Game  extends JPanel implements Runnable, KeyListener, MouseListene
 	}
 
 	public void readFromFile(){
-		File file = new File("data-" + DataCache.myShip.retrieveData().ShipName + ".txt");
-		System.out.println(DataCache.coordinates1.getClass().getComponentType().getName());
+		File file = new File("Saves\\data-" + "sam" + ".txt");
+		//System.out.println(DataCache.coordinates1.getClass().getComponentType().getName());
 		try{
 			Scanner sc = new Scanner(file);
-			// // for(Object v: DataCache.saveVariables){
-			// // 	if(v instanceof MyInt){
-			// // 		((MyInt)v).setNumber(sc.nextLine());
-			// // 	} else {
-			// // 		v = sc.nextLine();
-			// // 	}
-			// // 	System.out.println(v);
-			// // }
-			// for(ArrayList v: DataCache.saveVariables){
-			// 	for(int i = 0; i < Integer.parseInt(sc.nextLine()); i ++){
-			// 		// if(v.getClass().getName().equals("Coordinate")){
-			// 		// 	v.
-			// 		// }
-			// 	}
-			// }
+
+			//Load ship
+				ArrayList<String> reqs = new ArrayList<String>();
+				String name = sc.nextLine();
+				int reqNumber = Integer.parseInt(sc.nextLine());
+				for(int i = 0; i < reqNumber; i++){
+					reqs.add(sc.nextLine());
+				}
+				String type = sc.nextLine();
+
+			//Load notebook
+				ArrayList<NotebookEntry> entries = new ArrayList<NotebookEntry>();
+				int entriesNumber = Integer.parseInt(sc.nextLine());
+				for(int i = 0; i < entriesNumber; i++){
+					entries.add(new NotebookEntry(sc.nextLine(), sc.nextLine(), sc.nextLine()));
+				}
+
+			Data d = new Data(toStringArray(reqs), type, new Notebook(entries), null);
+			Ship s = new Ship(name, d);
+
+			DataCache.myShip = s;
+			ScreenScripts.PullNotebookPageToTextBox();
+			setScreen(GraphicsDatabase.S07);
+
 		} catch (Exception e){
 			e.printStackTrace();
 		}
+	}
+
+	public String[] toStringArray(ArrayList<String> input){
+		String[] s = new String[input.size()];
+		for(int i = 0; i < input.size(); i ++){
+			s[i] = input.get(i);
+		}
+		return s;
 	}
 	
 	@Override

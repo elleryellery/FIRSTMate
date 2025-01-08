@@ -46,4 +46,14 @@ public class Notebook {
         }
     }
 
+    public String toString(){
+        String s = entries.size() + "\n";
+        for(NotebookEntry e: entries){
+            s += e.name() + "\n";
+            s += e.metadata() + "\n";
+            s += e.entry() + "\n";
+        }
+        return s;
+    }
+
 }

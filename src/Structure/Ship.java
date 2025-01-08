@@ -19,7 +19,8 @@ public class Ship {
     }
 
     public Ship(String _name, Data _data){
-
+        name = _name;
+        data = _data;
     }
 
     public Notebook myNotebook(){
@@ -28,6 +29,14 @@ public class Ship {
 
     public Data retrieveData(){
         return data;
+    }
+
+    public String toString(){
+        return name + "\n" + data;
+    }
+
+    public String name(){
+        return name;
     }
 
 }

@@ -36,7 +36,9 @@ public class Main extends JFrame{
 
 			@Override
 			public void windowClosing(WindowEvent arg0) {
-				play.saveFile();
+				if(!Game.createFile()){
+					Game.saveFile();
+				}
 			}
 
 			@Override
@@ -56,9 +58,7 @@ public class Main extends JFrame{
 
 			@Override
 			public void windowOpened(WindowEvent arg0) {
-				if(!play.createFile()){
-					play.readFromFile();
-				}
+				play.readFromFile();
 			}  
 		});
 	}
