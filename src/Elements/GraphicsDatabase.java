@@ -101,13 +101,13 @@ public abstract class GraphicsDatabase {
         });
 
         B19 = new Button("B20", 719, 533, 50, 50, () -> { //TODO Save notebook entry
-            Game.setScreen(S08);
             DataCache.myShip.myNotebook().entries().get(DataCache.pageNumber).update();
+            Game.setScreen(S08);
         });
 
         B20 = new Button("B20", 493, 532, 250, 78, () -> { //TODO Save notebook entry
-            Game.setScreen(S01);
             DataCache.myShip.myNotebook().entries().get(DataCache.pageNumber).update();
+            Game.setScreen(S01);
         });
 
         B21 = new Button("B21", 55, 561, 50, 50, () -> {//TODO Check ship and provide relevant animation
@@ -268,10 +268,10 @@ public abstract class GraphicsDatabase {
             for(Drawing d: DataCache.myShip.retrieveData().ShipSketches){
                 d.constructImage();
             }
-            Game.setScreen(S09);
             Button[] BS09 = {B01, B09, B12, C45};
             Button[] temp = Stream.concat(Arrays.stream(BS09), Arrays.stream(ScreenScripts.convertSketchesToDraggables())).toArray(Button[]::new);
             S09.addButtons(temp);
+            Game.setScreen(S09);
         });
 
         
@@ -319,7 +319,6 @@ public abstract class GraphicsDatabase {
             S08.addButtons(BS08);
             S08.addScript(() -> {
                 DataCache.drawingEnabled = true;
-                DataCache.myShip.retrieveData().ShipSketches[DataCache.componentIndex].savePoints(DataCache.drawing);
                 DataCache.myShip.retrieveData().ShipSketches[DataCache.componentIndex].draw();
                 Game.Graphics().setColor(Color.BLACK);
                 Game.Graphics().drawString(DataCache.myShip.retrieveData().ShipRequirements[DataCache.componentIndex], 326, 75);

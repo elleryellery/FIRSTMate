@@ -43,6 +43,7 @@ public class Button {
         Game.Graphics().drawImage(icon.getImage(),x,y,w,h,null);
         if(DataCache.debug){
             Game.Graphics().drawRect(x, y, w, h);
+            Game.Graphics().drawString(tag, x, y-20);
         }
     }
 

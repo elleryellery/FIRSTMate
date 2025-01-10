@@ -47,6 +47,7 @@ public class ScreenScripts {
                     break;
             }
         }
+        DataCache.myShip.retrieveData().ShipSketches[DataCache.componentIndex].savePoints(DataCache.drawing);
     }
 
     public static void drawDisconnectedPoint(int x, int y){

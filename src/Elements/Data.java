@@ -58,7 +58,7 @@ public class Data {
             s += r + "\n";
         }
         s += ShipType + "\n";
-        s += Notebook + "\n";
+        s += Notebook;
         return s;
     }
 }

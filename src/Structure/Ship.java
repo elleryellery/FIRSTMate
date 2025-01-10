@@ -32,7 +32,15 @@ public class Ship {
     }
 
     public String toString(){
-        return name + "\n" + data;
+        String s = name + "\n" + data + "\n";
+        s += data.ShipSketches.length + "\n";
+        for(Drawing d: data.ShipSketches){
+            s += d.getPoints().size() + "\n";
+            for(Coordinate c: d.getPoints()){
+                s += c.x() + "\n" + c.y() + "\n" + c.color.getRed() + "\n" + c.color.getGreen() + "\n" + c.color.getBlue() + "\n" + c.size + "\n";
+            }
+        }
+        return s;
     }
 
     public String name(){

@@ -131,8 +131,30 @@ public class Game  extends JPanel implements Runnable, KeyListener, MouseListene
 				for(int i = 0; i < entriesNumber; i++){
 					entries.add(new NotebookEntry(sc.nextLine(), sc.nextLine(), sc.nextLine()));
 				}
+			
+			//Load drawings
+				int numDrawings = Integer.parseInt(sc.nextLine());
+				Drawing[] drawings = new Drawing[numDrawings];
 
-			Data d = new Data(toStringArray(reqs), type, new Notebook(entries), null);
+				for(int i = 0; i < numDrawings; i++){
+					int numPoints = Integer.parseInt(sc.nextLine());
+					ArrayList<Coordinate> coords = new ArrayList<Coordinate> ();
+					for(int j = 0; j < numPoints; j++){
+						int x = Integer.parseInt(sc.nextLine());
+						int y = Integer.parseInt(sc.nextLine());
+						int r = Math.abs(Integer.parseInt(sc.nextLine()));
+						int g = Math.abs(Integer.parseInt(sc.nextLine()));
+						int b = Math.abs(Integer.parseInt(sc.nextLine()));
+
+						int size = Integer.parseInt(sc.nextLine());
+
+						Coordinate c = new Coordinate(x,y, new Color(r,g,b), size);
+						coords.add(c);
+					}
+					drawings[i] = new Drawing(coords);
+				}
+
+			Data d = new Data(toStringArray(reqs), type, new Notebook(entries), drawings);
 			Ship s = new Ship(name, d);
 
 			DataCache.myShip = s;

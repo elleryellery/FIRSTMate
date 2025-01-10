@@ -47,11 +47,12 @@ public class Notebook {
     }
 
     public String toString(){
-        String s = entries.size() + "\n";
+        String s = entries.size() + "";
         for(NotebookEntry e: entries){
+            s += "\n";
             s += e.name() + "\n";
             s += e.metadata() + "\n";
-            s += e.entry() + "\n";
+            s += e.entry();
         }
         return s;
     }
