@@ -1,6 +1,7 @@
 package Structure;
 
 import Elements.Data;
+import Elements.ScreenScripts;
 
 public class Ship {
     private String name;
@@ -37,9 +38,15 @@ public class Ship {
         for(Drawing d: data.ShipSketches){
             s += d.getPoints().size() + "\n";
             for(Coordinate c: d.getPoints()){
-                s += c.x() + "\n" + c.y() + "\n" + c.color.getRed() + "\n" + c.color.getGreen() + "\n" + c.color.getBlue() + "\n" + c.size + "\n";
+                s += c.x() + " " + c.y() + " " + c.color.getRed() + " " + c.color.getGreen() + " " + c.color.getBlue() + " " + c.size + "\n";
             }
+            if(d.draggable() == null){
+                ScreenScripts.convertSketchesToDraggables();
+            }
+
+            s += d.draggable().x() + " " + d.draggable().y() + "\n";
         }
+        
         return s;
     }
 

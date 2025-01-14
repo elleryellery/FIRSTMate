@@ -111,7 +111,7 @@ public class Game  extends JPanel implements Runnable, KeyListener, MouseListene
 	}
 
 	public void readFromFile(){
-		File file = new File("Saves\\data-" + "sam" + ".txt");
+		File file = new File("Saves\\data-" + "Ellery's Ship #1" + ".txt");
 		//System.out.println(DataCache.coordinates1.getClass().getComponentType().getName());
 		try{
 			Scanner sc = new Scanner(file);
@@ -140,18 +140,24 @@ public class Game  extends JPanel implements Runnable, KeyListener, MouseListene
 					int numPoints = Integer.parseInt(sc.nextLine());
 					ArrayList<Coordinate> coords = new ArrayList<Coordinate> ();
 					for(int j = 0; j < numPoints; j++){
-						int x = Integer.parseInt(sc.nextLine());
-						int y = Integer.parseInt(sc.nextLine());
-						int r = Math.abs(Integer.parseInt(sc.nextLine()));
-						int g = Math.abs(Integer.parseInt(sc.nextLine()));
-						int b = Math.abs(Integer.parseInt(sc.nextLine()));
+						int x = sc.nextInt();
+						int y = sc.nextInt();
+						int r = sc.nextInt();
+						int g = sc.nextInt();
+						int b = sc.nextInt();
 
-						int size = Integer.parseInt(sc.nextLine());
+						int size = sc.nextInt();
+						sc.nextLine();
 
 						Coordinate c = new Coordinate(x,y, new Color(r,g,b), size);
 						coords.add(c);
 					}
 					drawings[i] = new Drawing(coords);
+					int x = sc.nextInt();
+					int y = sc.nextInt();
+					drawings[i].setX(x);
+					drawings[i].setY(y);
+					sc.nextLine();
 				}
 
 			Data d = new Data(toStringArray(reqs), type, new Notebook(entries), drawings);

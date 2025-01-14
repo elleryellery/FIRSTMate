@@ -12,13 +12,16 @@ public class Drawing {
     private ArrayList<Coordinate> points = new ArrayList<Coordinate>();
     private Image picture;
     private int width, height;
+    private Draggable draggable;
+    private int x, y;
 
     public Drawing(){
-
+        x = -3141592;
     }
 
     public Drawing(ArrayList<Coordinate> _points){
         points = _points;
+        x = -3141592;
     }
 
 
@@ -30,6 +33,14 @@ public class Drawing {
         for(Coordinate p: points){
             p.drawCoordinate();
         }
+    }
+
+    public void giveDraggable(Draggable d){
+        draggable = d;
+    }
+
+    public Draggable draggable() {
+        return draggable;
     }
 
     public boolean isEmpty(){
@@ -89,6 +100,22 @@ public class Drawing {
     
     public int height(){
         return height;
+    }
+
+    public void setX(int x){
+        this.x = x;
+    }
+
+    public void setY(int y){
+        this.y = y;
+    }
+
+    public int x() {
+        return x;
+    }
+
+    public int y() {
+        return y;
     }
 
 }

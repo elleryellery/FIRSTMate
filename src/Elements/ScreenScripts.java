@@ -87,12 +87,20 @@ public class ScreenScripts {
     public static Draggable[] convertSketchesToDraggables(){
         Draggable[] temp = new Draggable[ DataCache.myShip.retrieveData().ShipSketches.length];
 
-        int x = 100;
-        int y = 100;
+        int x = 0;
+        int y = 0;
 
-        for(int i = 0; i < DataCache.myShip.retrieveData().ShipSketches.length; i++){
+        for(int i = DataCache.myShip.retrieveData().ShipSketches.length - 1; i >= 0; i--){
             Drawing d = DataCache.myShip.retrieveData().ShipSketches[i];
+            if(d.x() == -3141592){
+                x = 270 - d.width();
+                y = 344 - (int)(d.height()/2);
+            } else {
+                x = d.x();
+                y = d.y();
+            }
             temp[i] = (new Draggable(x, y, d.width(), d.height(), d.asPicture()));
+            d.giveDraggable(temp[i]);
         }
 
         return temp;

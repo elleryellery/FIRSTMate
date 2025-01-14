@@ -45,6 +45,6 @@ public class Coordinate {
     }
 
     public String toString(){
-        return x + "\n" + y + "\n" + color + "\n" + size;
+        return x + " " + y + " " + color + " " + size;
     }
 }

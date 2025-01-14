@@ -10,7 +10,7 @@ public abstract class GraphicsDatabase {
 
     public static TextInput I01, I02, I03, I04;
 
-    public static ConditionalButton C01, C02, C03, C04, C05, C06, C07, C08, C14, C15, C16, C17, C18, C19, C20, C21, C22, C23, C24, C25, C26, C27, C28, C29, C30, C31, C32, C33, C34, C35, C36, C44, C45, C46, C47, C48;
+    public static ConditionalButton C01, C02, C03, C04, C05, C06, C07, C08, C14, C15, C16, C17, C18, C19, C20, C21, C22, C23, C24, C25, C26, C27, C28, C29, C30, C31, C32, C33, C34, C35, C36, C44, C45, C46, C47, C48, C49;
 
     public static Screen S01, S02, S03, S04, S05, S06, S07, S08, S09, S10, S11, S12, S13, S14, S15, S16, S17, S18, S19, S20;
 
@@ -96,7 +96,7 @@ public abstract class GraphicsDatabase {
             Game.setScreen(S14);
         });
 
-        B12 = new Button("B12", 1095, 78, 80, 80, () -> {
+        B12 = new Button("B12", 1097, 526, 80, 80, () -> {
             Game.setScreen(S15);
         });
 
@@ -248,19 +248,19 @@ public abstract class GraphicsDatabase {
             DataCache.penSize = Constants.smallPen;
         });
 
-        C44 = new ConditionalButton("C03", 100, 100, 50, 50, () -> (true), () -> { //TODO add condition
+        C44 = new ConditionalButton("C48", 100, 100, 50, 50, () -> (false), () -> { //TODO add condition
             Game.setScreen(S09);
         });
 
-        C45 = new ConditionalButton("C03", 100, 100, 50, 50, () -> (true), () -> { //TODO add condition
+        C45 = new ConditionalButton("C48", 100, 100, 50, 50, () -> (false), () -> { //TODO add condition
             Game.setScreen(S10);
         });
         
-        C46 = new ConditionalButton("C03", 100, 100, 50, 50, () -> (true), () -> { //TODO add condition
+        C46 = new ConditionalButton("C48", 100, 100, 50, 50, () -> (false), () -> { //TODO add condition
             Game.setScreen(S11);
         });
 
-        C47 = new ConditionalButton("C03", 100, 100, 50, 50, () -> (true), () -> { //TODO add condition
+        C47 = new ConditionalButton("C48", 709, 8, 50, 50, () -> (false), () -> { //TODO add condition
             Game.setScreen(S12);
         });
 
@@ -268,13 +268,12 @@ public abstract class GraphicsDatabase {
             for(Drawing d: DataCache.myShip.retrieveData().ShipSketches){
                 d.constructImage();
             }
-            Button[] BS09 = {B01, B09, B12, C45};
+            Button[] BS09 = {B01, B09, B12, C47};
             Button[] temp = Stream.concat(Arrays.stream(BS09), Arrays.stream(ScreenScripts.convertSketchesToDraggables())).toArray(Button[]::new);
             S09.addButtons(temp);
             Game.setScreen(S09);
         });
-
-        
+   
 
         I01 = new TextInput(298, 293, 24, 50, Color.WHITE,false,73, true, "Input Ship Name");
         I02 = new TextInput(400, 60, 24, 30, Color.BLACK, false, 73, false, "Title");
@@ -324,8 +323,8 @@ public abstract class GraphicsDatabase {
                 Game.Graphics().drawString(DataCache.myShip.retrieveData().ShipRequirements[DataCache.componentIndex], 326, 75);
             });
     
-        S09 = new Screen("S09");
-            Button[] BS09 = {B01, B09, B12, C45};
+        S09 = new Screen("S10");
+            Button[] BS09 = {B01, B09, B12, C47};
             S09.addButtons(BS09);
             // S09.addScript(() -> {
             //     int x = 0;
@@ -340,7 +339,7 @@ public abstract class GraphicsDatabase {
             S10.addButtons(BS10);
     
         S11 = new Screen("S11");
-            Button[] BS11 = {B01, B09, B12, C47};
+            Button[] BS11 = {B01, B09, B12};
             S11.addButtons(BS11);
     
         S12 = new Screen("S12");
