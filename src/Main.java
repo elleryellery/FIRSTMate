@@ -1,6 +1,7 @@
 import javax.swing.*;
 
 import Structure.Game;
+import Structure.SaveFiles;
 
 import java.awt.*;
 import java.awt.event.*;
@@ -36,8 +37,8 @@ public class Main extends JFrame{
 
 			@Override
 			public void windowClosing(WindowEvent arg0) {
-				if(!Game.createFile()){
-					Game.saveFile();
+				if(!SaveFiles.createFile()){
+					SaveFiles.saveFile();
 				}
 			}
 
@@ -58,7 +59,7 @@ public class Main extends JFrame{
 
 			@Override
 			public void windowOpened(WindowEvent arg0) {
-				play.readFromFile();
+				SaveFiles.readFromFile();
 			}  
 		});
 	}

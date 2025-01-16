@@ -27,6 +27,10 @@ public class DataCache {
     public static Draggable holding;
     public static int dragXOffset;
     public static int dragYOffset;
+    public static int shipIndex;
+    public static int waterLevel = 0;
+    public static int shipLevel = 0;
+    public static ArrayList<Wind> winds = new ArrayList <Wind> ();
 
     public static ArrayList<Coordinate> coordinates1 = new ArrayList <Coordinate>();
     public static ArrayList<Coordinate> coordinates2 = new ArrayList <Coordinate>();

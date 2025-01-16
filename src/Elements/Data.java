@@ -61,4 +61,13 @@ public class Data {
         s += Notebook;
         return s;
     }
+
+    public void drawShip(int x, int y){
+        for(Drawing d: ShipSketches){
+            Game.Graphics().drawImage(d.asPicture(),d.x() + x, d.y() + y, d.width(), d.height(), null);
+            if(DataCache.debug){
+                Game.Graphics().drawRect(d.x() + x, d.y() + y, d.width(), d.height());
+            }
+        }
+    }
 }

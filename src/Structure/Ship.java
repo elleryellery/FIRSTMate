@@ -54,4 +54,15 @@ public class Ship {
         return name;
     }
 
+    public boolean sinks(){
+        int numPoints = 0;
+        for(Drawing d: data.ShipSketches){
+            numPoints += d.getPoints().size();
+        }
+
+        System.out.println(numPoints);
+
+        return numPoints > 15000;
+    }
+
 }

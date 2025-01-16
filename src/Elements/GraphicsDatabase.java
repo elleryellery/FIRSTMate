@@ -1,16 +1,19 @@
 package Elements;
 import java.awt.Color;
+import java.awt.Font;
 import java.util.Arrays;
 import java.util.stream.Stream;
+
+import javax.swing.ImageIcon;
 
 import Structure.*;
 
 public abstract class GraphicsDatabase {
-    public static Button B01, B02, B03, B04, B05, B06, B07, B08, B09, B10, B11, B12, B13, B14, B15, B16, B17, B18, B19, B20, B21, B22, B23;
+    public static Button B01, B02, B03, B04, B05, B06, B07, B08, B09, B10, B11, B12, B13, B14, B15, B16, B17, B18, B19, B20, B21, B22, B23, B24, B25, B26, B27;
 
     public static TextInput I01, I02, I03, I04;
 
-    public static ConditionalButton C01, C02, C03, C04, C05, C06, C07, C08, C14, C15, C16, C17, C18, C19, C20, C21, C22, C23, C24, C25, C26, C27, C28, C29, C30, C31, C32, C33, C34, C35, C36, C44, C45, C46, C47, C48, C49;
+    public static ConditionalButton C01, C02, C03, C04, C05, C06, C07, C08, C14, C15, C16, C17, C18, C19, C20, C21, C22, C23, C24, C25, C26, C27, C28, C29, C30, C31, C32, C33, C34, C35, C36, C44, C45, C46, C47, C48, C49, C50;
 
     public static Screen S01, S02, S03, S04, S05, S06, S07, S08, S09, S10, S11, S12, S13, S14, S15, S16, S17, S18, S19, S20;
 
@@ -126,6 +129,33 @@ public abstract class GraphicsDatabase {
             ScreenScripts.PullNotebookPageToTextBox();
         });
 
+        B24 = new Button("B08", 450, 521, 250, 78, () -> {
+            DataCache.myShip = DataCache.ships.get(DataCache.shipIndex);
+            if(DataCache.myShip.retrieveData().hasAllDrawings()){
+                Button[] BS09 = {B01, B09, B12, C47};
+                Button[] temp = Stream.concat(Arrays.stream(BS09), Arrays.stream(ScreenScripts.convertSketchesToDraggables())).toArray(Button[]::new);
+                S09.addButtons(temp);
+                Game.setScreen(S09);
+            } else {
+                Game.setScreen(S07);
+            }
+        });
+
+        B25 = new Button("B25", 450, 0, 75, 75, () -> {
+            if(DataCache.waterLevel < 15){
+                DataCache.waterLevel ++;
+                if(DataCache.waterLevel > 3 && !DataCache.myShip.sinks()){
+                    DataCache.shipLevel += 20;
+                }
+            }
+        });
+        B26 = new Button("B26", 550, 0, 75, 75, () -> {
+
+        });
+        B27 = new Button("B27", 650, 0, 75, 75, () -> {
+            DataCache.winds.add(new Wind());
+        });
+
         C01 = new ConditionalButton("C01", 100, 100, 50, 50, () -> (Settings.enabledMusic), () -> {
             Settings.enabledMusic = !Settings.enabledMusic;
         });
@@ -160,7 +190,7 @@ public abstract class GraphicsDatabase {
             }
         });
 
-        C07 = new ConditionalButton("C07", 470, 125, 250, 78, () -> (false), () -> { //TODO add condition
+        C07 = new ConditionalButton("C07", 470, 125, 250, 78, () -> (!(DataCache.ships.size() > 0)), () -> { //TODO add condition
             Game.setScreen(S19);
         });
 
@@ -273,6 +303,17 @@ public abstract class GraphicsDatabase {
             S09.addButtons(temp);
             Game.setScreen(S09);
         });
+        C49 = new ConditionalButton("C05", 1028, 270, 50, 50, () -> !(DataCache.shipIndex < DataCache.ships.size() - 1), () -> { //Next component
+            if(DataCache.shipIndex < DataCache.ships.size() - 1){
+                DataCache.shipIndex ++;
+            }
+        });
+        
+        C50 = new ConditionalButton("C06", 116, 270, 50, 50, () -> !(DataCache.shipIndex > 0), () -> { //Previous component
+            if(DataCache.shipIndex > 0){
+                DataCache.shipIndex --;
+            }
+        });
    
 
         I01 = new TextInput(298, 293, 24, 50, Color.WHITE,false,73, true, "Input Ship Name");
@@ -343,8 +384,16 @@ public abstract class GraphicsDatabase {
             S11.addButtons(BS11);
     
         S12 = new Screen("S12");
-            Button[] BS12 = {B01, B09, B11};
+            Button[] BS12 = {B01, B09, B11, B25, B26, B27};
             S12.addButtons(BS12);
+            S12.addScript(() -> {
+                //System.out.println(DataCache.shipLevel);
+                DataCache.myShip.retrieveData().drawShip(-150, -DataCache.shipLevel);
+                Game.Graphics().drawImage(new ImageIcon("FIRSTMate-Assets\\M\\Water.png").getImage(), 0, 610 - DataCache.waterLevel * 20, 1200, 310, null);
+                for(Wind w: DataCache.winds){
+                    w.drawWind();
+                }
+            });
     
         S13 = new Screen("S13");
             Button[] BS13 = {B01};
@@ -368,7 +417,16 @@ public abstract class GraphicsDatabase {
         Button[] BS18 = {B01};
     
         S19 = new Screen("S19");
-            Button[] BS19 = {B01};
+            Button[] BS19 = {B01, B09, B24, C49, C50};
+            S19.addButtons(BS19);
+            S19.addScript(() -> {
+                Color c = new Color(0, 0, 0, 80);
+                Game.Graphics().setColor(c);
+                Game.Graphics().setFont(new Font("Times New Roman", Font.BOLD, 50));
+
+                Game.Graphics().drawString(DataCache.ships.get(DataCache.shipIndex).name(), 23, 580);
+                DataCache.ships.get(DataCache.shipIndex).retrieveData().drawShip(-150, 0);
+            });
     
         S20 = new Screen("S20");
         Button[] BS20 = {B01};
