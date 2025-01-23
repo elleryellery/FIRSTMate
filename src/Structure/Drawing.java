@@ -14,6 +14,7 @@ public class Drawing {
     private int width, height;
     private Draggable draggable;
     private int x, y;
+    private int x1, x2, y1, y2;
 
     public Drawing(){
         x = -3141592;
@@ -57,10 +58,10 @@ public class Drawing {
 
     public void constructImage(){
         BufferedImage back;
-        int x1 = points.get(0).x();
-        int x2 = points.get(0).x();
-        int y1 = points.get(0).y();
-        int y2 = points.get(0).y();
+        x1 = points.get(0).x();
+        x2 = points.get(0).x();
+        y1 = points.get(0).y();
+        y2 = points.get(0).y();
         for(Coordinate p: points){
             if(p.x() > x1){
                 x1 = p.x();
@@ -74,6 +75,7 @@ public class Drawing {
                 y2 = p.y();
             }
         }
+
         int width = x1 - x2 + DataCache.penSize;
         int height = y1-y2 + DataCache.penSize;
 
@@ -116,6 +118,22 @@ public class Drawing {
 
     public int y() {
         return y;
+    }
+
+    public int x1() {
+        return x1;
+    }
+
+    public int y1() {
+        return y1;
+    }
+
+    public int x2() {
+        return x2;
+    }
+
+    public int y2() {
+        return y2;
     }
 
 }

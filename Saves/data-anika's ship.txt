@@ -125,7 +125,7 @@ The Ghoul is a defensive ship filled with ghostly inhabitants.⏎As a Ghoul, you
 709 331 235 212 91 20
 716 324 235 212 91 20
 723 316 235 212 91 20
-458 218
+613 184
 16
 633 256 98 139 98 20
 633 265 98 139 98 20
@@ -143,7 +143,7 @@ The Ghoul is a defensive ship filled with ghostly inhabitants.⏎As a Ghoul, you
 650 372 98 139 98 20
 657 365 98 139 98 20
 664 358 98 139 98 20
-1081 137
+674 181
 58
 607 298 187 208 255 20
 602 307 187 208 255 20
@@ -203,7 +203,7 @@ The Ghoul is a defensive ship filled with ghostly inhabitants.⏎As a Ghoul, you
 616 305 187 208 255 20
 615 305 187 208 255 20
 614 305 187 208 255 20
-716 299
+736 247
 150
 380 257 73 49 118 20
 380 268 73 49 118 20
@@ -454,4 +454,4 @@ The Ghoul is a defensive ship filled with ghostly inhabitants.⏎As a Ghoul, you
 703 386 130 19 19 20
 703 387 130 19 19 20
 702 387 130 19 19 20
-656 142
+901 326

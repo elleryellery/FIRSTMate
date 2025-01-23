@@ -17,6 +17,8 @@ public abstract class GraphicsDatabase {
 
     public static Screen S01, S02, S03, S04, S05, S06, S07, S08, S09, S10, S11, S12, S13, S14, S15, S16, S17, S18, S19, S20;
 
+    public static Draggable D05;
+
     public static Color black, white, yellow, lightBlue, red, turquoise, purple, hotPink, orange, darkPurple, lightGreen, lightPink, skyBlue, green, burgundy, blue, pink;
 
     public static void init(){
@@ -152,6 +154,7 @@ public abstract class GraphicsDatabase {
         B26 = new Button("B26", 550, 0, 75, 75, () -> {
 
         });
+
         B27 = new Button("B27", 650, 0, 75, 75, () -> {
             DataCache.winds.add(new Wind());
         });
@@ -314,11 +317,12 @@ public abstract class GraphicsDatabase {
                 DataCache.shipIndex --;
             }
         });
-   
 
         I01 = new TextInput(298, 293, 24, 50, Color.WHITE,false,73, true, "Input Ship Name");
         I02 = new TextInput(400, 60, 24, 30, Color.BLACK, false, 73, false, "Title");
         I03 = new TextInput(400, 100, 15, 23, Color.BLACK, true, 32, false, "Type here...");
+
+        D05 = new Draggable("D05", 40, 258, 100, 100);
 
 
         S01 = new Screen("S01");
@@ -384,7 +388,7 @@ public abstract class GraphicsDatabase {
             S11.addButtons(BS11);
     
         S12 = new Screen("S12");
-            Button[] BS12 = {B01, B09, B11, B25, B26, B27};
+            Button[] BS12 = {B01, B09, B11, B25, B26, B27, D05};
             S12.addButtons(BS12);
             S12.addScript(() -> {
                 //System.out.println(DataCache.shipLevel);
@@ -393,6 +397,11 @@ public abstract class GraphicsDatabase {
                 for(Wind w: DataCache.winds){
                     w.drawWind();
                 }
+                if(DataCache.cannonball != null){
+                    DataCache.cannonball.drawCannonball();
+                }
+                Game.Graphics().setColor(Color.BLACK);
+                Game.Graphics().drawLine(0, 308, D05.x() +25, D05.y() + (int)(D05.h()/2));
             });
     
         S13 = new Screen("S13");

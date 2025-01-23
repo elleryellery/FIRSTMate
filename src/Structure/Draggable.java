@@ -18,6 +18,10 @@ public class Draggable extends Button{
         super(_tag, _x, _y, _w, _h, () -> {
             
         }); //TODO add default draggable script
+
+        String base = "FIRSTMate-Assets\\D\\";
+
+        this.image = new ImageIcon(base + _tag + ".png").getImage();
     }
 
     public Draggable(int _x, int _y, int _w, int _h, Image image){

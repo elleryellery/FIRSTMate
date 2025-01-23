@@ -31,6 +31,7 @@ public class DataCache {
     public static int waterLevel = 0;
     public static int shipLevel = 0;
     public static ArrayList<Wind> winds = new ArrayList <Wind> ();
+    public static Cannonball cannonball = null;
 
     public static ArrayList<Coordinate> coordinates1 = new ArrayList <Coordinate>();
     public static ArrayList<Coordinate> coordinates2 = new ArrayList <Coordinate>();
