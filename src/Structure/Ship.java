@@ -38,7 +38,7 @@ public class Ship {
         for(Drawing d: data.ShipSketches){
             s += d.getPoints().size() + "\n";
             for(Coordinate c: d.getPoints()){
-                s += c.x() + " " + c.y() + " " + c.color.getRed() + " " + c.color.getGreen() + " " + c.color.getBlue() + " " + c.size + "\n";
+                s += c.x() + " " + c.y() + " " + c.color().getRed() + " " + c.color().getGreen() + " " + c.color().getBlue() + " " + c.size() + "\n";
             }
             if(d.draggable() == null){
                 ScreenScripts.convertSketchesToDraggables();
@@ -59,8 +59,6 @@ public class Ship {
         for(Drawing d: data.ShipSketches){
             numPoints += d.getPoints().size();
         }
-
-        System.out.println(numPoints);
 
         return numPoints > 15000;
     }

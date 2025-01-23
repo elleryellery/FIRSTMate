@@ -54,6 +54,5 @@ public class Wind {
 
     public void slow(int slowRate) {
         dx *= (1-(Math.pow(10, slowRate)));
-        System.out.println(dx);
     }
 }

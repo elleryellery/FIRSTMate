@@ -391,14 +391,15 @@ public abstract class GraphicsDatabase {
             Button[] BS12 = {B01, B09, B11, B25, B26, B27, D05};
             S12.addButtons(BS12);
             S12.addScript(() -> {
-                //System.out.println(DataCache.shipLevel);
-                DataCache.myShip.retrieveData().drawShip(-150, -DataCache.shipLevel);
                 Game.Graphics().drawImage(new ImageIcon("FIRSTMate-Assets\\M\\Water.png").getImage(), 0, 610 - DataCache.waterLevel * 20, 1200, 310, null);
                 for(Wind w: DataCache.winds){
                     w.drawWind();
                 }
                 if(DataCache.cannonball != null){
                     DataCache.cannonball.drawCannonball();
+                    DataCache.myShip.retrieveData().drawShipCopy(-150, -DataCache.shipLevel);
+                } else {
+                    DataCache.myShip.retrieveData().drawShip(-150, -DataCache.shipLevel);
                 }
                 Game.Graphics().setColor(Color.BLACK);
                 Game.Graphics().drawLine(0, 308, D05.x() +25, D05.y() + (int)(D05.h()/2));
@@ -434,7 +435,9 @@ public abstract class GraphicsDatabase {
                 Game.Graphics().setFont(new Font("Times New Roman", Font.BOLD, 50));
 
                 Game.Graphics().drawString(DataCache.ships.get(DataCache.shipIndex).name(), 23, 580);
+                
                 DataCache.ships.get(DataCache.shipIndex).retrieveData().drawShip(-150, 0);
+                
             });
     
         S20 = new Screen("S20");
