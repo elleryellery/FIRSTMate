@@ -395,11 +395,17 @@ public abstract class GraphicsDatabase {
                 for(Wind w: DataCache.winds){
                     w.drawWind();
                 }
+                int x = -150;
+                int y = -DataCache.shipLevel;
                 if(DataCache.cannonball != null){
-                    DataCache.cannonball.drawCannonball();
-                    DataCache.myShip.retrieveData().drawShipCopy(-150, -DataCache.shipLevel);
+                    DataCache.myShip.retrieveData().drawShipCopy(x, y);
+                    DataCache.cannonball.drawCannonball(x, y);
+                    if(DataCache.cannonball.x() > 1200 || DataCache.cannonball.y() > 650){
+                        DataCache.cannonball = null;
+                        System.out.println(DataCache.myShip.retrieveData().checkDestruction());
+                    }
                 } else {
-                    DataCache.myShip.retrieveData().drawShip(-150, -DataCache.shipLevel);
+                    DataCache.myShip.retrieveData().drawShip(x, y);
                 }
                 Game.Graphics().setColor(Color.BLACK);
                 Game.Graphics().drawLine(0, 308, D05.x() +25, D05.y() + (int)(D05.h()/2));

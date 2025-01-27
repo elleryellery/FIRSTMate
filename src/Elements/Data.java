@@ -1,8 +1,12 @@
 package Elements;
 
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.stream.Stream;
 
 import Structure.*;
@@ -81,38 +85,65 @@ public class Data {
             for(Coordinate c: d.getPoints()){
                 temp.add(new Coordinate(c.x() + d.x() - d.x2(), c.y() + d.y() - d.y2(), c.color(), c.size()));
             }
-            Drawing copy = new Drawing(temp);
-            copy.giveDraggable(d.draggable());
-            copy.constructImage();
-            copy.setX(d.x());
-            copy.setY(d.y());
-            copy.constructImage();
-            DataCache.sketchCopy = temp;
         }
-    }
 
-    public void reconstructCopy(){
-        for(Drawing d: DataCache.sketchCopy){
-            d.constructImage();
+        ArrayList<Coordinate> sorted = new ArrayList<Coordinate> ();
+
+        Collections.sort(sorted, new Comparator<Coordinate>() {
+            @Override
+            public int compare(Coordinate a, Coordinate b) {
+                int cmp0 = a.x() - (b.x());
+                if (cmp0 != 0) {
+                    return cmp0;
+                }
+                int cmp1 = a.y() - b.y();
+                if (cmp1 != 0) {
+                    return cmp1;
+                }
+                return 0;
+            }
+        });
+
+        for(int i = sorted.size() - 1; i > 0; i--){
+            Coordinate a = sorted.get(i);
+            Coordinate b = sorted.get(i-1);
+            if(a.x() == b.x() && a.y() == b.y() && a.size() == b.size()){
+                temp.remove(b);
+            }
         }
+
+        DataCache.sketchCopy = temp;
+
     }
 
     public void drawShipCopy(int x, int y){
-        // for(Drawing d: DataCache.sketchCopy){
-        //     Game.Graphics().drawImage(d.asPicture(),d.x() + x, d.y() + y, d.width(), d.height(), null);
-        //     if(DataCache.debug){
-        //         Game.Graphics().drawRect(d.x() + x, d.y() + y, d.width(), d.height());
-        //     }
-        // }
-        for(Drawing d: DataCache.sketchCopy){
-            for(Coordinate c: d.getPoints()){
-                c.drawCoordinate(c.x() + d.x() - d.x2() + x, c.y() + d.y() - d.y2() + y);
-                if(DataCache.debug){
-                    Game.Graphics().setColor(c.color());
-                    Game.Graphics().drawRect(c.x() + d.x() - d.x2() + x, c.y() + d.y() - d.y2() + y,c.size(),c.size());
+        for(Coordinate c: DataCache.sketchCopy){
+            c.drawCoordinate(c.x() + x, c.y() + y);
+        }
+    }
+
+    public int checkDestruction(){
+        ArrayList<Coordinate> sorted = DataCache.sketchCopy;
+
+        Collections.sort(sorted, new Comparator<Coordinate>() {
+            @Override
+            public int compare(Coordinate a, Coordinate b) {
+                int cmp1 = a.y() - b.y();
+                if (cmp1 != 0) {
+                    return cmp1;
                 }
+                return 0;
+            }
+        });
+
+        for(int i = (int)(sorted.size() * 0.2); i < sorted.size() - (int)(sorted.size() * 0.2); i++){
+            if(sorted.get(i).y() != sorted.get(i-1).y() && sorted.get(i).y() != sorted.get(i+1).y()){
+                return sorted.get(i).y();
+            } else {
+                i += 1;
             }
         }
-        Collections.sort()
+        return 0;
     }
+        
 }

@@ -50,7 +50,7 @@ public class Coordinate {
     }
 
     public String toString(){
-        return x + " " + y + " " + color + " " + size;
+        return x + " " + y + " " + "\n";
     }
 
     public int size() {
