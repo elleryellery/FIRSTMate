@@ -14,8 +14,9 @@ public class Cannonball extends Wind {
 
     public Cannonball(int dx, int dy){
         super(258, dx);
-        this.dy = dy;
-        ay = 0.4;
+        this.dy = dy * lagFactor();
+        this.factorLag(lagFactor());
+        ay = 0.4*lagFactor();
     }
 
     public void drawCannonball(int xOffset, int yOffset){
@@ -35,10 +36,14 @@ public class Cannonball extends Wind {
             Rectangle coordinate = new Rectangle (c.x() + xOffset, c.y() + yOffset, c.size(), c.size());
 
             if(coordinate.intersects(me)){
-                slow(slowRate);
+                slow(slowRate, lagFactor());
                 DataCache.sketchCopy.remove(c);
                 i ++;
             }
         }
+    }
+
+    public double lagFactor(){
+        return 0.000054*(DataCache.myShip.numPoints()) + 0.3;
     }
 }

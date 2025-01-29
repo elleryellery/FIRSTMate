@@ -54,13 +54,18 @@ public class Ship {
         return name;
     }
 
-    public boolean sinks(){
+    public int numPoints(){
         int numPoints = 0;
         for(Drawing d: data.ShipSketches){
             numPoints += d.getPoints().size();
         }
 
-        return numPoints > 15000;
+        return numPoints;
+    }
+
+    public boolean sinks(){
+        int threshold = 15000;
+        return numPoints() > threshold;
     }
 
 }

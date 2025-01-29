@@ -9,7 +9,7 @@ import javax.swing.ImageIcon;
 import Structure.*;
 
 public abstract class GraphicsDatabase {
-    public static Button B01, B02, B03, B04, B05, B06, B07, B08, B09, B10, B11, B12, B13, B14, B15, B16, B17, B18, B19, B20, B21, B22, B23, B24, B25, B26, B27;
+    public static Button B01, B02, B03, B04, B05, B06, B07, B08, B09, B10, B11, B12, B13, B14, B15, B16, B17, B18, B19, B20, B21, B22, B23, B24, B25, B26, B27, B28;
 
     public static TextInput I01, I02, I03, I04;
 
@@ -157,6 +157,10 @@ public abstract class GraphicsDatabase {
 
         B27 = new Button("B27", 650, 0, 75, 75, () -> {
             DataCache.winds.add(new Wind());
+        });
+
+        B28 = new Button("B11", 500, 500, 250, 78, () -> {
+            Game.setScreen(S08);
         });
 
         C01 = new ConditionalButton("C01", 100, 100, 50, 50, () -> (Settings.enabledMusic), () -> {
@@ -402,7 +406,11 @@ public abstract class GraphicsDatabase {
                     DataCache.cannonball.drawCannonball(x, y);
                     if(DataCache.cannonball.x() > 1200 || DataCache.cannonball.y() > 650){
                         DataCache.cannonball = null;
-                        System.out.println(DataCache.myShip.retrieveData().checkDestruction());
+                        int weakPoint = DataCache.myShip.retrieveData().checkDestruction();
+                        if(weakPoint > 0) {
+                            DataCache.failureMessage = "Oh no! The cannonballs exposed a weak spot in your ship's design. Strengthen your ship by adding onto it until the cannonball can not easily pass through.";
+                            Game.setScreen(S13);
+                        }
                     }
                 } else {
                     DataCache.myShip.retrieveData().drawShip(x, y);
@@ -412,7 +420,13 @@ public abstract class GraphicsDatabase {
             });
     
         S13 = new Screen("S13");
-            Button[] BS13 = {B01};
+            Button[] BS13 = {B01, B28};
+            S13.addButtons(BS13);
+            S13.addScript(() -> {
+                TextInterpreter t = new TextInterpreter();
+                Game.Graphics().setColor(Color.WHITE);
+                t.drawText(Game.Graphics(), DataCache.failureMessage, 382, 310, 50);
+            });
     
         S14 = new Screen("S14");
             Button[] BS14 = {B01, B20};

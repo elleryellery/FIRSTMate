@@ -33,4 +33,5 @@ public class DataCache {
     public static ArrayList<Wind> winds = new ArrayList <Wind> ();
     public static Cannonball cannonball = null;
     public static ArrayList <Coordinate> sketchCopy = new ArrayList <Coordinate> ();
+    public static String failureMessage = "";
 }

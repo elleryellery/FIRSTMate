@@ -30,6 +30,10 @@ public class Coordinate {
         return x;
     }
 
+    public void moveX(int dx){
+        x += dx;
+    }
+
     public int y(){
         return y;
     }
