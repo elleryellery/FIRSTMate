@@ -34,4 +34,5 @@ public class DataCache {
     public static Cannonball cannonball = null;
     public static ArrayList <Coordinate> sketchCopy = new ArrayList <Coordinate> ();
     public static String failureMessage = "";
+    public static int shipTestPos = -150;
 }

@@ -159,7 +159,7 @@ public abstract class GraphicsDatabase {
             DataCache.winds.add(new Wind());
         });
 
-        B28 = new Button("B11", 500, 500, 250, 78, () -> {
+        B28 = new Button("B11", 478, 474, 250, 78, () -> {
             Game.setScreen(S08);
         });
 
@@ -396,10 +396,26 @@ public abstract class GraphicsDatabase {
             S12.addButtons(BS12);
             S12.addScript(() -> {
                 Game.Graphics().drawImage(new ImageIcon("FIRSTMate-Assets\\M\\Water.png").getImage(), 0, 610 - DataCache.waterLevel * 20, 1200, 310, null);
+                int windSpeed = 0;
                 for(Wind w: DataCache.winds){
                     w.drawWind();
+                    windSpeed ++;
                 }
-                int x = -150;
+                int sailWeight = DataCache.myShip.retrieveData().sailWeight();
+                int shipMovement = 0;
+                if(sailWeight > 900){
+                    shipMovement = windSpeed;
+                } else if(windSpeed > 1){
+                    DataCache.failureMessage = "Whoops! Your sail is too light, so it can't catch the wind and sail on the seas. Make your sail a little larger and try again!";
+                    Game.setScreen(S13);
+                }
+
+                DataCache.shipTestPos += shipMovement;
+
+                int x = DataCache.shipTestPos;
+                if(x > 1200-150){
+                    DataCache.shipTestPos = -1200;
+                }
                 int y = -DataCache.shipLevel;
                 if(DataCache.cannonball != null){
                     DataCache.myShip.retrieveData().drawShipCopy(x, y);

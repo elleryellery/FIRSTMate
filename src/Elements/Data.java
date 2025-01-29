@@ -145,5 +145,14 @@ public class Data {
         }
         return 0;
     }
+
+    public int sailWeight(){
+        for(int i = 0; i < ShipRequirements.length; i++){
+            if (ShipRequirements[i].equals("Flag")){
+                return ShipSketches[i].getPoints().size();
+            }
+        }
+        return -1;
+    }
         
 }
