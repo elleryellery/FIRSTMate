@@ -71,6 +71,7 @@ public class Data {
     public void drawShip(int x, int y){
         for(Drawing d: ShipSketches){
             Game.Graphics().drawImage(d.asPicture(),d.x() + x, d.y() + y, d.width(), d.height(), null);
+            //System.out.println(d.asPicture() + ", " +( d.x() + x) + ", " + d.y() + y + ", " + d.width() + ", " + d.height());
             if(DataCache.debug){
                 Game.Graphics().drawRect(d.x() + x, d.y() + y, d.width(), d.height());
             }
@@ -83,7 +84,7 @@ public class Data {
         ArrayList<Coordinate> temp = new ArrayList <Coordinate> ();
         for(Drawing d: sketches){
             for(Coordinate c: d.getPoints()){
-                temp.add(new Coordinate(c.x() + d.x() - d.x2(), c.y() + d.y() - d.y2(), c.color(), c.size()));
+                temp.add(new Coordinate(c.x() + d.x() - d.xMin(), c.y() + d.y() - d.yMin(), c.color(), c.size()));
             }
         }
 

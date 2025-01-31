@@ -1,0 +1,61 @@
+test
+7
+Deck
+Steering
+Flag
+Trap #1
+Trap #2
+Protective Layer
+Scary Flag
+The Ghoul
+2
+Welcome!
+1/31/2025 13:42
+This is your design notebook, where you'll record each step in your design process. Access this notebook from any step in the design process and make your own entries!
+Your New Ghoul
+1/31/2025 13:42
+The Ghoul is a defensive ship filled with ghostly inhabitants.⏎As a Ghoul, your ship will be designed to fend off invaders and protect treasure.⏎Your Ghoul must include:⏎  ‣   At least two traps⏎  ‣   A protective layer for the ship’s deck⏎  ‣   A scary flag of your own design to intimidate invaders
+7
+5
+697 353 0 0 0 20
+698 359 0 0 0 20
+701 368 0 0 0 20
+704 377 0 0 0 20
+707 386 0 0 0 20
+240 318
+9
+657 304 0 0 0 20
+657 307 0 0 0 20
+657 311 0 0 0 20
+657 316 0 0 0 20
+657 323 0 0 0 20
+657 327 0 0 0 20
+657 331 0 0 0 20
+657 333 0 0 0 20
+657 334 0 0 0 20
+250 319
+3
+685 327 0 0 0 20
+688 336 0 0 0 20
+692 344 0 0 0 20
+760 271
+6
+729 313 0 0 0 20
+732 322 0 0 0 20
+733 327 0 0 0 20
+733 328 0 0 0 20
+734 330 0 0 0 20
+735 330 0 0 0 20
+608 257
+2
+707 415 0 0 0 20
+708 417 0 0 0 20
+795 340
+2
+726 374 0 0 0 20
+727 377 0 0 0 20
+712 302
+2
+747 244 0 0 0 20
+750 253 0 0 0 20
+821 227

@@ -297,7 +297,10 @@ public abstract class GraphicsDatabase {
             Game.setScreen(S11);
         });
 
-        C47 = new ConditionalButton("C48", 709, 8, 50, 50, () -> (false), () -> { //TODO add condition
+        C47 = new ConditionalButton("C48", 709, 8, 50, 50, () -> (false), () -> {
+            for(Drawing d: DataCache.myShip.retrieveData().ShipSketches){
+                d.saveCoords();
+            }
             Game.setScreen(S12);
         });
 

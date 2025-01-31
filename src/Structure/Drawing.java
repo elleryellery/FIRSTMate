@@ -14,7 +14,7 @@ public class Drawing {
     private int width, height;
     private Draggable draggable;
     private int x, y;
-    private int x1, x2, y1, y2;
+    private int xMax, xMin, yMax, yMin;
 
     public Drawing(){
         x = -3141592;
@@ -58,31 +58,32 @@ public class Drawing {
 
     public void constructImage(){
         BufferedImage back;
-        x1 = points.get(0).x();
-        x2 = points.get(0).x();
-        y1 = points.get(0).y();
-        y2 = points.get(0).y();
+        xMax = points.get(0).x();
+        xMin = points.get(0).x();
+        yMax = points.get(0).y();
+        yMin = points.get(0).y();
         for(Coordinate p: points){
-            if(p.x() > x1){
-                x1 = p.x();
-            } else if(p.x() < x2){
-                x2 = p.x();
+            if(p.x() > xMax){
+                xMax = p.x() + DataCache.penSize;
+            } else if(p.x() < xMin){
+                xMin = p.x();
             }
 
-            if(p.y() > y1){
-                y1 = p.y();
-            } else if(p.y() < y2){
-                y2 = p.y();
+            if(p.y() > yMax){
+                yMax = p.y();
+            } else if(p.y() < yMin){
+                yMin = p.y();
             }
         }
 
-        int width = x1 - x2 + DataCache.penSize;
-        int height = y1-y2 + DataCache.penSize;
+        int width = xMax - xMin + DataCache.penSize;
+        int height = yMax - yMin + DataCache.penSize;
 
         back = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
         Graphics2D g = back.createGraphics();
         for(Coordinate p: points){
-            p.drawCoordinate(g, -x2-DataCache.dragXOffset, -y2-DataCache.dragYOffset);
+            p.drawCoordinate(g, -xMin-DataCache.dragXOffset, -yMin-DataCache.dragYOffset);
+            //System.out.println((-xMin-DataCache.dragXOffset) + "," + (-yMin-DataCache.dragYOffset));
         }
 
         g.dispose();
@@ -90,6 +91,11 @@ public class Drawing {
 
         this.width = width;
         this.height = height;
+    }
+
+    public void saveCoords(){
+        x = draggable.x();
+        y = draggable.y();
     }
 
     public Image asPicture(){
@@ -120,20 +126,20 @@ public class Drawing {
         return y;
     }
 
-    public int x1() {
-        return x1;
+    public int xMax() {
+        return xMax;
     }
 
-    public int y1() {
-        return y1;
+    public int yMax() {
+        return yMax;
     }
 
-    public int x2() {
-        return x2;
+    public int xMin() {
+        return xMin;
     }
 
-    public int y2() {
-        return y2;
+    public int yMin() {
+        return yMin;
     }
 
 }
