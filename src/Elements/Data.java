@@ -147,6 +147,36 @@ public class Data {
         return 0;
     }
 
+    public int checkStability(){
+        ArrayList<Coordinate> temp = new ArrayList<Coordinate>();
+        for(Drawing d: ShipSketches){
+            for(Coordinate c: d.getPoints()){
+                temp.add(c);
+            }
+        }
+        ArrayList<Coordinate> sorted = temp;
+
+        Collections.sort(sorted, new Comparator<Coordinate>() {
+            @Override
+            public int compare(Coordinate a, Coordinate b) {
+                int cmp1 = a.y() - b.y();
+                if (cmp1 != 0) {
+                    return cmp1;
+                }
+                return 0;
+            }
+        });
+
+        for(int i = (int)(sorted.size() * 0.2); i < sorted.size() - (int)(sorted.size() * 0.2); i++){
+            if(sorted.get(i).y() != sorted.get(i-1).y() && sorted.get(i).y() != sorted.get(i+1).y()){
+                return sorted.get(i).y();
+            } else {
+                i += 1;
+            }
+        }
+        return 0;
+    }
+
     public int sailWeight(){
         for(int i = 0; i < ShipRequirements.length; i++){
             if (ShipRequirements[i].equals("Flag")){

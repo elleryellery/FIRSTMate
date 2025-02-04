@@ -35,4 +35,5 @@ public class DataCache {
     public static ArrayList <Coordinate> sketchCopy = new ArrayList <Coordinate> ();
     public static String failureMessage = "";
     public static int shipTestPos = -150;
+    public static boolean enabledCannons = false;
 }
