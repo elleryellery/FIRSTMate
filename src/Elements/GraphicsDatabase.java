@@ -98,18 +98,25 @@ public abstract class GraphicsDatabase {
             String status = "passed";
             int sailWeight = DataCache.myShip.retrieveData().sailWeight();
             if(sailWeight > 900){
-                System.out.println("passed test 1");
+            } else {
+                status = "Whoops! Your sail is too light, so it can't catch the wind and sail on the seas. Make your sail a little larger and try again!";
             }
             
             if(!DataCache.myShip.sinks()){
-                System.out.println("passed test 2");
+            } else {
+                status = "Oh no! Your ship is too heavy, and it sank! Try to cut some weight from your ship, and try again!";
             }
             
             if(DataCache.myShip.retrieveData().checkStability() < 5){
-                System.out.println("passed test 3");
+            } else {
+                status = "Arggh! Your ship collapsed due to instability! Try to eliminate weak points on your ship by making sure that nothing is floating or too skinny.";
             }
+
             if(status.equals("passed")){
                 Game.setScreen(S14);
+            } else {
+                DataCache.failureMessage = status;
+                Game.setScreen(S13);
             }
         });
 
@@ -536,5 +543,15 @@ public abstract class GraphicsDatabase {
         pink = new Color(235, 176, 218);
 
         DataCache.penColor = black;
+        
+        DataCache.tutorials.add(new TutorialBox("hello!", () -> (DataCache.myScreen == S01)));
+        DataCache.tutorials.add(new TutorialBox("hello again!", () -> (DataCache.myScreen == S01)));
+        DataCache.tutorials.add(new TutorialBox("goodbye!", () -> (DataCache.myScreen == S01)));
+        DataCache.tutorials.add(new TutorialBox("hello!", () -> (DataCache.myScreen == S06)));
+        DataCache.tutorials.add(new TutorialBox("hello again!", () -> (DataCache.myScreen == S06)));
+        DataCache.tutorials.add(new TutorialBox("goodbye!", () -> (DataCache.myScreen == S06)));
+
+        System.out.println(DataCache.tutorials);
+
     }
 }

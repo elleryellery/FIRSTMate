@@ -127,9 +127,10 @@ public class Game  extends JPanel implements Runnable, KeyListener, MouseListene
 	
 	@Override
 	public void mouseMoved(MouseEvent e) {
-		for(Button b: DataCache.myScreen.buttons()){
-			b.checkHover(e.getX(), e.getY());
-		}
+		if(DataCache.tutorials.peek() == null)
+			for(Button b: DataCache.myScreen.buttons()){
+				b.checkHover(e.getX(), e.getY());
+			}
 	}
 	
 	@Override
@@ -149,30 +150,34 @@ public class Game  extends JPanel implements Runnable, KeyListener, MouseListene
 
 	@Override
 	public void mousePressed(MouseEvent e) {
-		for(Button b: DataCache.myScreen.buttons()){
-			if(b.check(e.getX(), e.getY())){
-				break;
-			}
-		}
-		for(int i = DataCache.myScreen.buttons().length - 1; i >= 0; i--){
-			Button b = DataCache.myScreen.buttons()[i];
-			if(b instanceof Draggable){
+		if(DataCache.tutorials.peek() == null){
+			for(Button b: DataCache.myScreen.buttons()){
 				if(b.check(e.getX(), e.getY())){
-					DataCache.holding = (Draggable)b;
-					DataCache.dragXOffset = e.getX()-b.x();
-					DataCache.dragYOffset = e.getY()-b.y();
-					DataCache.myScreen.rearrangeToLast(b);
 					break;
 				}
-			} else {
-				b.checkHover(e.getX(), e.getY());
 			}
-		}
-		if(DataCache.debug){
-			System.out.println("DEBUG: Mouse coordinates: (" + e.getX() + ", " + e.getY() + ")");
-		}
-		if(DataCache.inputStatus && !DataCache.inputBox.check(e.getX(), e.getY())){
-			DataCache.inputStatus = false;
+			for(int i = DataCache.myScreen.buttons().length - 1; i >= 0; i--){
+				Button b = DataCache.myScreen.buttons()[i];
+				if(b instanceof Draggable){
+					if(b.check(e.getX(), e.getY())){
+						DataCache.holding = (Draggable)b;
+						DataCache.dragXOffset = e.getX()-b.x();
+						DataCache.dragYOffset = e.getY()-b.y();
+						DataCache.myScreen.rearrangeToLast(b);
+						break;
+					}
+				} else {
+					b.checkHover(e.getX(), e.getY());
+				}
+			}
+			if(DataCache.debug){
+				System.out.println("DEBUG: Mouse coordinates: (" + e.getX() + ", " + e.getY() + ")");
+			}
+			if(DataCache.inputStatus && !DataCache.inputBox.check(e.getX(), e.getY())){
+				DataCache.inputStatus = false;
+			}
+		} else {
+			DataCache.tutorials.pop();
 		}
 
 	}

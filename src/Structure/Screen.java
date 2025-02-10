@@ -33,10 +33,23 @@ public class Screen {
     public void drawScreen(Graphics g2d, int screenWidth, int screenHeight){ //Draws the screen's background image, features, and buttons and, if necessary, starts the background music
         g2d.drawImage(back.getImage(),0,0,screenWidth,screenHeight,null);
         DataCache.drawingEnabled = false;
+        if(DataCache.tutorials.size() > 0){
+            if(DataCache.tutorials.peek() == null){
+                DataCache.tutorials.get(1).check();
+            } else {
+                DataCache.tutorials.peek().check();
+            }
+        }
+        
         script.run();
         if(buttons.length > 0){
             for(Button b: buttons){
                 b.drawButton();
+            }
+        }
+        if(DataCache.tutorials.size() > 0){
+            if(DataCache.tutorials.peek() != null){
+                DataCache.tutorials.peek().drawTutorialBox();
             }
         }
     }
