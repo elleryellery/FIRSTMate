@@ -544,14 +544,27 @@ public abstract class GraphicsDatabase {
 
         DataCache.penColor = black;
         
-        DataCache.tutorials.add(new TutorialBox("hello!", () -> (DataCache.myScreen == S01)));
-        DataCache.tutorials.add(new TutorialBox("hello again!", () -> (DataCache.myScreen == S01)));
-        DataCache.tutorials.add(new TutorialBox("goodbye!", () -> (DataCache.myScreen == S01)));
-        DataCache.tutorials.add(new TutorialBox("hello!", () -> (DataCache.myScreen == S06)));
-        DataCache.tutorials.add(new TutorialBox("hello again!", () -> (DataCache.myScreen == S06)));
-        DataCache.tutorials.add(new TutorialBox("goodbye!", () -> (DataCache.myScreen == S06)));
-
-        System.out.println(DataCache.tutorials);
-
+        DataCache.tutorials.add(new TutorialBox("Welcome to FIRST Mate! Today you are going to be building a pirate ship.", () -> (DataCache.myScreen == S01)));
+        DataCache.tutorials.add(new TutorialBox("To create your first ship, press \"New Design\".", () -> (DataCache.myScreen == S01), 773, 389));
+        DataCache.tutorials.add(new TutorialBox("Nicely done! Let's start by giving your ship a name. Once you're done, click \"Create Ship\".", () -> (DataCache.myScreen == S02)));
+        DataCache.tutorials.add(new TutorialBox("It's time to pick which type of ship you'd like to build. Each ship has different requirements, so choose carefully! Click on a type to learn more.", () -> (DataCache.myScreen == S03)));
+        DataCache.tutorials.add(new TutorialBox("Nice choice! Now it's time to think about what you'd like to put on your ship.", () -> (DataCache.myScreen == S07), 854, 406));
+        DataCache.tutorials.add(new TutorialBox("Let's start by jotting down some of your ideas for your ship. This is your design notebook, where you can write down all of your ideas.", () -> (DataCache.myScreen == S07), 854, 406));
+        DataCache.tutorials.add(new TutorialBox("Start by navigating to the last page of your notebook.", () -> (DataCache.myScreen == S07), 854, 406));
+        DataCache.tutorials.add(new TutorialBox("Great! Now add a new page to your notebook.", () -> (DataCache.pageNumber == 1), 854, 406));
+        DataCache.tutorials.add(new TutorialBox("Nicely done! Start writing about what ideas you have for your ship. Take as much time as you need, and add more pages if you run out of space!", () -> (DataCache.pageNumber == 2), 854, 406));
+        DataCache.tutorials.add(new TutorialBox("Once you're done, click the checkmark in the bottom right corner.", () -> (DataCache.pageNumber == 2), 854, 406));
+        DataCache.tutorials.add(new TutorialBox("Now that you have some ideas for your ship, let's make some drawings for your ship.", () -> (DataCache.myScreen == S08), 533, 392));
+        DataCache.tutorials.add(new TutorialBox("^^ Up here is the name of the ship part that you are currently working on. Move between parts using the arrows.", () -> (DataCache.myScreen == S08), 350, 140));
+        DataCache.tutorials.add(new TutorialBox("In the box on the left you can change the color of your pen. At the top of the box you can also change the pen size and change to an eraser.", () -> (DataCache.myScreen == S08), 533, 392));
+        DataCache.tutorials.add(new TutorialBox("Make sure to create a drawing for each ship part! Once you're done, you'll be able to click the checkmark at the top.", () -> (DataCache.myScreen == S08), 533, 392));
+        DataCache.tutorials.add(new TutorialBox("You can also look back at what you wrote in your notebook at any time using the button in the bottom right corner.", () -> (DataCache.myScreen == S08), 533, 392));
+        DataCache.tutorials.add(new TutorialBox("Let's put it all together! All of the ship parts you just drew are on the clipboard on the left. Drag them onto the ocean to put together your ship.", () -> (DataCache.myScreen == S09), 583, 392));
+        DataCache.tutorials.add(new TutorialBox("Once you're happy with how your ship looks, click on the checkmark at the top to continue.", () -> (DataCache.myScreen == S09), 583, 392));
+        DataCache.tutorials.add(new TutorialBox("Your ship is looking great! It's time to test your ship on the open seas.", () -> (DataCache.myScreen == S12)));
+        DataCache.tutorials.add(new TutorialBox("Let's start by adding water to see if your ship will float. Click on the water button at the top until water starts to fill the ocean.", () -> (DataCache.myScreen == S12)));
+        DataCache.tutorials.add(new TutorialBox("Your ship floats! Now it's time to test your ship's strength by throwing cannonballs at it. Click on the cannon button and drag the arrow to shoot cannonballs.", () -> (DataCache.waterLevel >= 5 && DataCache.myScreen == S12)));
+        DataCache.tutorials.add(new TutorialBox("Nice! Time for the final test -- can your ship catch the wind in its sails and sail along the seas? Click the wind button to add wind.", () -> (DataCache.numCannonballsReleased >= 3 && DataCache.myScreen == S12)));
+        DataCache.tutorials.add(new TutorialBox("Fantastic! It's time to send your ship on its first voyage. Hopefully your tests didn't miss anything! Press \"I'm done!\"", () -> (DataCache.winds.size() >0 && DataCache.myScreen == S12)));
     }
 }

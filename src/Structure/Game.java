@@ -188,6 +188,7 @@ public class Game  extends JPanel implements Runnable, KeyListener, MouseListene
 			int dx = (int)((GraphicsDatabase.D05.x()-40)/15);
 			int dy = (int)((GraphicsDatabase.D05.y()-258)/15);
 			DataCache.cannonball = new Cannonball(dx, dy);
+			DataCache.numCannonballsReleased ++;
 			GraphicsDatabase.D05.setCoords(40, 258);
 			DataCache.myShip.retrieveData().makeSketchCopy();
 		}

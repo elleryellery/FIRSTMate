@@ -1,5 +1,6 @@
 package Structure;
 import java.awt.Color;
+import java.awt.Font;
 
 import Elements.DataCache;
 
@@ -16,7 +17,18 @@ public class TutorialBox {
         y = 439;
         w = 321;
         h = 140;
-        chars = 50;
+        chars = 34;
+        this.condition = condition;
+    }
+
+    public TutorialBox(String text, Condition condition, int x, int y){
+        this.text = text;
+        t = new TextInterpreter();
+        this.x = x;
+        this.y = y;
+        w = 321;
+        h = 140;
+        chars = 34;
         this.condition = condition;
     }
 
@@ -30,6 +42,7 @@ public class TutorialBox {
         Game.Graphics().setColor(Color.WHITE);
         Game.Graphics().fillRoundRect(x-xPadding, y-yPadding, w+xPadding, h+yPadding, 30, 30);
         Game.Graphics().setColor(Color.BLACK);
+        Game.Graphics().setFont(new Font("Times New Roman", Font.BOLD, 20));
         t.drawText(Game.Graphics(), text, x, y, chars);
     }
 
