@@ -65,8 +65,11 @@ public class Game  extends JPanel implements Runnable, KeyListener, MouseListene
 	}
 
 	public static void previousScreen() {
+		Screen temp = DataCache.myScreen;
 		setScreen(DataCache.history.get(DataCache.history.size()-1));
-		DataCache.history.remove(DataCache.history.size()-1);
+		if(temp.includeInHistory()){
+			DataCache.history.remove(DataCache.history.size()-1);
+		}
 		DataCache.history.remove(DataCache.history.size()-1);
 	}
 
@@ -74,7 +77,9 @@ public class Game  extends JPanel implements Runnable, KeyListener, MouseListene
 		if(DataCache.myScreen.includeInHistory()){
 			DataCache.history.add(DataCache.myScreen);
 		}
+		DataCache.myScreen.setStartPlayer(true);
 		DataCache.myScreen = _screen;
+		Screen.sfx.stopNonDuplicateSounds(DataCache.myScreen.backgroundSounds());
 	}
 	
 	@Override

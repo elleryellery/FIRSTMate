@@ -7,7 +7,7 @@ public class Sound {
     private Clip clip;
     private char type;
     private boolean repeat;
-    private float volume;
+    private int volume;
 
     public Sound() {
         fileName = "No file";
@@ -16,15 +16,26 @@ public class Sound {
     }
 
 	public Sound (String inputFileName, char inputType, boolean inputRepeat) {
-        fileName = inputFileName;
+        String basepath = "FIRSTMate-Assets\\";
+        if(inputType == 'M'){
+            basepath += "MUS\\";
+        } else {
+            basepath += "SFX\\";
+        }
+        fileName = basepath + inputFileName + ".wav";
         type = inputType;
         repeat = inputRepeat;
-        volume = 100.0f;
+        volume = 100;
 	}
     
-    public Sound (String inputFileName, char inputType, boolean inputRepeat, float inputVolume) {
-        fileName = inputFileName;
-        type = inputType;
+    public Sound (String inputFileName, char inputType, boolean inputRepeat, int inputVolume) {
+        String basepath = "FIRSTMate-Assets\\";
+        if(inputType == 'M'){
+            basepath += "MUS\\";
+        } else {
+            basepath += "SFX\\";
+        }
+        fileName = basepath + inputFileName + ".wav";        type = inputType;
         repeat = inputRepeat;
         volume = inputVolume;
 	}

@@ -6193,7 +6193,7 @@ My plan is to make a ship that is so awesome that nobody can ever take my ship a
 922 255 0 0 0 10
 923 255 0 0 0 10
 925 255 0 0 0 10
-681 124
+676 120
 1850
 608 374 130 19 19 10
 608 373 130 19 19 10
@@ -11265,7 +11265,7 @@ My plan is to make a ship that is so awesome that nobody can ever take my ship a
 807 245 73 49 118 10
 807 246 73 49 118 10
 808 247 73 49 118 10
-499 217
+490 222
 1702
 657 298 255 255 255 30
 657 299 255 255 255 30

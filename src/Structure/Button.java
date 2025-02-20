@@ -13,6 +13,8 @@ public class Button {
     private ImageIcon iconRegular;
     private ImageIcon iconHover;
     private Runnable action;
+    private static SoundPlayer sfx = new SoundPlayer();
+    private String sfxFilePath = "ButtonPressed";
 
     public Button(){
         tag = "B00";
@@ -36,6 +38,7 @@ public class Button {
     }
 
     public void executeButtonAction(){
+        sfx.playmusic(new Sound(sfxFilePath, 'S', false, 70));
         action.run();
     }
 

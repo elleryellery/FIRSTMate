@@ -3,6 +3,7 @@ import java.awt.Graphics;
 import javax.swing.ImageIcon;
 
 import Elements.DataCache;
+import Elements.Settings;
 
 public class Screen {
 
@@ -11,11 +12,12 @@ public class Screen {
     //private SoundPlayer sfx;
     private boolean startPlayer = true;
     private boolean includeInHistory = true;
-    Sound[] backgroundSounds;
+    Sound[] backgroundSounds = {};
     Credit[] credits;
     Button[] buttons = {};
     //DragZone[] dragZones;
     Runnable script = () -> {};
+    public static SoundPlayer sfx = new SoundPlayer();
 
     public Screen() {
         back = new ImageIcon("IMG-Screens/SCREEN-ImageNotFound.png");
@@ -51,6 +53,13 @@ public class Screen {
             if(DataCache.tutorials.peek() != null){
                 DataCache.tutorials.peek().drawTutorialBox();
             }
+        }
+
+        if(startPlayer && Settings.enabledMusic && backgroundSounds.length > 0){
+            for(Sound sound: backgroundSounds){
+                sfx.playmusic(sound);
+            }
+            startPlayer = false;
         }
     }
 

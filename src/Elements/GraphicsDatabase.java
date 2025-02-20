@@ -13,13 +13,15 @@ public abstract class GraphicsDatabase {
 
     public static TextInput I01, I02, I03, I04;
 
-    public static ConditionalButton C01, C02, C03, C04, C05, C06, C07, C08, C14, C15, C16, C17, C18, C19, C20, C21, C22, C23, C24, C25, C26, C27, C28, C29, C30, C31, C32, C33, C34, C35, C36, C44, C45, C46, C47, C48, C49, C50;
+    public static ConditionalButton C01, C02, C03, C04, C05, C06, C07, C08, C12, C13, C14, C15, C16, C17, C18, C19, C20, C21, C22, C23, C24, C25, C26, C27, C28, C29, C30, C31, C32, C33, C34, C35, C36, C44, C45, C46, C47, C48, C49, C50, C51;
 
     public static Screen S01, S02, S03, S04, S05, S06, S07, S08, S09, S10, S11, S12, S13, S14, S15, S16, S17, S18, S19, S20;
 
     public static Draggable D05;
 
     public static Color black, white, yellow, lightBlue, red, turquoise, purple, hotPink, orange, darkPurple, lightGreen, lightPink, skyBlue, green, burgundy, blue, pink;
+
+    public static Sound ballerina, seagulls, emeraldseas, lazylaura;
 
     public static void init(){
         B01 = new Button("B01", 1130, 0, 50, 50, () -> {Game.setScreen(S16);}); //Settings
@@ -190,8 +192,14 @@ public abstract class GraphicsDatabase {
             DataCache.shipTestPos = -150;
         });
 
-        C01 = new ConditionalButton("C01", 100, 100, 50, 50, () -> (Settings.enabledMusic), () -> {
+        C01 = new ConditionalButton("C01", 800, 400, 200, 100, () -> (Settings.enabledMusic), () -> {
             Settings.enabledMusic = !Settings.enabledMusic;
+            Screen.sfx.stopAllSounds();
+        });
+
+        C02 = new ConditionalButton("C02", 800, 200, 200, 100, () -> (Settings.enabledSoundEffects), () -> {
+            Settings.enabledSoundEffects = !Settings.enabledSoundEffects;
+            Screen.sfx.stopAllSounds();
         });
 
         C04 = new ConditionalButton("C04", 395, 535, 50, 50, () -> !(DataCache.pageNumber > 0), () -> { //Back
@@ -226,6 +234,18 @@ public abstract class GraphicsDatabase {
 
         C07 = new ConditionalButton("C07", 470, 125, 250, 78, () -> (!(DataCache.ships.size() > 0)), () -> { //TODO add condition
             Game.setScreen(S19);
+        });
+
+        C12 = new ConditionalButton("C12", 672, 294, 50, 50, () -> !(Settings.volume < 100), () -> {
+            if(Settings.volume < 100){
+                Settings.volume += 5;
+            }
+        });
+
+        C13 = new ConditionalButton("C13", 307, 294, 50, 50, () -> !(Settings.volume > 0), () -> {
+            if(Settings.volume > 0){
+                Settings.volume -= 5;
+            }
         });
 
         C14 = new ConditionalButton("C14", 15, 150, 75, 75, () -> (DataCache.penColor == black), () -> {
@@ -352,48 +372,75 @@ public abstract class GraphicsDatabase {
             }
         });
 
+        C51 = new ConditionalButton("C01", 15, 10, 100, 50, () -> (Settings.tutorialModeEnabled), () -> { //Previous component
+            Settings.tutorialModeEnabled = !Settings.tutorialModeEnabled;
+        });
+
         I01 = new TextInput(298, 293, 24, 50, Color.WHITE,false,73, true, "Input Ship Name");
         I02 = new TextInput(400, 60, 24, 30, Color.BLACK, false, 73, false, "Title");
         I03 = new TextInput(400, 100, 15, 23, Color.BLACK, true, 32, false, "Type here...");
 
         D05 = new Draggable("D05", 40, 258, 100, 100);
 
+        seagulls = new Sound("Seagulls", 'M', true, 95);
+        emeraldseas = new Sound("EmeraldSeas", 'M', true, 85);
+        ballerina = new Sound("Ballerina", 'M', true, 75);
+        lazylaura = new Sound("LazyLaura", 'M', true, 75);
 
-        S01 = new Screen("S01");
-            Button[] BS01 = {B01, B02, B10, B21, C07};
-            S01.addButtons(BS01);
+        S01 = new Screen("S01"); //Starting/Opening Screen
+            Button[] buttons01 = {B01, B02, B10, B21, C07, C51};
+            Sound[] sounds01 = {seagulls, emeraldseas};
+            S01.addButtons(buttons01);
             S01.overrideImage("S01.gif");
+            S01.addScript(() -> {
+                Game.Graphics().setColor(Color.WHITE);
+                Game.Graphics().drawString("Tutorial Mode", 7, 80);
+            });
+            S01.addBackgroundSounds(sounds01);
     
         S02 = new Screen("S02");
             Button[] BS02 = {B01, B03, B04, B10, I01};
+            Sound[] sounds02 = {ballerina};
             S02.addButtons(BS02);
+            S02.addBackgroundSounds(sounds02);
     
         S03 = new Screen("S03");
             Button[] BS03 = {B01, B05, B06, B07, B09, B10};
+            Sound[] sounds03 = {ballerina};
             S03.addButtons(BS03);
-    
+            S03.addBackgroundSounds(sounds03);
+                
         S04 = new Screen("S04");
             Button[] BS04 = {B01, B08, B09, B10};
+            Sound[] sounds04 = {ballerina};
             S04.addButtons(BS04);
             S04.excludeFromHistory();
+            S04.addBackgroundSounds(sounds04);
     
         S05 = new Screen("S05");
             Button[] BS05 = {B01, B08, B09, B10};
+            Sound[] sounds05 = {ballerina};
             S05.addButtons(BS05);
             S05.excludeFromHistory();
+            S05.addBackgroundSounds(sounds05);
 
         S06 = new Screen("S06");
             Button[] BS06 = {B01, B08, B09, B10};
+            Sound[] sounds06 = {ballerina};
             S06.addButtons(BS06);
             S06.excludeFromHistory();
+            S06.addBackgroundSounds(sounds06);
     
         S07 = new Screen("S07"); //Notebook entry
             Button[] BS07 = {B01, B09, B19, B22, B23, C03, C04, I02, I03};
+            Sound[] sounds07 = {lazylaura};
             S07.addButtons(BS07);
             S07.excludeFromHistory();
+            S07.addBackgroundSounds(sounds07);
 
         S08 = new Screen("S08"); //Drawing
             Button[] BS08 = {B01, B09, B12, C05, C06, C14, C15, C16, C17, C18, C19, C20, C21, C22, C23, C24, C25, C26, C27, C28, C31, C32, C33, C34, C35, C36, C48};
+            Sound[] sounds08 = {lazylaura};
             S08.addButtons(BS08);
             S08.addScript(() -> {
                 DataCache.drawingEnabled = true;
@@ -401,6 +448,7 @@ public abstract class GraphicsDatabase {
                 Game.Graphics().setColor(Color.BLACK);
                 Game.Graphics().drawString(DataCache.myShip.retrieveData().ShipRequirements[DataCache.componentIndex], 326, 75);
             });
+            S08.addBackgroundSounds(sounds08);
     
         S09 = new Screen("S10");
             Button[] BS09 = {B01, B09, B12, C47};
@@ -412,14 +460,6 @@ public abstract class GraphicsDatabase {
             //         x += 50;
             //     }
             // });
-    
-        S10 = new Screen("S10");
-            Button[] BS10 = {B01, B09, B12, C46};
-            S10.addButtons(BS10);
-    
-        S11 = new Screen("S11");
-            Button[] BS11 = {B01, B09, B12};
-            S11.addButtons(BS11);
     
         S12 = new Screen("S12");
             Button[] BS12 = {B01, B09, B11, B25, B26, B27, B29};
@@ -498,8 +538,15 @@ public abstract class GraphicsDatabase {
             S15.addButtons(BS15);
             S15.excludeFromHistory();
     
-        S16 = new Screen("S16");
-        Button[] BS16 = {B01};
+        S16 = new Screen("S16"); // SETTINGS
+            Button[] BS16 = {B09, C01, C02, C12, C13};
+            S16.addButtons(BS16);
+            S16.excludeFromHistory();
+            S16.addScript(() -> {
+                Game.Graphics().setColor(Color.BLACK);
+                Game.Graphics().setFont(new Font("Times New Roman", Font.BOLD, 150));
+                Game.Graphics().drawString(Settings.volume + "", 400, 375);
+            });
     
         S17 = new Screen("S17");
         Button[] BS17 = {B01};

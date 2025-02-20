@@ -3,6 +3,7 @@ import java.awt.Color;
 import java.awt.Font;
 
 import Elements.DataCache;
+import Elements.Settings;
 
 public class TutorialBox {
     private int x, y, w, h, chars;
@@ -14,7 +15,7 @@ public class TutorialBox {
         this.text = text;
         t = new TextInterpreter();
         x = 442;
-        y = 439;
+        y = 419;
         w = 321;
         h = 140;
         chars = 34;
@@ -47,7 +48,7 @@ public class TutorialBox {
     }
 
     public void check(){
-        if(condition.evaluate()){
+        if(condition.evaluate() && Settings.tutorialModeEnabled){
             if(DataCache.tutorials.peek() == null){
                 DataCache.tutorials.pop();
             }
