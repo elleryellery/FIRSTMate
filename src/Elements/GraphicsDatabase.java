@@ -9,13 +9,13 @@ import javax.swing.ImageIcon;
 import Structure.*;
 
 public abstract class GraphicsDatabase {
-    public static Button B01, B02, B03, B04, B05, B06, B07, B08, B09, B10, B11, B12, B13, B14, B15, B16, B17, B18, B19, B20, B21, B22, B23, B24, B25, B26, B27, B28, B29;
+    public static Button B01, B02, B03, B04, B05, B06, B07, B08, B09, B10, B11, B12, B13, B14, B15, B16, B17, B18, B19, B20, B21, B22, B23, B24, B25, B26, B27, B28, B29, B30;
 
     public static TextInput I01, I02, I03, I04;
 
-    public static ConditionalButton C01, C02, C03, C04, C05, C06, C07, C08, C12, C13, C14, C15, C16, C17, C18, C19, C20, C21, C22, C23, C24, C25, C26, C27, C28, C29, C30, C31, C32, C33, C34, C35, C36, C44, C45, C46, C47, C48, C49, C50, C51;
+    public static ConditionalButton C01, C02, C03, C04, C05, C06, C07, C08, C12, C13, C14, C15, C16, C17, C18, C19, C20, C21, C22, C23, C24, C25, C26, C27, C28, C29, C30, C31, C32, C33, C34, C35, C36, C44, C45, C46, C47, C48, C49, C50, C51, C52, C53;
 
-    public static Screen S01, S02, S03, S04, S05, S06, S07, S08, S09, S10, S11, S12, S13, S14, S15, S16, S17, S18, S19, S20;
+    public static Screen S01, S02, S03, S04, S05, S06, S07, S08, S09, S10, S11, S12, S13, S14, S15, S16, S17, S18, S19, S20, S21;
 
     public static Draggable D05;
 
@@ -158,7 +158,7 @@ public abstract class GraphicsDatabase {
                 Button[] BS09 = {B01, B09, B12, C47};
                 Button[] temp = Stream.concat(Arrays.stream(BS09), Arrays.stream(ScreenScripts.convertSketchesToDraggables())).toArray(Button[]::new);
                 S09.addButtons(temp);
-                Game.setScreen(S09);
+                Game.setScreen(S07);
             } else {
                 Game.setScreen(S07);
             }
@@ -192,6 +192,10 @@ public abstract class GraphicsDatabase {
             DataCache.shipTestPos = -150;
         });
 
+        B30 = new Button("B30", 120, 280, 50, 50, () -> {
+            Game.setScreen(S21);
+        });
+
         C01 = new ConditionalButton("C01", 800, 400, 200, 100, () -> (Settings.enabledMusic), () -> {
             Settings.enabledMusic = !Settings.enabledMusic;
             Screen.sfx.stopAllSounds();
@@ -210,7 +214,7 @@ public abstract class GraphicsDatabase {
             }
         });
 
-        C03 = new ConditionalButton("C03", 664, 535, 50, 50, () -> !(DataCache.myShip == null || DataCache.pageNumber < DataCache.myShip.retrieveData().Notebook().entries().size() -1), () -> {
+        C03 = new ConditionalButton("C03", 664, 535, 50, 50, () -> !(DataCache.myShip == null ||( DataCache.pageNumber < DataCache.myShip.retrieveData().Notebook().entries().size() -1 )), () -> {
             if(DataCache.pageNumber < DataCache.myShip.retrieveData().Notebook().entries().size() -1){
                 DataCache.myShip.myNotebook().entries().get(DataCache.pageNumber).update();
                 DataCache.pageNumber ++;
@@ -376,6 +380,18 @@ public abstract class GraphicsDatabase {
             Settings.tutorialModeEnabled = !Settings.tutorialModeEnabled;
         });
 
+        C52 = new ConditionalButton("C04", 200, 500, 50, 50, () -> !(DataCache.pageNumber > 0), () -> { //Back
+            if(DataCache.pageNumber > 1){
+                DataCache.pageNumber -= 2;
+            }
+        });
+
+        C53 = new ConditionalButton("C03", 940, 500, 50, 50, () -> !(DataCache.myShip == null || (DataCache.pageNumber < DataCache.myShip.retrieveData().Notebook().entries().size() -2)), () -> {
+            if(DataCache.pageNumber < DataCache.myShip.retrieveData().Notebook().entries().size() -2){
+                DataCache.pageNumber += 2;
+            }
+        });
+
         I01 = new TextInput(298, 293, 24, 50, Color.WHITE,false,73, true, "Input Ship Name");
         I02 = new TextInput(400, 60, 24, 30, Color.BLACK, false, 73, false, "Title");
         I03 = new TextInput(400, 100, 15, 23, Color.BLACK, true, 32, false, "Type here...");
@@ -398,33 +414,33 @@ public abstract class GraphicsDatabase {
             });
             S01.addBackgroundSounds(sounds01);
     
-        S02 = new Screen("S02");
+        S02 = new Screen("S02"); //Name your design
             Button[] BS02 = {B01, B03, B04, B10, I01};
             Sound[] sounds02 = {ballerina};
             S02.addButtons(BS02);
             S02.addBackgroundSounds(sounds02);
     
-        S03 = new Screen("S03");
+        S03 = new Screen("S03"); //Choose ship type
             Button[] BS03 = {B01, B05, B06, B07, B09, B10};
             Sound[] sounds03 = {ballerina};
             S03.addButtons(BS03);
             S03.addBackgroundSounds(sounds03);
                 
-        S04 = new Screen("S04");
+        S04 = new Screen("S04"); //Cruiser
             Button[] BS04 = {B01, B08, B09, B10};
             Sound[] sounds04 = {ballerina};
             S04.addButtons(BS04);
             S04.excludeFromHistory();
             S04.addBackgroundSounds(sounds04);
     
-        S05 = new Screen("S05");
+        S05 = new Screen("S05"); //The Ghoul
             Button[] BS05 = {B01, B08, B09, B10};
             Sound[] sounds05 = {ballerina};
             S05.addButtons(BS05);
             S05.excludeFromHistory();
             S05.addBackgroundSounds(sounds05);
 
-        S06 = new Screen("S06");
+        S06 = new Screen("S06"); //The Pearl
             Button[] BS06 = {B01, B08, B09, B10};
             Sound[] sounds06 = {ballerina};
             S06.addButtons(BS06);
@@ -437,6 +453,13 @@ public abstract class GraphicsDatabase {
             S07.addButtons(BS07);
             S07.excludeFromHistory();
             S07.addBackgroundSounds(sounds07);
+        
+        S21 = new Screen("S07"); //Notebook entry
+            Button[] BS21 = {B01, B09, B19, B22, B23, C03, C04, I02, I03};
+            Sound[] sounds21 = {lazylaura};
+            S21.addButtons(BS21);
+            S21.excludeFromHistory();
+            S21.addBackgroundSounds(sounds21);
 
         S08 = new Screen("S08"); //Drawing
             Button[] BS08 = {B01, B09, B12, C05, C06, C14, C15, C16, C17, C18, C19, C20, C21, C22, C23, C24, C25, C26, C27, C28, C31, C32, C33, C34, C35, C36, C48};
@@ -450,9 +473,11 @@ public abstract class GraphicsDatabase {
             });
             S08.addBackgroundSounds(sounds08);
     
-        S09 = new Screen("S10");
+        S09 = new Screen("S10"); //Composition
             Button[] BS09 = {B01, B09, B12, C47};
+            Sound[] sounds09 = {lazylaura};
             S09.addButtons(BS09);
+            S09.addBackgroundSounds(sounds09);
             // S09.addScript(() -> {
             //     int x = 0;
             //     for(Drawing d: DataCache.myShip.retrieveData().ShipSketches){
@@ -461,9 +486,11 @@ public abstract class GraphicsDatabase {
             //     }
             // });
     
-        S12 = new Screen("S12");
+        S12 = new Screen("S12"); //Testing
             Button[] BS12 = {B01, B09, B11, B25, B26, B27, B29};
+            Sound[] sounds12 = {seagulls, lazylaura};
             S12.addButtons(BS12);
+            S12.addBackgroundSounds(sounds12);
             S12.addScript(() -> {
                 Game.Graphics().drawImage(new ImageIcon("FIRSTMate-Assets\\M\\Water.png").getImage(), 0, 610 - DataCache.waterLevel * 20, 1200, 310, null);
                 int windSpeed = 0;
@@ -520,7 +547,7 @@ public abstract class GraphicsDatabase {
                 
             });
     
-        S13 = new Screen("S13");
+        S13 = new Screen("S13"); //Failure note
             Button[] BS13 = {B01, B28};
             S13.addButtons(BS13);
             S13.addScript(() -> {
@@ -529,17 +556,48 @@ public abstract class GraphicsDatabase {
                 t.drawText(Game.Graphics(), DataCache.failureMessage, 382, 310, 50);
             });
     
-        S14 = new Screen("S14");
-            Button[] BS14 = {B01};
+        S14 = new Screen("S14"); //Completion screen
+            Button[] BS14 = {B01, B03};
             S14.addButtons(BS14);
     
-        S15 = new Screen("S15");
-            Button[] BS15 = {B01, B09};
+        S15 = new Screen("S15"); //View notebook
+            Button[] BS15 = {B01, B09, B30, C52, C53};
+            Sound[] sounds15 = {ballerina};
             S15.addButtons(BS15);
+            S15.addBackgroundSounds(sounds15);
+            TextInterpreter text = new TextInterpreter();
+            S15.addScript(() -> {
+                Game.Graphics().setColor(Color.BLACK);
+
+                Game.Graphics().setFont( new Font("Times New Roman", Font.ITALIC, 15));
+
+                text.drawText(Game.Graphics(), DataCache.myShip.myNotebook().entries().get(DataCache.pageNumber).metadata(), 220, 80, 30);
+
+                Game.Graphics().setFont( new Font("Times New Roman", Font.BOLD, 30));
+                text.drawText(Game.Graphics(), DataCache.myShip.myNotebook().entries().get(DataCache.pageNumber).name(), 220, 115, 30);
+
+                Game.Graphics().setFont( new Font("Times New Roman", Font.PLAIN, 23));
+                text.drawText(Game.Graphics(), DataCache.myShip.myNotebook().entries().get(DataCache.pageNumber).entry(), 220, 150, 30);
+
+                if(DataCache.pageNumber < DataCache.myShip.myNotebook().entries().size() -1 ){
+                    Game.Graphics().setFont( new Font("Times New Roman", Font.ITALIC, 15));
+
+                    text.drawText(Game.Graphics(), DataCache.myShip.myNotebook().entries().get(DataCache.pageNumber + 1).metadata(), 640, 80, 30);
+    
+                    Game.Graphics().setFont( new Font("Times New Roman", Font.BOLD, 30));
+                    text.drawText(Game.Graphics(), DataCache.myShip.myNotebook().entries().get(DataCache.pageNumber + 1).name(), 640, 115, 30);
+    
+                    Game.Graphics().setFont( new Font("Times New Roman", Font.PLAIN, 23));
+                    text.drawText(Game.Graphics(), DataCache.myShip.myNotebook().entries().get(DataCache.pageNumber + 1).entry(), 640, 150, 30);
+    
+                }
+            });
             S15.excludeFromHistory();
     
-        S16 = new Screen("S16"); // SETTINGS
+        S16 = new Screen("S16"); //Settings
             Button[] BS16 = {B09, C01, C02, C12, C13};
+            Sound[] sounds16 = {ballerina};
+            S16.addBackgroundSounds(sounds16);
             S16.addButtons(BS16);
             S16.excludeFromHistory();
             S16.addScript(() -> {
@@ -548,14 +606,16 @@ public abstract class GraphicsDatabase {
                 Game.Graphics().drawString(Settings.volume + "", 400, 375);
             });
     
-        S17 = new Screen("S17");
+        S17 = new Screen("S17"); //Credits
         Button[] BS17 = {B01};
     
-        S18 = new Screen("S18");
+        S18 = new Screen("S18"); //Release Notes
         Button[] BS18 = {B01};
     
-        S19 = new Screen("S19");
+        S19 = new Screen("S19"); //View Saved Designs
             Button[] BS19 = {B01, B09, B24, C49, C50};
+            Sound[] sounds19 = {seagulls, emeraldseas};
+            S19.addBackgroundSounds(sounds19);
             S19.addButtons(BS19);
             S19.addScript(() -> {
                 Color c = new Color(0, 0, 0, 80);
@@ -567,9 +627,6 @@ public abstract class GraphicsDatabase {
                 DataCache.ships.get(DataCache.shipIndex).retrieveData().drawShip(-150, 0);
                 
             });
-    
-        S20 = new Screen("S20");
-        Button[] BS20 = {B01};
 
         black = new Color(0, 0, 0);
         white = new Color(255, 255, 255);

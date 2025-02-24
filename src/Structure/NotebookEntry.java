@@ -9,6 +9,7 @@ public class NotebookEntry {
     public NotebookEntry() {
         name = "Title";
         entry = "Type here!";
+        System.out.println("empty constructor call");
     }
 
     public NotebookEntry(String inputName, String inputEntry){
@@ -37,7 +38,21 @@ public class NotebookEntry {
 
     public void recordMetadata(){
         java.time.LocalDateTime date = java.time.LocalDateTime.now();
-        metadata = (date.getMonthValue() + "/" + date.getDayOfMonth() + "/" + date.getYear() + " " + date.getHour() + ":" + date.getMinute());
+        int hour = date.getHour();
+        int minute = date.getMinute();
+        String formattedMinute = "";
+        if(minute < 10){
+            formattedMinute = "0" + minute;
+        } else {
+            formattedMinute += minute;
+        }
+        if(hour > 12) {
+            hour -= 12;
+            formattedMinute += "PM";
+        } else {
+            formattedMinute += "AM";
+        }
+        metadata = (date.getMonthValue() + "/" + date.getDayOfMonth() + "/" + date.getYear() + " " + hour + ":" + formattedMinute);
     }
 
     public String toString(){

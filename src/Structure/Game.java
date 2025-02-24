@@ -57,7 +57,6 @@ public class Game  extends JPanel implements Runnable, KeyListener, MouseListene
 		DataCache.myScreen.drawScreen(g2d, getWidth(), getHeight());
 
 		twoDgraph.drawImage(back, null, 0, 0);
-		//System.out.println("a: " + DataCache.coordinates1 + " b: " + DataCache.coordinates2);
 	}
 
 	public static Graphics Graphics(){
