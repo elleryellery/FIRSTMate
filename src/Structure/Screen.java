@@ -13,7 +13,7 @@ public class Screen {
     private boolean startPlayer = true;
     private boolean includeInHistory = true;
     Sound[] backgroundSounds = {};
-    Credit[] credits;
+    Credit[] credits = {};
     Button[] buttons = {};
     //DragZone[] dragZones;
     Runnable script = () -> {};

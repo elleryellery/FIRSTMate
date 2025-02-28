@@ -13,7 +13,7 @@ public abstract class GraphicsDatabase {
 
     public static TextInput I01, I02, I03, I04;
 
-    public static ConditionalButton C01, C02, C03, C04, C05, C06, C07, C08, C12, C13, C14, C15, C16, C17, C18, C19, C20, C21, C22, C23, C24, C25, C26, C27, C28, C29, C30, C31, C32, C33, C34, C35, C36, C44, C45, C46, C47, C48, C49, C50, C51, C52, C53;
+    public static ConditionalButton C01, C02, C03, C04, C05, C06, C07, C08, C09, C10, C11, C12, C13, C14, C15, C16, C17, C18, C19, C20, C21, C22, C23, C24, C25, C26, C27, C28, C29, C30, C31, C32, C33, C34, C35, C36, C44, C45, C46, C47, C48, C49, C50, C51, C52, C53;
 
     public static Screen S01, S02, S03, S04, S05, S06, S07, S08, S09, S10, S11, S12, S13, S14, S15, S16, S17, S18, S19, S20, S21;
 
@@ -23,7 +23,27 @@ public abstract class GraphicsDatabase {
 
     public static Sound ballerina, seagulls, emeraldseas, lazylaura;
 
+    public static Credit seagullImage, pirateShipImage, seagullSound, emeraldseasMusic, buttonSound, lazyLauraMusic, ballerinaMusic, canva, people;
+
     public static void init(){
+
+        seagullImage =new Credit("Image","Seagull","pngimg.com: https://pngimg.com/image/5403","No Attribution Required");
+        pirateShipImage = new Credit("Image","Pirate Ship","Vecteezy: https://www.vecteezy.com/png/21515322-seagull-flying-on-transparent-background-png-file","Attribution-NonCommercial 4.0 International (CC BY-NC 4.0)");
+        seagullSound = new Credit("Sound","Seagull Sounds","'sg03' by Pixabay on Pixabay: https://pixabay.com/sound-effects/sg03-55932/","No Attribution Required");
+        emeraldseasMusic = new Credit("Music","Title Screen Background Music","'Emerald Seas' by Aaron Kenny on YouTube Studio Audio Library: https://www.youtube.com/channel/UCVAggfwI4hnkA2WO6-xC06Q","YouTube Audio Library License (No Attribution Required)");
+        buttonSound = new Credit("Sound","Button Sound Effect","'Multi Pop 1' by floraphonic on Pixabay: https://pixabay.com/sound-effects/multi-pop-1-188165/","No Attribution Required");
+        lazyLauraMusic = new Credit("Music","Background Music ('Ballerina')","'Ballerina' by Quincas Moreira on YouTube Studio Audio Library: https://www.youtube.com/@QuincasMoreira","YouTube Audio Library License (No Attribution Required)");
+        ballerinaMusic = new Credit("Music","Background Music ('Lazy Laura')","'Lazy Laura' by Quincas Moreira on YouTube Studio Audio Library: https://www.youtube.com/@QuincasMoreira","YouTube Audio Library License (No Attribution Required)");
+        canva = new Credit("Image","Canva","Graphics designed using Canva: https://www.canva.com/","Canva Pro Content license (No Attribution Required)");
+        people = new Credit("People","Developers & Contributors","FIRSTMate was developed by Ellery McDaniel from FRC 9181 PlatyPirates. Thank you to the members of the PlatyPirates for their help!","N/A");
+
+        String [] patches1_0 = {"None"};
+        String [] features1_0 = {"Title screen", "Credits", "In-game release notes", "Sound"};
+
+        Release[] releases = {
+            new Release("1.0","February 30, 2024", "Created game foundations", patches1_0, features1_0),
+        };
+
         B01 = new Button("B01", 1130, 0, 50, 50, () -> {Game.setScreen(S16);}); //Settings
         B02 = new Button("B02", 470, 400, 250, 78, () -> {Game.setScreen(S02);}); //New Design
         B03 = new Button("B03", 0, 0, 50, 50, () -> {Game.setScreen(S01);}); //Home TODO Save progress
@@ -31,13 +51,13 @@ public abstract class GraphicsDatabase {
             Game.setScreen(S03);
             DataCache.myShip = new Ship(I01.contents());
         });
-        B05 = new Button("B05", 170, 200, 235, 281, () -> { //Cruiser
+        B07 = new Button("B07", 170, 200, 235, 281, () -> { //Cruiser
             String[] components = {         
                 "Restaurant", "Movie Theater", "Party Room", "Fun Area 1", "Fun Area 2"
             };
             DataCache.myShip.retrieveData().setShipRequirements(components);
             DataCache.myShip.retrieveData().ShipType = "Cruiser";
-            Game.setScreen(S05);
+            Game.setScreen(S04);
         });
         B06 = new Button("B06", 470, 200, 235, 281, () -> { //Pearl
             String[] components = {            
@@ -47,13 +67,13 @@ public abstract class GraphicsDatabase {
             DataCache.myShip.retrieveData().ShipType = "The Pearl";
             Game.setScreen(S06);
         });
-        B07 = new Button("B07", 770, 200, 235, 281, () -> { //Ghoul
+        B05 = new Button("B05", 770, 200, 235, 281, () -> { //Ghoul
             String[] components = {            
                 "Trap #1", "Trap #2", "Protective Layer", "Scary Flag"
             };
             DataCache.myShip.retrieveData().setShipRequirements(components);
             DataCache.myShip.retrieveData().ShipType = "The Ghoul";
-            Game.setScreen(S04);
+            Game.setScreen(S05);
         });
         B08 = new Button("B08", 721, 428, 250, 78, () -> {
             String type = DataCache.myShip.retrieveData().ShipType;
@@ -86,7 +106,7 @@ public abstract class GraphicsDatabase {
                         "  ‣   A scary flag of your own design to intimidate invaders");
             }
             entry.recordMetadata();
-            DataCache.myShip.retrieveData().Notebook.replaceEntry(2, entry);
+            DataCache.myShip.retrieveData().Notebook.replaceEntry(1, entry);
             Game.setScreen(S07);
             ScreenScripts.PullNotebookPageToTextBox();
         });
@@ -236,8 +256,32 @@ public abstract class GraphicsDatabase {
             }
         });
 
-        C07 = new ConditionalButton("C07", 470, 125, 250, 78, () -> (!(DataCache.ships.size() > 0)), () -> { //TODO add condition
+        C07 = new ConditionalButton("C07", 470, 125, 250, 78, () -> (!(DataCache.ships.size() > 0)), () -> { 
             Game.setScreen(S19);
+        });
+
+        C08 = new ConditionalButton("C09", 118, 445, 50, 50, () -> !(DataCache.myScreen != null && DataCache.creditIndex > 0), () -> { //Previous credit
+            if(DataCache.creditIndex > 0){
+                DataCache.creditIndex --;
+            }
+        });
+
+        C09 = new ConditionalButton("C08", 1041, 445, 50, 50, () -> (!(DataCache.myScreen != null && DataCache.creditIndex < DataCache.history.getLast().credits().length - 1)), () -> { //Next credit
+            if(DataCache.creditIndex < DataCache.history.getLast().credits().length - 1){
+                DataCache.creditIndex ++;
+            }
+        });
+
+        C10 = new ConditionalButton("C11", 118, 475, 50, 50, () -> !(DataCache.releaseIndex > 0), () -> { //Previous credit
+            if(DataCache.releaseIndex > 0){
+                DataCache.releaseIndex --;
+            }
+        });
+
+        C11 = new ConditionalButton("C10", 1041, 475, 50, 50, () -> (!(DataCache.releaseIndex < releases.length - 1)), () -> { //Next credit
+            if(DataCache.releaseIndex < releases.length - 1){
+                DataCache.releaseIndex ++;
+            }
         });
 
         C12 = new ConditionalButton("C12", 672, 294, 50, 50, () -> !(Settings.volume < 100), () -> {
@@ -353,6 +397,10 @@ public abstract class GraphicsDatabase {
                 d.saveCoords();
             }
             Game.setScreen(S12);
+            DataCache.winds.clear();
+            DataCache.waterLevel = 0;
+            DataCache.shipLevel = 0;
+            DataCache.shipTestPos = -150;
         });
 
         C48 = new ConditionalButton("C48", 642, 67, 50, 50, () -> !DataCache.myShip.retrieveData().hasAllDrawings(), () -> {
@@ -406,6 +454,7 @@ public abstract class GraphicsDatabase {
         S01 = new Screen("S01"); //Starting/Opening Screen
             Button[] buttons01 = {B01, B02, B10, B21, C07, C51};
             Sound[] sounds01 = {seagulls, emeraldseas};
+            Credit[] credits01 = {seagullImage, pirateShipImage, seagullSound, emeraldseasMusic, buttonSound, canva};
             S01.addButtons(buttons01);
             S01.overrideImage("S01.gif");
             S01.addScript(() -> {
@@ -413,57 +462,73 @@ public abstract class GraphicsDatabase {
                 Game.Graphics().drawString("Tutorial Mode", 7, 80);
             });
             S01.addBackgroundSounds(sounds01);
+            S01.addCredits(credits01);
     
         S02 = new Screen("S02"); //Name your design
             Button[] BS02 = {B01, B03, B04, B10, I01};
             Sound[] sounds02 = {ballerina};
+            Credit[] credits02 = {ballerinaMusic, buttonSound, canva};
             S02.addButtons(BS02);
             S02.addBackgroundSounds(sounds02);
+            S02.addCredits(credits02);
     
         S03 = new Screen("S03"); //Choose ship type
             Button[] BS03 = {B01, B05, B06, B07, B09, B10};
             Sound[] sounds03 = {ballerina};
+            Credit[] credits03 = {ballerinaMusic, buttonSound, canva};
             S03.addButtons(BS03);
             S03.addBackgroundSounds(sounds03);
+            S03.addCredits(credits03);
                 
         S04 = new Screen("S04"); //Cruiser
             Button[] BS04 = {B01, B08, B09, B10};
             Sound[] sounds04 = {ballerina};
+            Credit[] credits04 = {ballerinaMusic, buttonSound, canva};
             S04.addButtons(BS04);
             S04.excludeFromHistory();
             S04.addBackgroundSounds(sounds04);
+            S04.addCredits(credits04);
     
         S05 = new Screen("S05"); //The Ghoul
             Button[] BS05 = {B01, B08, B09, B10};
             Sound[] sounds05 = {ballerina};
+            Credit[] credits05 = {ballerinaMusic, buttonSound, canva};
             S05.addButtons(BS05);
             S05.excludeFromHistory();
             S05.addBackgroundSounds(sounds05);
+            S05.addCredits(credits05);
 
         S06 = new Screen("S06"); //The Pearl
             Button[] BS06 = {B01, B08, B09, B10};
             Sound[] sounds06 = {ballerina};
+            Credit[] credits06 = {ballerinaMusic, buttonSound, canva};
             S06.addButtons(BS06);
             S06.excludeFromHistory();
             S06.addBackgroundSounds(sounds06);
+            S06.addCredits(credits06);
     
         S07 = new Screen("S07"); //Notebook entry
             Button[] BS07 = {B01, B09, B19, B22, B23, C03, C04, I02, I03};
             Sound[] sounds07 = {lazylaura};
+            Credit[] credits07 = {lazyLauraMusic, buttonSound, canva};
             S07.addButtons(BS07);
             S07.excludeFromHistory();
             S07.addBackgroundSounds(sounds07);
+            S07.addCredits(credits07);
         
         S21 = new Screen("S07"); //Notebook entry
             Button[] BS21 = {B01, B09, B19, B22, B23, C03, C04, I02, I03};
             Sound[] sounds21 = {lazylaura};
+            Credit[] credits21 = {lazyLauraMusic, buttonSound, canva};
             S21.addButtons(BS21);
             S21.excludeFromHistory();
             S21.addBackgroundSounds(sounds21);
+            S21.addCredits(credits21);
 
         S08 = new Screen("S08"); //Drawing
             Button[] BS08 = {B01, B09, B12, C05, C06, C14, C15, C16, C17, C18, C19, C20, C21, C22, C23, C24, C25, C26, C27, C28, C31, C32, C33, C34, C35, C36, C48};
             Sound[] sounds08 = {lazylaura};
+            Credit[] credits08 = {lazyLauraMusic, buttonSound, canva};
             S08.addButtons(BS08);
             S08.addScript(() -> {
                 DataCache.drawingEnabled = true;
@@ -472,12 +537,15 @@ public abstract class GraphicsDatabase {
                 Game.Graphics().drawString(DataCache.myShip.retrieveData().ShipRequirements[DataCache.componentIndex], 326, 75);
             });
             S08.addBackgroundSounds(sounds08);
+            S08.addCredits(credits08);
     
         S09 = new Screen("S10"); //Composition
             Button[] BS09 = {B01, B09, B12, C47};
             Sound[] sounds09 = {lazylaura};
+            Credit[] credits09 = {lazyLauraMusic, buttonSound, canva};
             S09.addButtons(BS09);
             S09.addBackgroundSounds(sounds09);
+            S09.addCredits(credits09);
             // S09.addScript(() -> {
             //     int x = 0;
             //     for(Drawing d: DataCache.myShip.retrieveData().ShipSketches){
@@ -489,8 +557,10 @@ public abstract class GraphicsDatabase {
         S12 = new Screen("S12"); //Testing
             Button[] BS12 = {B01, B09, B11, B25, B26, B27, B29};
             Sound[] sounds12 = {seagulls, lazylaura};
+            Credit[] credits12 = {seagullSound, lazyLauraMusic, buttonSound, canva};
             S12.addButtons(BS12);
             S12.addBackgroundSounds(sounds12);
+            S12.addCredits(credits12);
             S12.addScript(() -> {
                 Game.Graphics().drawImage(new ImageIcon("FIRSTMate-Assets\\M\\Water.png").getImage(), 0, 610 - DataCache.waterLevel * 20, 1200, 310, null);
                 int windSpeed = 0;
@@ -549,23 +619,29 @@ public abstract class GraphicsDatabase {
     
         S13 = new Screen("S13"); //Failure note
             Button[] BS13 = {B01, B28};
+            Credit[] credits13 = {canva};
             S13.addButtons(BS13);
             S13.addScript(() -> {
                 TextInterpreter t = new TextInterpreter();
                 Game.Graphics().setColor(Color.WHITE);
                 t.drawText(Game.Graphics(), DataCache.failureMessage, 382, 310, 50);
             });
+            S13.addCredits(credits13);
     
         S14 = new Screen("S14"); //Completion screen
             Button[] BS14 = {B01, B03};
+            Credit[] credits14 = {canva, people};
             S14.addButtons(BS14);
+            S14.addCredits(credits14);
     
         S15 = new Screen("S15"); //View notebook
             Button[] BS15 = {B01, B09, B30, C52, C53};
             Sound[] sounds15 = {ballerina};
+            Credit[] credits15 = {ballerinaMusic, buttonSound, canva};
             S15.addButtons(BS15);
             S15.addBackgroundSounds(sounds15);
             TextInterpreter text = new TextInterpreter();
+            S15.addCredits(credits15);
             S15.addScript(() -> {
                 Game.Graphics().setColor(Color.BLACK);
 
@@ -597,9 +673,11 @@ public abstract class GraphicsDatabase {
         S16 = new Screen("S16"); //Settings
             Button[] BS16 = {B09, C01, C02, C12, C13};
             Sound[] sounds16 = {ballerina};
+            Credit[] credits16 = {ballerinaMusic, buttonSound, canva};
             S16.addBackgroundSounds(sounds16);
             S16.addButtons(BS16);
             S16.excludeFromHistory();
+            S16.addCredits(credits16);
             S16.addScript(() -> {
                 Game.Graphics().setColor(Color.BLACK);
                 Game.Graphics().setFont(new Font("Times New Roman", Font.BOLD, 150));
@@ -607,10 +685,72 @@ public abstract class GraphicsDatabase {
             });
     
         S17 = new Screen("S17"); //Credits
-        Button[] BS17 = {B01};
+            Button[] BS17 = {B01, B09, C08, C09};
+            Sound[] sounds17 = {ballerina};
+            S17.addButtons(BS17);
+            S17.addBackgroundSounds(sounds17);
+            S17.addScript(() -> {
+                Game.Graphics().setColor(new Color(	89, 142, 244));
+                Game.Graphics().fillRect(100,100,1000,400);
+
+                Game.Graphics().setColor(Color.WHITE);
+                Game.Graphics().setFont( new Font("Times New Roman", Font.PLAIN, 18));
+
+                text.drawText(Game.Graphics(),"Type: " +  DataCache.history.getLast().credits()[DataCache.creditIndex].type(), 150, 150, 90);
+
+                Game.Graphics().setFont( new Font("Times New Roman", Font.BOLD, 35));
+
+                text.drawText(Game.Graphics(),"Item: " +  DataCache.history.getLast().credits()[DataCache.creditIndex].item(), 150, 200, 90);
+
+                Game.Graphics().setFont( new Font("Times New Roman", Font.PLAIN, 22));
+
+                text.drawText(Game.Graphics(),"Source: " +  DataCache.history.getLast().credits()[DataCache.creditIndex].source(), 150, 240, 90);
+
+                Game.Graphics().setFont( new Font("Times New Roman", Font.ITALIC, 22));
+
+                text.drawText(Game.Graphics(),"License: " +  DataCache.history.getLast().credits()[DataCache.creditIndex].license(), 150, 425, 90);
+
+            });
+            S17.excludeFromHistory();
     
         S18 = new Screen("S18"); //Release Notes
-        Button[] BS18 = {B01};
+            Button[] BS18 = {B01, B09, C10, C11};
+            Sound[] sounds18 = {ballerina};
+            S18.addButtons(BS18);
+            S18.addBackgroundSounds(sounds18);
+            S18.excludeFromHistory();
+            S18.addScript(() -> {
+                Game.Graphics().setColor(Color.BLACK);
+                Game.Graphics().fillRect(100,100,1000,450);
+        
+                Game.Graphics().setColor(Color.LIGHT_GRAY);
+                Game.Graphics().setFont( new Font("Times New Roman", Font.PLAIN, 17));
+                Game.Graphics().drawImage(releases[DataCache.releaseIndex].bannerImage().getImage(),110,110,980,100,null);
+                Game.Graphics().drawString("Version Number: " + releases[DataCache.releaseIndex].versionNumber(),150,250);
+                Game.Graphics().drawString("Release Date: " + releases[DataCache.releaseIndex].releaseDate(),150,270);
+                Game.Graphics().drawString("Summary: " + releases[DataCache.releaseIndex].summary(),150,290);
+                Game.Graphics().setColor(Color.WHITE);
+                Game.Graphics().setFont( new Font("Times New Roman", Font.BOLD, 17));
+                Game.Graphics().drawString("Features: ",150,310);
+                Game.Graphics().drawString("Bug Fixes and Patches: ",620,310);
+        
+                Game.Graphics().drawString("For more detailed release notes, visit our Github page linked on our team website!",310,580);
+        
+                Game.Graphics().setFont( new Font("Times New Roman", Font.PLAIN, 17));
+                Game.Graphics().setColor(Color.LIGHT_GRAY);
+        
+                int yPlacement = 330;
+                for(String f: releases[DataCache.releaseIndex].features()){
+                    Game.Graphics().drawString("     ‣    " + f,150,yPlacement);
+                    yPlacement+=20;
+                }
+        
+                yPlacement = 330;
+                for(String p: releases[DataCache.releaseIndex].patches()){
+                    Game.Graphics().drawString("     ‣    " + p,620,yPlacement);
+                    yPlacement+=20;
+                }
+            });
     
         S19 = new Screen("S19"); //View Saved Designs
             Button[] BS19 = {B01, B09, B24, C49, C50};
@@ -670,5 +810,6 @@ public abstract class GraphicsDatabase {
         DataCache.tutorials.add(new TutorialBox("Your ship floats! Now it's time to test your ship's strength by throwing cannonballs at it. Click on the cannon button and drag the arrow to shoot cannonballs.", () -> (DataCache.waterLevel >= 5 && DataCache.myScreen == S12)));
         DataCache.tutorials.add(new TutorialBox("Nice! Time for the final test -- can your ship catch the wind in its sails and sail along the seas? Click the wind button to add wind.", () -> (DataCache.numCannonballsReleased >= 3 && DataCache.myScreen == S12)));
         DataCache.tutorials.add(new TutorialBox("Fantastic! It's time to send your ship on its first voyage. Hopefully your tests didn't miss anything! Press \"I'm done!\"", () -> (DataCache.winds.size() >0 && DataCache.myScreen == S12)));
+        
     }
 }

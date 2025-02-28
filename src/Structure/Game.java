@@ -111,6 +111,9 @@ public class Game  extends JPanel implements Runnable, KeyListener, MouseListene
 
 		if(keyChar == '~'){
 			DataCache.debug = !DataCache.debug;
+			if(DataCache.debug){
+				System.out.println("Currently viewing: " + DataCache.myScreen.tag());
+			}
 		}
 	}
 
@@ -168,6 +171,7 @@ public class Game  extends JPanel implements Runnable, KeyListener, MouseListene
 						DataCache.dragXOffset = e.getX()-b.x();
 						DataCache.dragYOffset = e.getY()-b.y();
 						DataCache.myScreen.rearrangeToLast(b);
+						DataCache.myShip.retrieveData().getDrawingFromDraggable((Draggable)b).setOrder(DataCache.myShip.retrieveData().ShipSketches.length);
 						break;
 					}
 				} else {

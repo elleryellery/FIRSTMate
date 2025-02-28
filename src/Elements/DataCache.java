@@ -39,4 +39,6 @@ public class DataCache {
     public static boolean enabledCannons = false;
     public static LinkedList<TutorialBox> tutorials = new LinkedList<TutorialBox>();
     public static int numCannonballsReleased = 0;
+    public static int creditIndex = 0;
+    public static int releaseIndex = 0;
 }

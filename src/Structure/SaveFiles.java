@@ -80,6 +80,7 @@ public abstract class SaveFiles {
         
                         for(int i = 0; i < numDrawings; i++){
                             int numPoints = Integer.parseInt(sc.nextLine());
+                            int order = Integer.parseInt(sc.nextLine());
                             ArrayList<Coordinate> coords = new ArrayList<Coordinate> ();
                             for(int j = 0; j < numPoints; j++){
                                 int x = sc.nextInt();
@@ -95,6 +96,7 @@ public abstract class SaveFiles {
                                 coords.add(c);
                             }
                             drawings[i] = new Drawing(coords);
+                            drawings[i].setOrder(order);
                             int x = sc.nextInt();
                             int y = sc.nextInt();
                             drawings[i].setX(x);

@@ -15,6 +15,7 @@ public class Drawing {
     private Draggable draggable;
     private int x, y;
     private int xMax, xMin, yMax, yMin;
+    private int order = 0;
 
     public Drawing(){
         x = -3141592;
@@ -28,6 +29,9 @@ public class Drawing {
 
     public void savePoints(ArrayList<Coordinate> _points){
         points = _points;
+        if(order == 0){
+            order = DataCache.componentIndex + 1;
+        }
     }
 
     public void draw(){
@@ -54,6 +58,14 @@ public class Drawing {
 
     public String toString(){
         return "Drawing with " + points.size() + " points";
+    }
+
+    public void setOrder(int _order){
+        order = _order;
+    }
+
+    public int order(){
+        return order;
     }
 
     public void constructImage(){

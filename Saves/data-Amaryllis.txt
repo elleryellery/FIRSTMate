@@ -9,9 +9,9 @@ Treasure Room
 Fighting mechanism
 The Pearl
 7
-Welcome!
-2/24/2025 2:21PM
-This is your design notebook, where you'll record each step in your design process. Access this notebook from any step in the design process and make your own entries!Your New Pearl
+Title
+2/28/2025 2:24PM
+Type here...
 Your New Pearl
 2/24/2025 2:21PM
 The pearl is a classic pirate ship, focusing mostly on playing offense on the seas.⏎As a pearl, your ship will be designed to pillage and raid.⏎Your pearl must include:⏎  ‣   At least three cannons⏎  ‣   A way to board other ships⏎  ‣   A treasure room for stolen goodies⏎  ‣   Your own creative design for fighting other pirate ships
@@ -32,6 +32,7 @@ I did it!
 The first time I tested my ship, it wasn't stable enough. When I shot a cannonball it went right through. I added onto my ship some more to fix it, and it was much better. My ship passed all of the tests and it worked!
 7
 3308
+7
 476 350 219 143 81 20
 477 351 219 143 81 20
 478 351 219 143 81 20
@@ -3342,6 +3343,7 @@ The first time I tested my ship, it wasn't stable enough. When I shot a cannonba
 877 458 0 0 0 20
 409 338
 206
+2
 757 379 130 19 19 10
 758 379 130 19 19 10
 759 379 130 19 19 10
@@ -3550,6 +3552,7 @@ The first time I tested my ship, it wasn't stable enough. When I shot a cannonba
 765 344 130 19 19 10
 680 314
 1517
+3
 652 358 130 19 19 10
 652 357 130 19 19 10
 652 356 130 19 19 10
@@ -5069,6 +5072,7 @@ The first time I tested my ship, it wasn't stable enough. When I shot a cannonba
 748 183 0 0 0 10
 563 162
 587
+7
 589 381 0 0 0 30
 588 381 0 0 0 30
 588 382 0 0 0 30
@@ -5656,8 +5660,9 @@ The first time I tested my ship, it wasn't stable enough. When I shot a cannonba
 867 423 0 0 0 10
 866 423 0 0 0 10
 865 423 0 0 0 10
-496 415
+501 419
 596
+5
 480 233 182 78 78 30
 481 233 182 78 78 30
 487 240 182 78 78 30
@@ -6256,6 +6261,7 @@ The first time I tested my ship, it wasn't stable enough. When I shot a cannonba
 728 386 255 255 255 10
 316 154
 624
+6
 596 310 0 0 0 20
 596 311 0 0 0 20
 596 312 0 0 0 20
@@ -6882,6 +6888,7 @@ The first time I tested my ship, it wasn't stable enough. When I shot a cannonba
 797 388 0 0 0 10
 607 400
 413
+7
 495 319 219 143 81 10
 495 318 219 143 81 10
 495 317 219 143 81 10
