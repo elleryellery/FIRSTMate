@@ -1,6 +1,8 @@
 package Elements;
+import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Font;
+import java.awt.Graphics2D;
 import java.util.Arrays;
 import java.util.stream.Stream;
 
@@ -219,6 +221,9 @@ public abstract class GraphicsDatabase {
         C01 = new ConditionalButton("C01", 800, 400, 200, 100, () -> (Settings.enabledMusic), () -> {
             Settings.enabledMusic = !Settings.enabledMusic;
             Screen.sfx.stopAllSounds();
+            if(Settings.enabledMusic){
+                DataCache.myScreen.setStartPlayer(true);
+            }
         });
 
         C02 = new ConditionalButton("C02", 800, 200, 200, 100, () -> (Settings.enabledSoundEffects), () -> {
@@ -533,6 +538,11 @@ public abstract class GraphicsDatabase {
             S08.addScript(() -> {
                 DataCache.drawingEnabled = true;
                 DataCache.myShip.retrieveData().ShipSketches[DataCache.componentIndex].draw();
+                if(DataCache.lineStart != null && DataCache.lineEnd != null){
+                    Game.Graphics().setColor(DataCache.penColor);
+                    ((Graphics2D) Game.Graphics()).setStroke(new BasicStroke(DataCache.penSize));
+                    Game.Graphics().drawLine(DataCache.lineStart.x(), DataCache.lineStart.y(), DataCache.lineEnd.x(), DataCache.lineEnd.y());
+                }
                 Game.Graphics().setColor(Color.BLACK);
                 Game.Graphics().drawString(DataCache.myShip.retrieveData().ShipRequirements[DataCache.componentIndex], 326, 75);
             });

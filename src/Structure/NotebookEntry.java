@@ -10,6 +10,7 @@ public class NotebookEntry {
         name = "Title";
         entry = "Type here!";
         System.out.println("empty constructor call");
+        recordMetadata();
     }
 
     public NotebookEntry(String inputName, String inputEntry){
@@ -48,6 +49,8 @@ public class NotebookEntry {
         }
         if(hour > 12) {
             hour -= 12;
+            formattedMinute += "PM";
+        } else if(hour == 12){
             formattedMinute += "PM";
         } else {
             formattedMinute += "AM";

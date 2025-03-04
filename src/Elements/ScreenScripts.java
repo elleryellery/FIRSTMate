@@ -1,4 +1,6 @@
 package Elements;
+import java.awt.BasicStroke;
+import java.awt.Graphics2D;
 import java.awt.Rectangle;
 import java.util.ArrayList;
 
@@ -45,9 +47,51 @@ public class ScreenScripts {
                     }
                     DataCache.drawing = temp;
                     break;
+                case "Line":
+                    if(DataCache.lineStart == null){
+                        DataCache.lineStart = new Coordinate(x, y, DataCache.penColor, DataCache.penSize);
+                        DataCache.previousCoordinate = DataCache.lineStart;
+                    } else {
+                        DataCache.lineEnd = new Coordinate(x, y, DataCache.penColor, DataCache.penSize);
+                    }
             }
         }
         DataCache.myShip.retrieveData().ShipSketches[DataCache.componentIndex].savePoints(DataCache.drawing);
+    }
+
+    public static void liftLine(int x, int y){
+        if(DataCache.penType.equals("Line") && DataCache.lineStart != null){
+            makeLine();
+            DataCache.lineStart = null;
+            DataCache.lineEnd = null;
+            DataCache.previousCoordinate = null;
+        }
+    }
+
+    public static void makeLine(){
+        if(DataCache.lineEnd.x()-DataCache.lineStart.x() != 0){
+            if(DataCache.lineEnd.x()-DataCache.lineStart.x() < 0){
+                Coordinate temp = DataCache.lineStart;
+                DataCache.lineStart = DataCache.lineEnd;
+                DataCache.lineEnd = temp;
+            }
+            double m = (DataCache.lineEnd.y()-DataCache.lineStart.y())/(double)(DataCache.lineEnd.x()-DataCache.lineStart.x());
+            System.out.println(m);
+            
+            for(int i = DataCache.lineStart.x(); i <= DataCache.lineEnd.x(); i++){
+                Coordinate c = new Coordinate(i, (int)(m*(i-DataCache.lineStart.x())+DataCache.lineStart.y()), DataCache.penColor, DataCache.penSize);
+                if(DataCache.previousCoordinate != null && Math.abs(m) > 7.0){
+                    startPointConnection(5, c.x(), c.y(), DataCache.previousCoordinate.x(), DataCache.previousCoordinate.y());
+                    DataCache.previousCoordinate = c;
+                } else {
+                    DataCache.drawing.add(c);
+                }
+            }
+        } else {
+            for(int i = DataCache.lineStart.y(); i <= DataCache.lineEnd.y(); i++){
+                DataCache.drawing.add(new Coordinate(DataCache.lineStart.x(), i, DataCache.penColor, DataCache.penSize));
+            }
+        }
     }
 
     public static void drawDisconnectedPoint(int x, int y){
@@ -70,6 +114,7 @@ public class ScreenScripts {
 
         for(int i = 0; i < numPoints; i++) {
             drawPoints(resolution, goalX, goalY, xIncrement, yIncrement);
+            System.out.println(resolution + " " + goalX + " " +  goalY + " " +  xIncrement + " " +  yIncrement);
         }
     }
 
@@ -91,7 +136,7 @@ public class ScreenScripts {
         int y = 0;
 
         for(int i = DataCache.myShip.retrieveData().ShipSketches.length - 1; i >= 0; i--){
-            Drawing d = DataCache.myShip.retrieveData().ShipSketches[i];
+            Drawing d = DataCache.myShip.retrieveData().sortedDrawings().get(i);
             if(d.x() == -3141592){
                 x = 270 - d.width();
                 y = 344 - (int)(d.height()/2);

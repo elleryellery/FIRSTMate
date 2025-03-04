@@ -69,11 +69,7 @@ public class Data {
     }
 
     public void drawShip(int x, int y){
-        ArrayList<Drawing> sorted = new ArrayList <Drawing>();
-        for(Drawing d: ShipSketches){
-            sorted.add(d);
-        }
-        sorted.sort((a, b) -> {return a.order() - b.order();});
+        ArrayList<Drawing> sorted = sortedDrawings();
         
         for(Drawing d: sorted){
             Game.Graphics().drawImage(d.asPicture(),d.x() + x, d.y() + y, d.width(), d.height(), null);
@@ -82,6 +78,15 @@ public class Data {
                 Game.Graphics().drawRect(d.x() + x, d.y() + y, d.width(), d.height());
             }
         }
+    }
+
+    public ArrayList<Drawing> sortedDrawings(){
+        ArrayList<Drawing> sorted = new ArrayList <Drawing>();
+        for(Drawing d: ShipSketches){
+            sorted.add(d);
+        }
+        sorted.sort((a, b) -> {return a.order() - b.order();});
+        return sorted;
     }
 
     public void rearrangeToLast(Drawing d){

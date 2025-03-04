@@ -41,4 +41,6 @@ public class DataCache {
     public static int numCannonballsReleased = 0;
     public static int creditIndex = 0;
     public static int releaseIndex = 0;
+    public static Coordinate lineStart = null;
+    public static Coordinate lineEnd = null;
 }

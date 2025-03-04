@@ -63,6 +63,15 @@ public class Game  extends JPanel implements Runnable, KeyListener, MouseListene
 		return g2d;
 	}
 
+	public static boolean includes(int[] array, int element){
+		for(int i: array){
+			if(i == element){
+				return true;
+			}
+		}
+		return false;
+	}
+
 	public static void previousScreen() {
 		Screen temp = DataCache.myScreen;
 		setScreen(DataCache.history.get(DataCache.history.size()-1));
@@ -91,6 +100,8 @@ public class Game  extends JPanel implements Runnable, KeyListener, MouseListene
 		int key= e.getKeyCode();
 		char keyChar = e.getKeyChar();	
 
+		int[] unsupportedKeys = {16, 17, 525, 524, 18, 34, 33, 36, 35, 155, 127, 38, 40, 144, 111, 106, 110};
+
 		if(DataCache.inputStatus){
 			if(key == 8){
 				if(DataCache.inputBox.contentsLength()>0) {
@@ -104,7 +115,7 @@ public class Game  extends JPanel implements Runnable, KeyListener, MouseListene
 				DataCache.inputBox.arrowLeft();
 			} else if(key == 39){
 				DataCache.inputBox.arrowRight();
-			} else if(key != 16){
+			} else if(!includes(unsupportedKeys, key)){
 				DataCache.inputBox.addCharacter(keyChar);
 			}
 		}	
@@ -199,6 +210,9 @@ public class Game  extends JPanel implements Runnable, KeyListener, MouseListene
 			DataCache.numCannonballsReleased ++;
 			GraphicsDatabase.D05.setCoords(40, 258);
 			DataCache.myShip.retrieveData().makeSketchCopy();
+		}
+		if(DataCache.drawingEnabled){
+			ScreenScripts.liftLine(e.getX(), e.getY());
 		}
 		DataCache.previousCoordinate = null;
 		DataCache.holding = null;
