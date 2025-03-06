@@ -3,6 +3,11 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Scanner;
 import java.awt.event.*; 
 
 import Elements.*;
@@ -52,6 +57,7 @@ public class Game  extends JPanel implements Runnable, KeyListener, MouseListene
 		DataCache.myScreen.drawScreen(g2d, getWidth(), getHeight());
 
 		twoDgraph.drawImage(back, null, 0, 0);
+		//System.out.println("a: " + DataCache.coordinates1 + " b: " + DataCache.coordinates2);
 	}
 
 	public static Graphics Graphics(){
@@ -61,6 +67,7 @@ public class Game  extends JPanel implements Runnable, KeyListener, MouseListene
 	public static void previousScreen() {
 		setScreen(DataCache.history.get(DataCache.history.size()-1));
 		DataCache.history.remove(DataCache.history.size()-1);
+		DataCache.history.remove(DataCache.history.size()-1);
 	}
 
 	public static void setScreen(Screen _screen){
@@ -69,8 +76,6 @@ public class Game  extends JPanel implements Runnable, KeyListener, MouseListene
 		}
 		DataCache.myScreen = _screen;
 	}
-
-
 	
 	@Override
 	public void keyTyped(KeyEvent e) {
@@ -79,9 +84,28 @@ public class Game  extends JPanel implements Runnable, KeyListener, MouseListene
 	
 	@Override
 	public void keyPressed(KeyEvent e) {
-		char key = e.getKeyChar();
+		int key= e.getKeyCode();
+		char keyChar = e.getKeyChar();	
 
-		if(key == '`'){
+		if(DataCache.inputStatus){
+			if(key == 8){
+				if(DataCache.inputBox.contentsLength()>0) {
+					DataCache.inputBox.deleteCharacter();
+				}
+			} else if(key == 10) {
+				if(DataCache.inputBox.multiLineEnabled()){
+					DataCache.inputBox.newLine();
+				}
+			} else if(key == 37){
+				DataCache.inputBox.arrowLeft();
+			} else if(key == 39){
+				DataCache.inputBox.arrowRight();
+			} else if(key != 16){
+				DataCache.inputBox.addCharacter(keyChar);
+			}
+		}	
+
+		if(keyChar == '~'){
 			DataCache.debug = !DataCache.debug;
 		}
 	}
@@ -93,7 +117,12 @@ public class Game  extends JPanel implements Runnable, KeyListener, MouseListene
 	
 	@Override
 	public void mouseDragged(MouseEvent e) {
-
+		if(DataCache.drawingEnabled && DataCache.inFrame){
+			ScreenScripts.drawAt(e.getX(), e.getY());
+		}
+		if(DataCache.holding != null && DataCache.inFrame){
+			DataCache.holding.setCoords(e.getX() - DataCache.dragXOffset, e.getY() - DataCache.dragYOffset);
+		}
 	}
 	
 	@Override
@@ -110,26 +139,53 @@ public class Game  extends JPanel implements Runnable, KeyListener, MouseListene
 
 	@Override
 	public void mouseEntered(MouseEvent e) {
-		
+		DataCache.inFrame = true;
 	}
 
 	@Override
 	public void mouseExited(MouseEvent e) {
-		
+		DataCache.inFrame = false;
 	}
 
 	@Override
 	public void mousePressed(MouseEvent e) {
 		for(Button b: DataCache.myScreen.buttons()){
-			b.check(e.getX(), e.getY());
+			if(b.check(e.getX(), e.getY())){
+				break;
+			}
+		}
+		for(int i = DataCache.myScreen.buttons().length - 1; i >= 0; i--){
+			Button b = DataCache.myScreen.buttons()[i];
+			if(b instanceof Draggable){
+				if(b.check(e.getX(), e.getY())){
+					DataCache.holding = (Draggable)b;
+					DataCache.dragXOffset = e.getX()-b.x();
+					DataCache.dragYOffset = e.getY()-b.y();
+					DataCache.myScreen.rearrangeToLast(b);
+					break;
+				}
+			} else {
+				b.checkHover(e.getX(), e.getY());
+			}
 		}
 		if(DataCache.debug){
 			System.out.println("DEBUG: Mouse coordinates: (" + e.getX() + ", " + e.getY() + ")");
 		}
+		if(DataCache.inputStatus && !DataCache.inputBox.check(e.getX(), e.getY())){
+			DataCache.inputStatus = false;
+		}
+
 	}
 
 	@Override
 	public void mouseReleased(MouseEvent e) {
-		
+		if(DataCache.holding == GraphicsDatabase.D05){
+			int dx = (int)((GraphicsDatabase.D05.x()-40)/50);
+			int dy = (int)((GraphicsDatabase.D05.y()-258)/50);
+			DataCache.cannonball = new Cannonball(dx, dy);
+			GraphicsDatabase.D05.setCoords(40, 258);
+		}
+		DataCache.previousCoordinate = null;
+		DataCache.holding = null;
 	}
 }

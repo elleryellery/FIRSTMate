@@ -3,6 +3,8 @@ import java.awt.Rectangle;
 
 import javax.swing.ImageIcon;
 
+import Elements.DataCache;
+
 public class Button {
     
     private String tag;
@@ -39,15 +41,21 @@ public class Button {
 
     public void drawButton (){
         Game.Graphics().drawImage(icon.getImage(),x,y,w,h,null);
+        if(DataCache.debug){
+            Game.Graphics().drawRect(x, y, w, h);
+            Game.Graphics().drawString(tag, x, y-20);
+        }
     }
 
-    public void check(int mouseX, int mouseY){
+    public boolean check(int mouseX, int mouseY){
         Rectangle mouse = new Rectangle(mouseX,mouseY,1,1);
         Rectangle me = new Rectangle(x,y,w,h);
 
         if(mouse.intersects(me)){
             executeButtonAction();
         }
+
+        return mouse.intersects(me);
     }
 
     public void setRunnable(Runnable inputAction){
