@@ -10,7 +10,6 @@ public class ScreenScripts {
     public static void PullNotebookPageToTextBox(){
         GraphicsDatabase.I02.setContents(DataCache.myShip.myNotebook().entries().get(DataCache.pageNumber).name());
         GraphicsDatabase.I03.setContents(DataCache.myShip.myNotebook().entries().get(DataCache.pageNumber).entry());
-
     }
 
     
@@ -74,14 +73,14 @@ public class ScreenScripts {
                 Coordinate temp = DataCache.lineStart;
                 DataCache.lineStart = DataCache.lineEnd;
                 DataCache.lineEnd = temp;
+                DataCache.previousCoordinate = DataCache.lineStart;
             }
             double m = (DataCache.lineEnd.y()-DataCache.lineStart.y())/(double)(DataCache.lineEnd.x()-DataCache.lineStart.x());
-            System.out.println(m);
             
             for(int i = DataCache.lineStart.x(); i <= DataCache.lineEnd.x(); i++){
                 Coordinate c = new Coordinate(i, (int)(m*(i-DataCache.lineStart.x())+DataCache.lineStart.y()), DataCache.penColor, DataCache.penSize);
                 if(DataCache.previousCoordinate != null && Math.abs(m) > 7.0){
-                    startPointConnection(5, c.x(), c.y(), DataCache.previousCoordinate.x(), DataCache.previousCoordinate.y());
+                    startPointConnection(3, c.x(), c.y(), DataCache.previousCoordinate.x(), DataCache.previousCoordinate.y());
                     DataCache.previousCoordinate = c;
                 } else {
                     DataCache.drawing.add(c);
@@ -114,7 +113,6 @@ public class ScreenScripts {
 
         for(int i = 0; i < numPoints; i++) {
             drawPoints(resolution, goalX, goalY, xIncrement, yIncrement);
-            System.out.println(resolution + " " + goalX + " " +  goalY + " " +  xIncrement + " " +  yIncrement);
         }
     }
 

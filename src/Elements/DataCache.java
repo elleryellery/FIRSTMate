@@ -43,4 +43,5 @@ public class DataCache {
     public static int releaseIndex = 0;
     public static Coordinate lineStart = null;
     public static Coordinate lineEnd = null;
+    public static double steeringRotation = 0.0;
 }

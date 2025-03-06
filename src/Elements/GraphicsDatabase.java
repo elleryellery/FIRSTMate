@@ -109,8 +109,8 @@ public abstract class GraphicsDatabase {
             }
             entry.recordMetadata();
             DataCache.myShip.retrieveData().Notebook.replaceEntry(1, entry);
-            Game.setScreen(S07);
             ScreenScripts.PullNotebookPageToTextBox();
+            Game.setScreen(S07);
         });
         B09 = new Button("B09", 0, 0, 50, 50, () -> {Game.previousScreen();}); //Back/Previous
         
@@ -151,6 +151,9 @@ public abstract class GraphicsDatabase {
         B19 = new Button("B20", 719, 533, 50, 50, () -> { //TODO Save notebook entry
             DataCache.myShip.myNotebook().entries().get(DataCache.pageNumber).update();
             Game.setScreen(S08);
+            if(DataCache.myShip.retrieveData().ShipSketches.length > 0){
+                DataCache.drawing = DataCache.myShip.retrieveData().ShipSketches[0].getPoints();
+            }
         });
 
         B20 = new Button("B20", 493, 532, 250, 78, () -> { //TODO Save notebook entry
@@ -180,8 +183,10 @@ public abstract class GraphicsDatabase {
                 Button[] BS09 = {B01, B09, B12, C47};
                 Button[] temp = Stream.concat(Arrays.stream(BS09), Arrays.stream(ScreenScripts.convertSketchesToDraggables())).toArray(Button[]::new);
                 S09.addButtons(temp);
+                ScreenScripts.PullNotebookPageToTextBox();
                 Game.setScreen(S07);
             } else {
+                ScreenScripts.PullNotebookPageToTextBox();
                 Game.setScreen(S07);
             }
         });
@@ -303,62 +308,107 @@ public abstract class GraphicsDatabase {
 
         C14 = new ConditionalButton("C14", 15, 150, 75, 75, () -> (DataCache.penColor == black), () -> {
             DataCache.penColor = black;
+            if(DataCache.penType == "Erase"){
+                DataCache.penType = "Scribble";
+            }
         });
 
         C15 = new ConditionalButton("C15", 90, 150, 75, 75, () -> (DataCache.penColor == white), () -> {
             DataCache.penColor = white;
+            if(DataCache.penType == "Erase"){
+                DataCache.penType = "Scribble";
+            }
         });
 
         C16 = new ConditionalButton("C16", 165, 150, 75, 75, () -> (DataCache.penColor == yellow), () -> {
             DataCache.penColor = yellow;
+            if(DataCache.penType == "Erase"){
+                DataCache.penType = "Scribble";
+            }
         });
 
         C17 = new ConditionalButton("C17", 15, 225, 75, 75, () -> (DataCache.penColor == lightBlue), () -> {
             DataCache.penColor = lightBlue;
+            if(DataCache.penType == "Erase"){
+                DataCache.penType = "Scribble";
+            }
         });
 
         C18 = new ConditionalButton("C18", 90, 225, 75, 75, () -> (DataCache.penColor == red), () -> {
             DataCache.penColor = red;
+            if(DataCache.penType == "Erase"){
+                DataCache.penType = "Scribble";
+            }
         });
 
         C19 = new ConditionalButton("C19", 165, 225, 75, 75, () -> (DataCache.penColor == turquoise), () -> {
             DataCache.penColor = turquoise;
+            if(DataCache.penType == "Erase"){
+                DataCache.penType = "Scribble";
+            }
         });
 
         C20 = new ConditionalButton("C20", 15, 300, 75, 75, () -> (DataCache.penColor == purple), () -> {
             DataCache.penColor = purple;
+            if(DataCache.penType == "Erase"){
+                DataCache.penType = "Scribble";
+            }
         });
 
         C21 = new ConditionalButton("C21", 90, 300, 75, 75, () -> (DataCache.penColor == hotPink), () -> {
             DataCache.penColor = hotPink;
+            if(DataCache.penType == "Erase"){
+                DataCache.penType = "Scribble";
+            }
         });
 
         C22 = new ConditionalButton("C22", 165, 300, 75, 75, () -> (DataCache.penColor == orange), () -> {
             DataCache.penColor = orange;
+            if(DataCache.penType == "Erase"){
+                DataCache.penType = "Scribble";
+            }
         });
 
         C23 = new ConditionalButton("C23", 15, 375, 75, 75, () -> (DataCache.penColor == darkPurple), () -> {
             DataCache.penColor = darkPurple;
+            if(DataCache.penType == "Erase"){
+                DataCache.penType = "Scribble";
+            }
         });
 
         C24 = new ConditionalButton("C24", 90, 375, 75, 75, () -> (DataCache.penColor == lightGreen), () -> {
             DataCache.penColor = lightGreen;
+            if(DataCache.penType == "Erase"){
+                DataCache.penType = "Scribble";
+            }
         });
 
         C25 = new ConditionalButton("C25", 165, 375, 75, 75, () -> (DataCache.penColor == lightPink), () -> {
             DataCache.penColor = lightPink;
+            if(DataCache.penType == "Erase"){
+                DataCache.penType = "Scribble";
+            }
         });
 
         C26 = new ConditionalButton("C26", 15, 450, 75, 75, () -> (DataCache.penColor == skyBlue), () -> {
             DataCache.penColor = skyBlue;
+            if(DataCache.penType == "Erase"){
+                DataCache.penType = "Scribble";
+            }
         });
 
         C27 = new ConditionalButton("C27", 90, 450, 75, 75, () -> (DataCache.penColor == green), () -> {
             DataCache.penColor = green;
+            if(DataCache.penType == "Erase"){
+                DataCache.penType = "Scribble";
+            }
         });
 
         C28 = new ConditionalButton("C28", 165, 450, 75, 75, () -> (DataCache.penColor == burgundy), () -> {
             DataCache.penColor = burgundy;
+            if(DataCache.penType == "Erase"){
+                DataCache.penType = "Scribble";
+            }
         });
 
         C31 = new ConditionalButton("C31", 120, 108, 40, 40, () -> (DataCache.penType.equals("Scribble")), () -> {
@@ -409,13 +459,15 @@ public abstract class GraphicsDatabase {
         });
 
         C48 = new ConditionalButton("C48", 642, 67, 50, 50, () -> !DataCache.myShip.retrieveData().hasAllDrawings(), () -> {
-            for(Drawing d: DataCache.myShip.retrieveData().ShipSketches){
-                d.constructImage();
+            if(DataCache.myShip.retrieveData().hasAllDrawings()){
+                for(Drawing d: DataCache.myShip.retrieveData().ShipSketches){
+                    d.constructImage();
+                }
+                Button[] BS09 = {B01, B09, B12, C47};
+                Button[] temp = Stream.concat(Arrays.stream(BS09), Arrays.stream(ScreenScripts.convertSketchesToDraggables())).toArray(Button[]::new);
+                S09.addButtons(temp);
+                Game.setScreen(S09);
             }
-            Button[] BS09 = {B01, B09, B12, C47};
-            Button[] temp = Stream.concat(Arrays.stream(BS09), Arrays.stream(ScreenScripts.convertSketchesToDraggables())).toArray(Button[]::new);
-            S09.addButtons(temp);
-            Game.setScreen(S09);
         });
         C49 = new ConditionalButton("C05", 1028, 270, 50, 50, () -> !(DataCache.shipIndex < DataCache.ships.size() - 1), () -> { //Next component
             if(DataCache.shipIndex < DataCache.ships.size() - 1){
@@ -445,8 +497,8 @@ public abstract class GraphicsDatabase {
             }
         });
 
-        I01 = new TextInput(298, 293, 24, 50, Color.WHITE,false,73, true, "Input Ship Name");
-        I02 = new TextInput(400, 60, 24, 30, Color.BLACK, false, 73, false, "Title");
+        I01 = new TextInput(298, 293, 24, 50, Color.WHITE,false,73, true, "Type here...");
+        I02 = new TextInput(400, 60, 24, 30, Color.BLACK, false, 73, false, "Type here...");
         I03 = new TextInput(400, 100, 15, 23, Color.BLACK, true, 32, false, "Type here...");
 
         D05 = new Draggable("D05", 40, 258, 100, 100);
@@ -618,12 +670,14 @@ public abstract class GraphicsDatabase {
                             }
                         }
                     } else {
-                        DataCache.myShip.retrieveData().drawShip(x, y);
+                        DataCache.myShip.retrieveData().drawShipWithRotatingWheel(x, y);
                     }
                 } else {
-                    DataCache.myShip.retrieveData().drawShip(x, y);
+                    DataCache.myShip.retrieveData().drawShipWithRotatingWheel(x, y);
                     S12.addButtons(BS12);
                 }
+
+
                 
             });
     

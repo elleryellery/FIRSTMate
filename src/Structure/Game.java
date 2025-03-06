@@ -55,7 +55,8 @@ public class Game  extends JPanel implements Runnable, KeyListener, MouseListene
 		((Graphics2D) g2d).setStroke(new BasicStroke(10));
 		
 		DataCache.myScreen.drawScreen(g2d, getWidth(), getHeight());
-
+		//System.out.println(DataCache.myShip.myNotebook().entries().get(0));
+		
 		twoDgraph.drawImage(back, null, 0, 0);
 	}
 
@@ -194,6 +195,9 @@ public class Game  extends JPanel implements Runnable, KeyListener, MouseListene
 			}
 			if(DataCache.inputStatus && !DataCache.inputBox.check(e.getX(), e.getY())){
 				DataCache.inputStatus = false;
+				if(DataCache.inputBox.contents().equals("")){
+					DataCache.inputBox.setContents("Type here...");
+				}
 			}
 		} else {
 			DataCache.tutorials.pop();

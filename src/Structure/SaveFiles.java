@@ -15,6 +15,10 @@ import Elements.ScreenScripts;
 public abstract class SaveFiles {
     public static boolean createFile() {
         if(DataCache.myShip.retrieveData().ShipRequirements.length > 0){
+            File savesdir = new File("Saves");
+            if(!savesdir.isDirectory()){
+                savesdir.mkdir();
+            }
             File file = new File("Saves\\data-" + DataCache.myShip.name() + ".txt");
             try {
                 if(file.createNewFile()){

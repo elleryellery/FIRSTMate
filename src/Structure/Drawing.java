@@ -104,7 +104,7 @@ public class Drawing {
             this.width = width;
             this.height = height;
         } catch(IndexOutOfBoundsException e){
-            System.out.println("YOU DIDNT DO YOUR DRAWINGS FOR ONE OF THE SHIPS THATS SAVED");
+
         }
     }
 
@@ -115,6 +115,12 @@ public class Drawing {
 
     public Image asPicture(){
         return picture;
+    }
+
+    public Image asRotatingPicture(double angle){
+        ImageRotator rotator = new ImageRotator();
+        Image pic = rotator.rotate(picture, angle, (Graphics2D)Game.Graphics());
+        return pic;
     }
 
     public int width(){

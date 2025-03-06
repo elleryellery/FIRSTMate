@@ -42,7 +42,7 @@ public class SoundPlayer {
 				sound.clip().start();
 			}
         } catch (Exception e) {
-            System.out.println(e);
+            System.err.println(e);
         }
     }
 

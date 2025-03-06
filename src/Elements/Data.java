@@ -39,7 +39,7 @@ public class Data {
     }
 
     public void setShipRequirements(String[] customRequirements){
-        String[] defaultRequirements = {"Deck", "Steering", "Flag"};
+        String[] defaultRequirements = {"Deck", "Steering Wheel", "Sail"};
         ShipRequirements = Stream.concat(Arrays.stream(defaultRequirements), Arrays.stream(customRequirements)).toArray(String[]::new);
 
         ShipSketches = new Drawing[ShipRequirements.length];
@@ -76,6 +76,23 @@ public class Data {
             //System.out.println(d.asPicture() + ", " +( d.x() + x) + ", " + d.y() + y + ", " + d.width() + ", " + d.height());
             if(DataCache.debug){
                 Game.Graphics().drawRect(d.x() + x, d.y() + y, d.width(), d.height());
+            }
+        }
+    }
+
+    public void drawShipWithRotatingWheel(int x, int y){
+        ArrayList<Drawing> sorted = sortedDrawings();
+        
+        for(Drawing d: sorted){
+            if(d.equals(ShipSketches[1])){
+                Game.Graphics().drawImage(d.asRotatingPicture(DataCache.steeringRotation),d.x() + x, d.y() + y, d.width(), d.height(), null);
+                DataCache.steeringRotation ++;
+            } else {
+                Game.Graphics().drawImage(d.asPicture(),d.x() + x, d.y() + y, d.width(), d.height(), null);
+                //System.out.println(d.asPicture() + ", " +( d.x() + x) + ", " + d.y() + y + ", " + d.width() + ", " + d.height());
+                if(DataCache.debug){
+                    Game.Graphics().drawRect(d.x() + x, d.y() + y, d.width(), d.height());
+                }
             }
         }
     }
@@ -209,7 +226,7 @@ public class Data {
 
     public int sailWeight(){
         for(int i = 0; i < ShipRequirements.length; i++){
-            if (ShipRequirements[i].equals("Flag")){
+            if (ShipRequirements[i].equals("Sail")){
                 return ShipSketches[i].getPoints().size();
             }
         }
