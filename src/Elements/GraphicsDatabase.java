@@ -18,13 +18,15 @@ public abstract class GraphicsDatabase {
 
     public static TextInput I01, I02, I03, I04;
 
-    public static ConditionalButton C01, C02, C03, C04, C05, C06, C07, C08, C14, C15, C16, C17, C18, C19, C20, C21, C22, C23, C24, C25, C26, C27, C28, C29, C30, C31, C32, C33, C34, C35, C36, C44, C45, C46, C47, C48, C49, C50;
+    public static ConditionalButton C01, C02, C03, C04, C05, C06, C07, C08, C12, C13, C14, C15, C16, C17, C18, C19, C20, C21, C22, C23, C24, C25, C26, C27, C28, C29, C30, C31, C32, C33, C34, C35, C36, C44, C45, C46, C47, C48, C49, C50, C51;
 
     public static Screen S01, S02, S03, S04, S05, S06, S07, S08, S09, S10, S11, S12, S13, S14, S15, S16, S17, S18, S19, S20;
 
     public static Draggable D05;
 
     public static Color black, white, yellow, lightBlue, red, turquoise, purple, hotPink, orange, darkPurple, lightGreen, lightPink, skyBlue, green, burgundy, blue, pink;
+
+    public static Sound ballerina, seagulls, emeraldseas, lazylaura;
 
     public static void init(){
         B01 = new Button("B01", 1130, 0, 50, 50, () -> {Game.setScreen(S16);}); //Settings
@@ -106,18 +108,25 @@ public abstract class GraphicsDatabase {
             String status = "passed";
             int sailWeight = DataCache.myShip.retrieveData().sailWeight();
             if(sailWeight > 900){
-                System.out.println("passed test 1");
+            } else {
+                status = "Whoops! Your sail is too light, so it can't catch the wind and sail on the seas. Make your sail a little larger and try again!";
             }
             
             if(!DataCache.myShip.sinks()){
-                System.out.println("passed test 2");
+            } else {
+                status = "Oh no! Your ship is too heavy, and it sank! Try to cut some weight from your ship, and try again!";
             }
             
             if(DataCache.myShip.retrieveData().checkStability() < 5){
-                System.out.println("passed test 3");
+            } else {
+                status = "Arggh! Your ship collapsed due to instability! Try to eliminate weak points on your ship by making sure that nothing is floating or too skinny.";
             }
+
             if(status.equals("passed")){
                 Game.setScreen(S14);
+            } else {
+                DataCache.failureMessage = status;
+                Game.setScreen(S13);
             }
         });
 
@@ -173,6 +182,7 @@ public abstract class GraphicsDatabase {
         });
         B26 = new Button("B26", 550, 0, 75, 75, () -> {
             DataCache.enabledCannons = !DataCache.enabledCannons;
+            DataCache.enabledCannons = !DataCache.enabledCannons;
         });
 
         B27 = new Button("B27", 650, 0, 75, 75, () -> {
@@ -191,8 +201,14 @@ public abstract class GraphicsDatabase {
             DataCache.shipTestPos = -150;
         });
 
-        C01 = new ConditionalButton("C01", 100, 100, 50, 50, () -> (Settings.enabledMusic), () -> {
+        C01 = new ConditionalButton("C01", 800, 400, 200, 100, () -> (Settings.enabledMusic), () -> {
             Settings.enabledMusic = !Settings.enabledMusic;
+            Screen.sfx.stopAllSounds();
+        });
+
+        C02 = new ConditionalButton("C02", 800, 200, 200, 100, () -> (Settings.enabledSoundEffects), () -> {
+            Settings.enabledSoundEffects = !Settings.enabledSoundEffects;
+            Screen.sfx.stopAllSounds();
         });
 
         C04 = new ConditionalButton("C04", 395, 535, 50, 50, () -> !(DataCache.pageNumber > 0), () -> { //Back
@@ -227,6 +243,18 @@ public abstract class GraphicsDatabase {
 
         C07 = new ConditionalButton("C07", 470, 125, 250, 78, () -> (!(DataCache.ships.size() > 0)), () -> { //TODO add condition
             Game.setScreen(S19);
+        });
+
+        C12 = new ConditionalButton("C12", 672, 294, 50, 50, () -> !(Settings.volume < 100), () -> {
+            if(Settings.volume < 100){
+                Settings.volume += 5;
+            }
+        });
+
+        C13 = new ConditionalButton("C13", 307, 294, 50, 50, () -> !(Settings.volume > 0), () -> {
+            if(Settings.volume > 0){
+                Settings.volume -= 5;
+            }
         });
 
         C14 = new ConditionalButton("C14", 15, 150, 75, 75, () -> (DataCache.penColor == black), () -> {
@@ -353,48 +381,75 @@ public abstract class GraphicsDatabase {
             }
         });
 
+        C51 = new ConditionalButton("C01", 15, 10, 100, 50, () -> (Settings.tutorialModeEnabled), () -> { //Previous component
+            Settings.tutorialModeEnabled = !Settings.tutorialModeEnabled;
+        });
+
         I01 = new TextInput(298, 293, 24, 50, Color.WHITE,false,73, true, "Input Ship Name");
         I02 = new TextInput(400, 60, 24, 30, Color.BLACK, false, 73, false, "Title");
         I03 = new TextInput(400, 100, 15, 23, Color.BLACK, true, 32, false, "Type here...");
 
         D05 = new Draggable("D05", 40, 258, 100, 100);
 
+        seagulls = new Sound("Seagulls", 'M', true, 95);
+        emeraldseas = new Sound("EmeraldSeas", 'M', true, 85);
+        ballerina = new Sound("Ballerina", 'M', true, 75);
+        lazylaura = new Sound("LazyLaura", 'M', true, 75);
 
-        S01 = new Screen("S01");
-            Button[] BS01 = {B01, B02, B10, B21, C07};
-            S01.addButtons(BS01);
+        S01 = new Screen("S01"); //Starting/Opening Screen
+            Button[] buttons01 = {B01, B02, B10, B21, C07, C51};
+            Sound[] sounds01 = {seagulls, emeraldseas};
+            S01.addButtons(buttons01);
             S01.overrideImage("S01.gif");
+            S01.addScript(() -> {
+                Game.Graphics().setColor(Color.WHITE);
+                Game.Graphics().drawString("Tutorial Mode", 7, 80);
+            });
+            S01.addBackgroundSounds(sounds01);
     
         S02 = new Screen("S02");
             Button[] BS02 = {B01, B03, B04, B10, I01};
+            Sound[] sounds02 = {ballerina};
             S02.addButtons(BS02);
+            S02.addBackgroundSounds(sounds02);
     
         S03 = new Screen("S03");
             Button[] BS03 = {B01, B05, B06, B07, B09, B10};
+            Sound[] sounds03 = {ballerina};
             S03.addButtons(BS03);
-    
+            S03.addBackgroundSounds(sounds03);
+                
         S04 = new Screen("S04");
             Button[] BS04 = {B01, B08, B09, B10};
+            Sound[] sounds04 = {ballerina};
             S04.addButtons(BS04);
             S04.excludeFromHistory();
+            S04.addBackgroundSounds(sounds04);
     
         S05 = new Screen("S05");
             Button[] BS05 = {B01, B08, B09, B10};
+            Sound[] sounds05 = {ballerina};
             S05.addButtons(BS05);
             S05.excludeFromHistory();
+            S05.addBackgroundSounds(sounds05);
 
         S06 = new Screen("S06");
             Button[] BS06 = {B01, B08, B09, B10};
+            Sound[] sounds06 = {ballerina};
             S06.addButtons(BS06);
             S06.excludeFromHistory();
+            S06.addBackgroundSounds(sounds06);
     
         S07 = new Screen("S07"); //Notebook entry
             Button[] BS07 = {B01, B09, B19, B22, B23, C03, C04, I02, I03};
+            Sound[] sounds07 = {lazylaura};
             S07.addButtons(BS07);
             S07.excludeFromHistory();
+            S07.addBackgroundSounds(sounds07);
 
         S08 = new Screen("S08"); //Drawing
             Button[] BS08 = {B01, B09, B12, C05, C06, C14, C15, C16, C17, C18, C19, C20, C21, C22, C23, C24, C25, C26, C27, C28, C31, C32, C33, C34, C35, C36, C48};
+            Sound[] sounds08 = {lazylaura};
             S08.addButtons(BS08);
             S08.addScript(() -> {
                 DataCache.drawingEnabled = true;
@@ -402,6 +457,7 @@ public abstract class GraphicsDatabase {
                 Game.Graphics().setColor(Color.BLACK);
                 Game.Graphics().drawString(DataCache.myShip.retrieveData().ShipRequirements[DataCache.componentIndex], 326, 75);
             });
+            S08.addBackgroundSounds(sounds08);
     
         S09 = new Screen("S10");
             Button[] BS09 = {B01, B09, B12, C47};
@@ -413,14 +469,6 @@ public abstract class GraphicsDatabase {
             //         x += 50;
             //     }
             // });
-    
-        S10 = new Screen("S10");
-            Button[] BS10 = {B01, B09, B12, C46};
-            S10.addButtons(BS10);
-    
-        S11 = new Screen("S11");
-            Button[] BS11 = {B01, B09, B12};
-            S11.addButtons(BS11);
     
         S12 = new Screen("S12");
             Button[] BS12 = {B01, B09, B11, B25, B26, B27, B29};
@@ -491,15 +539,23 @@ public abstract class GraphicsDatabase {
             });
     
         S14 = new Screen("S14");
-        Button[] BS14 = {B01};
+            Button[] BS14 = {B01};
+            S14.addButtons(BS14);
     
         S15 = new Screen("S15");
             Button[] BS15 = {B01, B09};
             S15.addButtons(BS15);
             S15.excludeFromHistory();
     
-        S16 = new Screen("S16");
-        Button[] BS16 = {B01};
+        S16 = new Screen("S16"); // SETTINGS
+            Button[] BS16 = {B09, C01, C02, C12, C13};
+            S16.addButtons(BS16);
+            S16.excludeFromHistory();
+            S16.addScript(() -> {
+                Game.Graphics().setColor(Color.BLACK);
+                Game.Graphics().setFont(new Font("Times New Roman", Font.BOLD, 150));
+                Game.Graphics().drawString(Settings.volume + "", 400, 375);
+            });
     
         S17 = new Screen("S17");
         Button[] BS17 = {B01};
@@ -517,7 +573,9 @@ public abstract class GraphicsDatabase {
 
                 Game.Graphics().drawString(DataCache.ships.get(DataCache.shipIndex).name(), 23, 580);
                 
+                
                 DataCache.ships.get(DataCache.shipIndex).retrieveData().drawShip(-150, 0);
+                
                 
             });
     
@@ -543,5 +601,28 @@ public abstract class GraphicsDatabase {
         pink = new Color(235, 176, 218);
 
         DataCache.penColor = black;
+        
+        DataCache.tutorials.add(new TutorialBox("Welcome to FIRST Mate! Today you are going to be building a pirate ship.", () -> (DataCache.myScreen == S01)));
+        DataCache.tutorials.add(new TutorialBox("To create your first ship, press \"New Design\".", () -> (DataCache.myScreen == S01), 773, 389));
+        DataCache.tutorials.add(new TutorialBox("Nicely done! Let's start by giving your ship a name. Once you're done, click \"Create Ship\".", () -> (DataCache.myScreen == S02)));
+        DataCache.tutorials.add(new TutorialBox("It's time to pick which type of ship you'd like to build. Each ship has different requirements, so choose carefully! Click on a type to learn more.", () -> (DataCache.myScreen == S03)));
+        DataCache.tutorials.add(new TutorialBox("Nice choice! Now it's time to think about what you'd like to put on your ship.", () -> (DataCache.myScreen == S07), 854, 406));
+        DataCache.tutorials.add(new TutorialBox("Let's start by jotting down some of your ideas for your ship. This is your design notebook, where you can write down all of your ideas.", () -> (DataCache.myScreen == S07), 854, 406));
+        DataCache.tutorials.add(new TutorialBox("Start by navigating to the last page of your notebook.", () -> (DataCache.myScreen == S07), 854, 406));
+        DataCache.tutorials.add(new TutorialBox("Great! Now add a new page to your notebook.", () -> (DataCache.pageNumber == 1), 854, 406));
+        DataCache.tutorials.add(new TutorialBox("Nicely done! Start writing about what ideas you have for your ship. Take as much time as you need, and add more pages if you run out of space!", () -> (DataCache.pageNumber == 2), 854, 406));
+        DataCache.tutorials.add(new TutorialBox("Once you're done, click the checkmark in the bottom right corner.", () -> (DataCache.pageNumber == 2), 854, 406));
+        DataCache.tutorials.add(new TutorialBox("Now that you have some ideas for your ship, let's make some drawings for your ship.", () -> (DataCache.myScreen == S08), 533, 392));
+        DataCache.tutorials.add(new TutorialBox("^^ Up here is the name of the ship part that you are currently working on. Move between parts using the arrows.", () -> (DataCache.myScreen == S08), 350, 140));
+        DataCache.tutorials.add(new TutorialBox("In the box on the left you can change the color of your pen. At the top of the box you can also change the pen size and change to an eraser.", () -> (DataCache.myScreen == S08), 533, 392));
+        DataCache.tutorials.add(new TutorialBox("Make sure to create a drawing for each ship part! Once you're done, you'll be able to click the checkmark at the top.", () -> (DataCache.myScreen == S08), 533, 392));
+        DataCache.tutorials.add(new TutorialBox("You can also look back at what you wrote in your notebook at any time using the button in the bottom right corner.", () -> (DataCache.myScreen == S08), 533, 392));
+        DataCache.tutorials.add(new TutorialBox("Let's put it all together! All of the ship parts you just drew are on the clipboard on the left. Drag them onto the ocean to put together your ship.", () -> (DataCache.myScreen == S09), 583, 392));
+        DataCache.tutorials.add(new TutorialBox("Once you're happy with how your ship looks, click on the checkmark at the top to continue.", () -> (DataCache.myScreen == S09), 583, 392));
+        DataCache.tutorials.add(new TutorialBox("Your ship is looking great! It's time to test your ship on the open seas.", () -> (DataCache.myScreen == S12)));
+        DataCache.tutorials.add(new TutorialBox("Let's start by adding water to see if your ship will float. Click on the water button at the top until water starts to fill the ocean.", () -> (DataCache.myScreen == S12)));
+        DataCache.tutorials.add(new TutorialBox("Your ship floats! Now it's time to test your ship's strength by throwing cannonballs at it. Click on the cannon button and drag the arrow to shoot cannonballs.", () -> (DataCache.waterLevel >= 5 && DataCache.myScreen == S12)));
+        DataCache.tutorials.add(new TutorialBox("Nice! Time for the final test -- can your ship catch the wind in its sails and sail along the seas? Click the wind button to add wind.", () -> (DataCache.numCannonballsReleased >= 3 && DataCache.myScreen == S12)));
+        DataCache.tutorials.add(new TutorialBox("Fantastic! It's time to send your ship on its first voyage. Hopefully your tests didn't miss anything! Press \"I'm done!\"", () -> (DataCache.winds.size() >0 && DataCache.myScreen == S12)));
     }
 }

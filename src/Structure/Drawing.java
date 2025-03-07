@@ -57,40 +57,44 @@ public class Drawing {
     }
 
     public void constructImage(){
-        BufferedImage back;
-        xMax = points.get(0).x();
-        xMin = points.get(0).x();
-        yMax = points.get(0).y();
-        yMin = points.get(0).y();
-        for(Coordinate p: points){
-            if(p.x() > xMax){
-                xMax = p.x() + DataCache.penSize;
-            } else if(p.x() < xMin){
-                xMin = p.x();
+        try{
+            BufferedImage back;
+            xMax = points.get(0).x();
+            xMin = points.get(0).x();
+            yMax = points.get(0).y();
+            yMin = points.get(0).y();
+            for(Coordinate p: points){
+                if(p.x() > xMax){
+                    xMax = p.x() + DataCache.penSize;
+                } else if(p.x() < xMin){
+                    xMin = p.x();
+                }
+
+                if(p.y() > yMax){
+                    yMax = p.y();
+                } else if(p.y() < yMin){
+                    yMin = p.y();
+                }
             }
 
-            if(p.y() > yMax){
-                yMax = p.y();
-            } else if(p.y() < yMin){
-                yMin = p.y();
+            int width = xMax - xMin + DataCache.penSize;
+            int height = yMax - yMin + DataCache.penSize;
+
+            back = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
+            Graphics2D g = back.createGraphics();
+            for(Coordinate p: points){
+                p.drawCoordinate(g, -xMin-DataCache.dragXOffset, -yMin-DataCache.dragYOffset);
+                //System.out.println((-xMin-DataCache.dragXOffset) + "," + (-yMin-DataCache.dragYOffset));
             }
+
+            g.dispose();
+            picture = back;
+
+            this.width = width;
+            this.height = height;
+        } catch(IndexOutOfBoundsException e){
+            System.out.println("YOU DIDNT DO YOUR DRAWINGS FOR ONE OF THE SHIPS THATS SAVED");
         }
-
-        int width = xMax - xMin + DataCache.penSize;
-        int height = yMax - yMin + DataCache.penSize;
-
-        back = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
-        Graphics2D g = back.createGraphics();
-        for(Coordinate p: points){
-            p.drawCoordinate(g, -xMin-DataCache.dragXOffset, -yMin-DataCache.dragYOffset);
-            //System.out.println((-xMin-DataCache.dragXOffset) + "," + (-yMin-DataCache.dragYOffset));
-        }
-
-        g.dispose();
-        picture = back;
-
-        this.width = width;
-        this.height = height;
     }
 
     public void saveCoords(){

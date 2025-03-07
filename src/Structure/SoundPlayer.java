@@ -11,13 +11,18 @@ public class SoundPlayer {
 
 	public void playmusic(Sound sound) {
         File soundFile = new File(sound.fileName());
-        try {
-			if((sound.type() == 'S' && Settings.enabledSoundEffects) || sound.type() == 'M') {
+		boolean allowedSound = (sound.type() == 'S' && Settings.enabledSoundEffects);
+		boolean isMusic = sound.type() == 'M';
+		boolean notPlaying = (playing(sound) == null);
+
+		try {
+			if((allowedSound || isMusic) && notPlaying) {
+
 				sound.setClip(AudioSystem.getClip());
 				AudioInputStream inputStream = AudioSystem.getAudioInputStream(soundFile);
 				sound.clip().open(inputStream);
 
-				float volume = sound.volume() * (Settings.volume);
+				float volume = sound.volume() * (Settings.volume / 100.0f);
 
 				FloatControl gainControl = (FloatControl) sound.clip().getControl(FloatControl.Type.MASTER_GAIN);
 				float range = gainControl.getMaximum() - gainControl.getMinimum();
@@ -51,6 +56,19 @@ public class SoundPlayer {
 			currentlyPlaying.clear();
 		}
     }
+
+	public Sound playing(Sound sound){
+		if(currentlyPlaying.size() == 0){
+			return null;
+		} else {
+			for(Sound s: currentlyPlaying){
+				if(s.fileName().equals(sound.fileName())){
+					return s;
+				}
+			}
+			return null;
+		}
+	}
 	
 	public void stopMusic() {
 		if(currentlyPlaying.size()>0){
@@ -64,6 +82,32 @@ public class SoundPlayer {
 			}
 		}
     }
+
+	public void stopNonDuplicateSounds(Sound[] sounds){
+		ArrayList<Sound> keepPlaying = new ArrayList<Sound>();
+
+		for(Sound playing: currentlyPlaying){
+			for(Sound sound: sounds){
+				if(sound.fileName().equals(playing.fileName())){
+					keepPlaying.add(sound);
+				}
+			}
+		}
+
+		for(Sound s: currentlyPlaying){
+			System.out.println("thinking about " + s.fileName());
+			if(!keepPlaying.contains(s)){
+				if (s.clip().isRunning()) {
+					System.out.println("stopping " + s.fileName());
+					s.clip().stop();
+				}
+			} else {
+				System.out.println("keeping " + s.fileName());
+			}
+		}
+
+		currentlyPlaying = keepPlaying;
+	}
 
 	public void stopSoundEffects() {
 		if(currentlyPlaying.size()>0){

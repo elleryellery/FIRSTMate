@@ -3,6 +3,7 @@ import Structure.Coordinate;
 
 import java.awt.Color;
 import java.util.ArrayList;
+import java.util.LinkedList;
 
 import Structure.*;
 
@@ -36,4 +37,6 @@ public class DataCache {
     public static String failureMessage = "";
     public static int shipTestPos = -150;
     public static boolean enabledCannons = false;
+    public static LinkedList<TutorialBox> tutorials = new LinkedList<TutorialBox>();
+    public static int numCannonballsReleased = 0;
 }

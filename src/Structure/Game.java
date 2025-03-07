@@ -65,8 +65,11 @@ public class Game  extends JPanel implements Runnable, KeyListener, MouseListene
 	}
 
 	public static void previousScreen() {
+		Screen temp = DataCache.myScreen;
 		setScreen(DataCache.history.get(DataCache.history.size()-1));
-		DataCache.history.remove(DataCache.history.size()-1);
+		if(temp.includeInHistory()){
+			DataCache.history.remove(DataCache.history.size()-1);
+		}
 		DataCache.history.remove(DataCache.history.size()-1);
 	}
 
@@ -74,7 +77,9 @@ public class Game  extends JPanel implements Runnable, KeyListener, MouseListene
 		if(DataCache.myScreen.includeInHistory()){
 			DataCache.history.add(DataCache.myScreen);
 		}
+		DataCache.myScreen.setStartPlayer(true);
 		DataCache.myScreen = _screen;
+		Screen.sfx.stopNonDuplicateSounds(DataCache.myScreen.backgroundSounds());
 	}
 	
 	@Override
@@ -127,9 +132,10 @@ public class Game  extends JPanel implements Runnable, KeyListener, MouseListene
 	
 	@Override
 	public void mouseMoved(MouseEvent e) {
-		for(Button b: DataCache.myScreen.buttons()){
-			b.checkHover(e.getX(), e.getY());
-		}
+		if(DataCache.tutorials.peek() == null)
+			for(Button b: DataCache.myScreen.buttons()){
+				b.checkHover(e.getX(), e.getY());
+			}
 	}
 	
 	@Override
@@ -149,30 +155,34 @@ public class Game  extends JPanel implements Runnable, KeyListener, MouseListene
 
 	@Override
 	public void mousePressed(MouseEvent e) {
-		for(Button b: DataCache.myScreen.buttons()){
-			if(b.check(e.getX(), e.getY())){
-				break;
-			}
-		}
-		for(int i = DataCache.myScreen.buttons().length - 1; i >= 0; i--){
-			Button b = DataCache.myScreen.buttons()[i];
-			if(b instanceof Draggable){
+		if(DataCache.tutorials.peek() == null){
+			for(Button b: DataCache.myScreen.buttons()){
 				if(b.check(e.getX(), e.getY())){
-					DataCache.holding = (Draggable)b;
-					DataCache.dragXOffset = e.getX()-b.x();
-					DataCache.dragYOffset = e.getY()-b.y();
-					DataCache.myScreen.rearrangeToLast(b);
 					break;
 				}
-			} else {
-				b.checkHover(e.getX(), e.getY());
 			}
-		}
-		if(DataCache.debug){
-			System.out.println("DEBUG: Mouse coordinates: (" + e.getX() + ", " + e.getY() + ")");
-		}
-		if(DataCache.inputStatus && !DataCache.inputBox.check(e.getX(), e.getY())){
-			DataCache.inputStatus = false;
+			for(int i = DataCache.myScreen.buttons().length - 1; i >= 0; i--){
+				Button b = DataCache.myScreen.buttons()[i];
+				if(b instanceof Draggable){
+					if(b.check(e.getX(), e.getY())){
+						DataCache.holding = (Draggable)b;
+						DataCache.dragXOffset = e.getX()-b.x();
+						DataCache.dragYOffset = e.getY()-b.y();
+						DataCache.myScreen.rearrangeToLast(b);
+						break;
+					}
+				} else {
+					b.checkHover(e.getX(), e.getY());
+				}
+			}
+			if(DataCache.debug){
+				System.out.println("DEBUG: Mouse coordinates: (" + e.getX() + ", " + e.getY() + ")");
+			}
+			if(DataCache.inputStatus && !DataCache.inputBox.check(e.getX(), e.getY())){
+				DataCache.inputStatus = false;
+			}
+		} else {
+			DataCache.tutorials.pop();
 		}
 
 	}
@@ -183,6 +193,7 @@ public class Game  extends JPanel implements Runnable, KeyListener, MouseListene
 			int dx = (int)((GraphicsDatabase.D05.x()-40)/15);
 			int dy = (int)((GraphicsDatabase.D05.y()-258)/15);
 			DataCache.cannonball = new Cannonball(dx, dy);
+			DataCache.numCannonballsReleased ++;
 			GraphicsDatabase.D05.setCoords(40, 258);
 			DataCache.myShip.retrieveData().makeSketchCopy();
 		}
