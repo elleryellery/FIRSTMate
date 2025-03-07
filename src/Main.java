@@ -22,6 +22,7 @@ public class Main extends JFrame{
 		getContentPane().add(play);
 		
 		setVisible(true);
+		setResizable(false);
 		
 		addWindowListener( new WindowListener() {
 

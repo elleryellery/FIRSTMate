@@ -39,6 +39,9 @@ public class TextInput extends Button {
     }
 
     public void actionOnClick(){
+        if(contents.equals("Type here...")){
+            contents = "";
+        }
         DataCache.inputStatus = true;
         DataCache.inputBox = this;
         cursorIndex = contents.length();

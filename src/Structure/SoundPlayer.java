@@ -42,7 +42,7 @@ public class SoundPlayer {
 				sound.clip().start();
 			}
         } catch (Exception e) {
-            System.out.println(e);
+            System.err.println(e);
         }
     }
 
@@ -95,14 +95,10 @@ public class SoundPlayer {
 		}
 
 		for(Sound s: currentlyPlaying){
-			System.out.println("thinking about " + s.fileName());
 			if(!keepPlaying.contains(s)){
 				if (s.clip().isRunning()) {
-					System.out.println("stopping " + s.fileName());
 					s.clip().stop();
 				}
-			} else {
-				System.out.println("keeping " + s.fileName());
 			}
 		}
 

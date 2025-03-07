@@ -13,11 +13,12 @@ public class Screen {
     private boolean startPlayer = true;
     private boolean includeInHistory = true;
     Sound[] backgroundSounds = {};
-    Credit[] credits;
+    Credit[] credits = {};
     Button[] buttons = {};
     //DragZone[] dragZones;
     Runnable script = () -> {};
     public static SoundPlayer sfx = new SoundPlayer();
+    public static TextInterpreter text = new TextInterpreter();
 
     public Screen() {
         back = new ImageIcon("IMG-Screens/SCREEN-ImageNotFound.png");

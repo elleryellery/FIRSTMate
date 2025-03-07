@@ -55,13 +55,23 @@ public class Game  extends JPanel implements Runnable, KeyListener, MouseListene
 		((Graphics2D) g2d).setStroke(new BasicStroke(10));
 		
 		DataCache.myScreen.drawScreen(g2d, getWidth(), getHeight());
-
+		//System.out.println(DataCache.myShip.myNotebook().entries().get(0));
+		
 		twoDgraph.drawImage(back, null, 0, 0);
 		//System.out.println("a: " + DataCache.coordinates1 + " b: " + DataCache.coordinates2);
 	}
 
 	public static Graphics Graphics(){
 		return g2d;
+	}
+
+	public static boolean includes(int[] array, int element){
+		for(int i: array){
+			if(i == element){
+				return true;
+			}
+		}
+		return false;
 	}
 
 	public static void previousScreen() {
@@ -92,6 +102,8 @@ public class Game  extends JPanel implements Runnable, KeyListener, MouseListene
 		int key= e.getKeyCode();
 		char keyChar = e.getKeyChar();	
 
+		int[] unsupportedKeys = {16, 17, 525, 524, 18, 34, 33, 36, 35, 155, 127, 38, 40, 144, 111, 106, 110};
+
 		if(DataCache.inputStatus){
 			if(key == 8){
 				if(DataCache.inputBox.contentsLength()>0) {
@@ -105,13 +117,16 @@ public class Game  extends JPanel implements Runnable, KeyListener, MouseListene
 				DataCache.inputBox.arrowLeft();
 			} else if(key == 39){
 				DataCache.inputBox.arrowRight();
-			} else if(key != 16){
+			} else if(!includes(unsupportedKeys, key)){
 				DataCache.inputBox.addCharacter(keyChar);
 			}
 		}	
 
 		if(keyChar == '~'){
 			DataCache.debug = !DataCache.debug;
+			if(DataCache.debug){
+				System.out.println("Currently viewing: " + DataCache.myScreen.tag());
+			}
 		}
 	}
 
@@ -169,6 +184,7 @@ public class Game  extends JPanel implements Runnable, KeyListener, MouseListene
 						DataCache.dragXOffset = e.getX()-b.x();
 						DataCache.dragYOffset = e.getY()-b.y();
 						DataCache.myScreen.rearrangeToLast(b);
+						DataCache.myShip.retrieveData().getDrawingFromDraggable((Draggable)b).setOrder(DataCache.myShip.retrieveData().ShipSketches.length);
 						break;
 					}
 				} else {
@@ -180,6 +196,9 @@ public class Game  extends JPanel implements Runnable, KeyListener, MouseListene
 			}
 			if(DataCache.inputStatus && !DataCache.inputBox.check(e.getX(), e.getY())){
 				DataCache.inputStatus = false;
+				if(DataCache.inputBox.contents().equals("")){
+					DataCache.inputBox.setContents("Type here...");
+				}
 			}
 		} else {
 			DataCache.tutorials.pop();
@@ -196,6 +215,9 @@ public class Game  extends JPanel implements Runnable, KeyListener, MouseListene
 			DataCache.numCannonballsReleased ++;
 			GraphicsDatabase.D05.setCoords(40, 258);
 			DataCache.myShip.retrieveData().makeSketchCopy();
+		}
+		if(DataCache.drawingEnabled){
+			ScreenScripts.liftLine(e.getX(), e.getY());
 		}
 		DataCache.previousCoordinate = null;
 		DataCache.holding = null;

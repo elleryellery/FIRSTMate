@@ -18,6 +18,7 @@ Your New Cruiser
 The cruiser is made for pirate fun!⏎As a cruiser, your ship will be designed to give pirate riders a great time. Your cruiser must include:⏎Your cruiser must include:⏎  ‣   A restaurant⏎  ‣   A movie theater⏎  ‣   A party room⏎  ‣   At least two other fun areas of your choosing!
 8
 2940
+1
 533 370 73 49 118 30
 535 370 73 49 118 30
 537 370 73 49 118 30
@@ -2960,6 +2961,7 @@ The cruiser is made for pirate fun!⏎As a cruiser, your ship will be designed t
 901 376 122 48 116 10
 471 335
 140
+2
 681 386 214 162 219 10
 681 385 214 162 219 10
 681 383 214 162 219 10
@@ -3102,6 +3104,7 @@ The cruiser is made for pirate fun!⏎As a cruiser, your ship will be designed t
 678 344 214 162 219 10
 783 263
 878
+3
 649 400 0 0 0 10
 649 399 0 0 0 10
 648 397 0 0 0 10
@@ -3982,6 +3985,7 @@ The cruiser is made for pirate fun!⏎As a cruiser, your ship will be designed t
 702 241 255 255 255 20
 679 164
 342
+4
 590 363 214 162 219 10
 590 362 214 162 219 10
 590 360 214 162 219 10
@@ -4326,6 +4330,7 @@ The cruiser is made for pirate fun!⏎As a cruiser, your ship will be designed t
 651 313 214 162 219 10
 630 306
 311
+5
 617 390 159 215 225 10
 617 388 159 215 225 10
 617 387 159 215 225 10
@@ -4639,6 +4644,7 @@ The cruiser is made for pirate fun!⏎As a cruiser, your ship will be designed t
 684 334 159 215 225 10
 481 214
 291
+6
 624 395 59 144 171 10
 624 393 59 144 171 10
 624 391 59 144 171 10
@@ -4932,6 +4938,7 @@ The cruiser is made for pirate fun!⏎As a cruiser, your ship will be designed t
 699 327 59 144 171 10
 862 150
 162
+7
 595 369 200 0 168 10
 595 368 200 0 168 10
 595 366 200 0 168 10
@@ -5096,6 +5103,7 @@ The cruiser is made for pirate fun!⏎As a cruiser, your ship will be designed t
 590 369 200 0 168 10
 445 384
 162
+8
 575 356 73 49 118 10
 575 355 73 49 118 10
 576 353 73 49 118 10

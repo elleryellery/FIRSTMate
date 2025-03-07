@@ -3,6 +3,7 @@ package Structure;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.awt.*;
+import java.awt.*;
 
 import javax.swing.ImageIcon;
 
@@ -15,6 +16,7 @@ public class Drawing {
     private Draggable draggable;
     private int x, y;
     private int xMax, xMin, yMax, yMin;
+    private int order = 0;
 
     public Drawing(){
         x = -3141592;
@@ -28,6 +30,9 @@ public class Drawing {
 
     public void savePoints(ArrayList<Coordinate> _points){
         points = _points;
+        if(order == 0){
+            order = DataCache.componentIndex + 1;
+        }
     }
 
     public void draw(){
@@ -54,6 +59,14 @@ public class Drawing {
 
     public String toString(){
         return "Drawing with " + points.size() + " points";
+    }
+
+    public void setOrder(int _order){
+        order = _order;
+    }
+
+    public int order(){
+        return order;
     }
 
     public void constructImage(){
@@ -83,8 +96,7 @@ public class Drawing {
             back = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
             Graphics2D g = back.createGraphics();
             for(Coordinate p: points){
-                p.drawCoordinate(g, -xMin-DataCache.dragXOffset, -yMin-DataCache.dragYOffset);
-                //System.out.println((-xMin-DataCache.dragXOffset) + "," + (-yMin-DataCache.dragYOffset));
+                p.drawCoordinate(g, -xMin, -yMin);
             }
 
             g.dispose();
@@ -93,7 +105,7 @@ public class Drawing {
             this.width = width;
             this.height = height;
         } catch(IndexOutOfBoundsException e){
-            System.out.println("YOU DIDNT DO YOUR DRAWINGS FOR ONE OF THE SHIPS THATS SAVED");
+
         }
     }
 
@@ -104,6 +116,12 @@ public class Drawing {
 
     public Image asPicture(){
         return picture;
+    }
+
+    public Image asRotatingPicture(double angle){
+        ImageRotator rotator = new ImageRotator();
+        Image pic = rotator.rotate(picture, angle, (Graphics2D)Game.Graphics());
+        return pic;
     }
 
     public int width(){

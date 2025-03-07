@@ -18,16 +18,16 @@ public class Release {
         releaseDate = "No Date";
     }
 
-	public Release(String inputVersionNumber, String inputReleaseDate, String inputSummary, String [] inputPatches, String [] inputFeatures, ImageIcon inputBannerImage) {
+	public Release(String inputVersionNumber, String inputReleaseDate, String inputSummary, String [] inputPatches, String [] inputFeatures) {
         versionNumber = inputVersionNumber;
         releaseDate = inputReleaseDate;
         summary = inputSummary;
         patches = inputPatches;
         features = inputFeatures;
-        bannerImage = inputBannerImage;
+        bannerImage = new ImageIcon("FIRSTMate-Assets\\R\\"+ inputVersionNumber + ".png");
 	}
 
-    public Release(String inputVersionNumber, String inputReleaseDate, String inputSummary, String [] inputPatches, String [] inputFeatures, ImageIcon inputBannerImage,ImageIcon inputDescriptiveImage, int inputImageW, int inputImageH) {
+    public Release(String inputVersionNumber, String inputReleaseDate, String inputSummary, String [] inputPatches, String [] inputFeatures, ImageIcon inputDescriptiveImage, int inputImageW, int inputImageH) {
         versionNumber = inputVersionNumber;
         releaseDate = inputReleaseDate;
         summary = inputSummary;
@@ -36,7 +36,7 @@ public class Release {
         descriptiveImage = inputDescriptiveImage;
         imageW = inputImageW;
         imageH = inputImageH;
-        bannerImage = inputBannerImage;
+        bannerImage = new ImageIcon("FIRSTMate-Assets\\R\\"+ inputVersionNumber + ".png");
 	}
 
     public String versionNumber(){

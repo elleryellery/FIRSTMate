@@ -37,6 +37,7 @@ public class Ship {
         s += data.ShipSketches.length + "\n";
         for(Drawing d: data.ShipSketches){
             s += d.getPoints().size() + "\n";
+            s += d.order() + "\n";
             for(Coordinate c: d.getPoints()){
                 s += c.x() + " " + c.y() + " " + c.color().getRed() + " " + c.color().getGreen() + " " + c.color().getBlue() + " " + c.size() + "\n";
             }
