@@ -66,6 +66,7 @@ public abstract class GraphicsDatabase {
                 "Cannons", "A way to board other ships", "Treasure Room", "Fighting mechanism"
             };
             DataCache.myShip.retrieveData().setShipRequirements(components);
+            DataCache.myShip.retrieveData().setShipRequirements(components);
             DataCache.myShip.retrieveData().ShipType = "The Pearl";
             Game.setScreen(S06);
         });
@@ -111,6 +112,8 @@ public abstract class GraphicsDatabase {
             DataCache.myShip.retrieveData().Notebook.replaceEntry(1, entry);
             ScreenScripts.PullNotebookPageToTextBox();
             Game.setScreen(S07);
+            ScreenScripts.PullNotebookPageToTextBox();
+            ScreenScripts.PullNotebookPageToTextBox();
         });
         B09 = new Button("B09", 0, 0, 50, 50, () -> {Game.previousScreen();}); //Back/Previous
         

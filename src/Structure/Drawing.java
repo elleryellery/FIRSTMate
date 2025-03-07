@@ -3,6 +3,7 @@ package Structure;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.awt.*;
+import java.awt.*;
 
 import javax.swing.ImageIcon;
 
