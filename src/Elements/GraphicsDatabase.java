@@ -5,11 +5,16 @@ import java.util.Arrays;
 import java.util.stream.Stream;
 
 import javax.swing.ImageIcon;
+import java.awt.Font;
+import java.util.Arrays;
+import java.util.stream.Stream;
+
+import javax.swing.ImageIcon;
 
 import Structure.*;
 
 public abstract class GraphicsDatabase {
-    public static Button B01, B02, B03, B04, B05, B06, B07, B08, B09, B10, B11, B12, B13, B14, B15, B16, B17, B18, B19, B20, B21, B22, B23, B24, B25, B26, B27;
+    public static Button B01, B02, B03, B04, B05, B06, B07, B08, B09, B10, B11, B12, B13, B14, B15, B16, B17, B18, B19, B20, B21, B22, B23, B24, B25, B26, B27, B28, B29;
 
     public static TextInput I01, I02, I03, I04;
 
@@ -85,7 +90,10 @@ public abstract class GraphicsDatabase {
             }
             entry.recordMetadata();
             DataCache.myShip.retrieveData().Notebook.replaceEntry(2, entry);
+            entry.recordMetadata();
+            DataCache.myShip.retrieveData().Notebook.replaceEntry(2, entry);
             Game.setScreen(S07);
+            ScreenScripts.PullNotebookPageToTextBox();
             ScreenScripts.PullNotebookPageToTextBox();
         });
         B09 = new Button("B09", 0, 0, 50, 50, () -> {Game.previousScreen();}); //Back/Previous
@@ -94,11 +102,23 @@ public abstract class GraphicsDatabase {
             Game.setScreen(S17);
         });
 
-        B11 = new Button("B11", 721, 428, 250, 78, () -> {
-            NotebookEntry entry = new NotebookEntry(I02.contents(), I03.contents());
-            entry.recordMetadata();
-            DataCache.myShip.retrieveData().Notebook.addEntry(entry);
-            Game.setScreen(S14);
+        B11 = new Button("B11", 920, 523, 250, 78, () -> {
+            String status = "passed";
+            int sailWeight = DataCache.myShip.retrieveData().sailWeight();
+            if(sailWeight > 900){
+                System.out.println("passed test 1");
+            }
+            
+            if(!DataCache.myShip.sinks()){
+                System.out.println("passed test 2");
+            }
+            
+            if(DataCache.myShip.retrieveData().checkStability() < 5){
+                System.out.println("passed test 3");
+            }
+            if(status.equals("passed")){
+                Game.setScreen(S14);
+            }
         });
 
         B12 = new Button("B12", 1097, 526, 80, 80, () -> {
@@ -152,11 +172,23 @@ public abstract class GraphicsDatabase {
             }
         });
         B26 = new Button("B26", 550, 0, 75, 75, () -> {
-
+            DataCache.enabledCannons = !DataCache.enabledCannons;
         });
 
         B27 = new Button("B27", 650, 0, 75, 75, () -> {
             DataCache.winds.add(new Wind());
+        });
+
+        B28 = new Button("B11", 478, 474, 250, 78, () -> {
+            Game.setScreen(S08);
+        });
+
+        B29 = new Button("B29", 1090, 8, 35, 35, () -> {
+            DataCache.shipLevel = 0;
+            DataCache.waterLevel = 0;
+            DataCache.winds.clear();
+            DataCache.cannonball = null;
+            DataCache.shipTestPos = -150;
         });
 
         C01 = new ConditionalButton("C01", 100, 100, 50, 50, () -> (Settings.enabledMusic), () -> {
@@ -293,7 +325,10 @@ public abstract class GraphicsDatabase {
             Game.setScreen(S11);
         });
 
-        C47 = new ConditionalButton("C48", 709, 8, 50, 50, () -> (false), () -> { //TODO add condition
+        C47 = new ConditionalButton("C48", 709, 8, 50, 50, () -> (false), () -> {
+            for(Drawing d: DataCache.myShip.retrieveData().ShipSketches){
+                d.saveCoords();
+            }
             Game.setScreen(S12);
         });
 
@@ -388,28 +423,75 @@ public abstract class GraphicsDatabase {
             S11.addButtons(BS11);
     
         S12 = new Screen("S12");
-            Button[] BS12 = {B01, B09, B11, B25, B26, B27, D05};
+            Button[] BS12 = {B01, B09, B11, B25, B26, B27, B29};
             S12.addButtons(BS12);
             S12.addScript(() -> {
-                //System.out.println(DataCache.shipLevel);
-                DataCache.myShip.retrieveData().drawShip(-150, -DataCache.shipLevel);
                 Game.Graphics().drawImage(new ImageIcon("FIRSTMate-Assets\\M\\Water.png").getImage(), 0, 610 - DataCache.waterLevel * 20, 1200, 310, null);
+                int windSpeed = 0;
                 for(Wind w: DataCache.winds){
                     w.drawWind();
+                    windSpeed ++;
                 }
-                if(DataCache.cannonball != null){
-                    DataCache.cannonball.drawCannonball();
+                int sailWeight = DataCache.myShip.retrieveData().sailWeight();
+                int shipMovement = 0;
+                if(sailWeight > 900){
+                    shipMovement = windSpeed;
+                } else if(windSpeed > 1){
+                    DataCache.failureMessage = "Whoops! Your sail is too light, so it can't catch the wind and sail on the seas. Make your sail a little larger and try again!";
+                    Game.setScreen(S13);
                 }
-                Game.Graphics().setColor(Color.BLACK);
-                Game.Graphics().drawLine(0, 308, D05.x() +25, D05.y() + (int)(D05.h()/2));
+
+                DataCache.shipTestPos += shipMovement;
+
+                int x = DataCache.shipTestPos;
+                if(x > 1200-150){
+                    DataCache.shipTestPos = -1200;
+                }
+                int y = -DataCache.shipLevel;
+
+                if(DataCache.enabledCannons){
+                   // Button[] temp = Stream.concat(Arrays.stream(BS12), Arrays.stream(d5)).toArray();
+                    Button[] temp = new Button[BS12.length + 1];
+                    for(int i = 0; i < temp.length - 1; i ++){
+                        temp[i] = BS12[i];
+                    }
+                    temp[temp.length - 1] = D05;
+                    S12.addButtons(temp);
+                    Game.Graphics().setColor(Color.BLACK);
+                    Game.Graphics().drawLine(0, 308, D05.x() +25, D05.y() + (int)(D05.h()/2));
+
+                    if(DataCache.cannonball != null){
+                        DataCache.myShip.retrieveData().drawShipCopy(x, y);
+                        DataCache.cannonball.drawCannonball(x, y);
+                        if(DataCache.cannonball.x() > 1200 || DataCache.cannonball.y() > 650){
+                            DataCache.cannonball = null;
+                            int weakPoint = DataCache.myShip.retrieveData().checkDestruction();
+                            if(weakPoint > 0) {
+                                DataCache.failureMessage = "Oh no! The cannonballs exposed a weak spot in your ship's design. Strengthen your ship by adding onto it until the cannonball can not easily pass through.";
+                                Game.setScreen(S13);
+                            }
+                        }
+                    } else {
+                        DataCache.myShip.retrieveData().drawShip(x, y);
+                    }
+                } else {
+                    DataCache.myShip.retrieveData().drawShip(x, y);
+                    S12.addButtons(BS12);
+                }
+                
             });
     
         S13 = new Screen("S13");
-            Button[] BS13 = {B01};
+            Button[] BS13 = {B01, B28};
+            S13.addButtons(BS13);
+            S13.addScript(() -> {
+                TextInterpreter t = new TextInterpreter();
+                Game.Graphics().setColor(Color.WHITE);
+                t.drawText(Game.Graphics(), DataCache.failureMessage, 382, 310, 50);
+            });
     
         S14 = new Screen("S14");
-            Button[] BS14 = {B01, B20};
-            S14.addButtons(BS14);
+        Button[] BS14 = {B01};
     
         S15 = new Screen("S15");
             Button[] BS15 = {B01, B09};
@@ -434,7 +516,9 @@ public abstract class GraphicsDatabase {
                 Game.Graphics().setFont(new Font("Times New Roman", Font.BOLD, 50));
 
                 Game.Graphics().drawString(DataCache.ships.get(DataCache.shipIndex).name(), 23, 580);
+                
                 DataCache.ships.get(DataCache.shipIndex).retrieveData().drawShip(-150, 0);
+                
             });
     
         S20 = new Screen("S20");

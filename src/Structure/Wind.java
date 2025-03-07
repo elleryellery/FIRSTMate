@@ -52,8 +52,11 @@ public class Wind {
         dx = 0;
     }
 
-    public void slow(int slowRate) {
-        dx *= (1-(Math.pow(10, slowRate)));
-        System.out.println(dx);
+    public void slow(double slowRate, double lagRate) {
+        dx *= (1-(Math.pow(10, slowRate))*lagRate);
+    }
+
+    public void factorLag(double lagFactor){
+        dx *= lagFactor;
     }
 }

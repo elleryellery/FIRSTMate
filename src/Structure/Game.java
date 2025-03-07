@@ -179,11 +179,12 @@ public class Game  extends JPanel implements Runnable, KeyListener, MouseListene
 
 	@Override
 	public void mouseReleased(MouseEvent e) {
-		if(DataCache.holding == GraphicsDatabase.D05){
-			int dx = (int)((GraphicsDatabase.D05.x()-40)/50);
-			int dy = (int)((GraphicsDatabase.D05.y()-258)/50);
+		if(DataCache.holding == GraphicsDatabase.D05 && DataCache.enabledCannons){
+			int dx = (int)((GraphicsDatabase.D05.x()-40)/15);
+			int dy = (int)((GraphicsDatabase.D05.y()-258)/15);
 			DataCache.cannonball = new Cannonball(dx, dy);
 			GraphicsDatabase.D05.setCoords(40, 258);
+			DataCache.myShip.retrieveData().makeSketchCopy();
 		}
 		DataCache.previousCoordinate = null;
 		DataCache.holding = null;

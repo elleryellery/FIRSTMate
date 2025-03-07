@@ -4,9 +4,9 @@ import java.awt.Color;
 import java.awt.Graphics;
 
 public class Coordinate {
-    int x, y;
-    Color color;
-    int size;
+    private int x, y;
+    private Color color;
+    private int size;
 
     public Coordinate(){
         x = 0;
@@ -30,6 +30,10 @@ public class Coordinate {
         return x;
     }
 
+    public void moveX(int dx){
+        x += dx;
+    }
+
     public int y(){
         return y;
     }
@@ -39,12 +43,25 @@ public class Coordinate {
         Game.Graphics().fillOval(x,y,size,size);
     }
 
+    public void drawCoordinate(int x, int y){
+        Game.Graphics().setColor(color);
+        Game.Graphics().fillOval(x, y,size,size);
+    }
+
     public void drawCoordinate(Graphics g, int xModifier, int yModifier){
         g.setColor(color);
         g.fillOval(x + xModifier, y + yModifier,size,size);
     }
 
     public String toString(){
-        return x + " " + y + " " + color + " " + size;
+        return x + " " + y + " " + "\n";
+    }
+
+    public int size() {
+        return size;
+    }
+
+    public Color color() {
+        return color;
     }
 }

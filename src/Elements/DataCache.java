@@ -32,9 +32,8 @@ public class DataCache {
     public static int shipLevel = 0;
     public static ArrayList<Wind> winds = new ArrayList <Wind> ();
     public static Cannonball cannonball = null;
-
-    public static ArrayList<Coordinate> coordinates1 = new ArrayList <Coordinate>();
-    public static ArrayList<Coordinate> coordinates2 = new ArrayList <Coordinate>();
-
-    public static ArrayList[] saveVariables = {coordinates1, coordinates2};
+    public static ArrayList <Coordinate> sketchCopy = new ArrayList <Coordinate> ();
+    public static String failureMessage = "";
+    public static int shipTestPos = -150;
+    public static boolean enabledCannons = false;
 }
