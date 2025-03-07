@@ -5,6 +5,11 @@ import java.util.Arrays;
 import java.util.stream.Stream;
 
 import javax.swing.ImageIcon;
+import java.awt.Font;
+import java.util.Arrays;
+import java.util.stream.Stream;
+
+import javax.swing.ImageIcon;
 
 import Structure.*;
 
@@ -87,7 +92,10 @@ public abstract class GraphicsDatabase {
             }
             entry.recordMetadata();
             DataCache.myShip.retrieveData().Notebook.replaceEntry(2, entry);
+            entry.recordMetadata();
+            DataCache.myShip.retrieveData().Notebook.replaceEntry(2, entry);
             Game.setScreen(S07);
+            ScreenScripts.PullNotebookPageToTextBox();
             ScreenScripts.PullNotebookPageToTextBox();
         });
         B09 = new Button("B09", 0, 0, 50, 50, () -> {Game.previousScreen();}); //Back/Previous
@@ -173,6 +181,7 @@ public abstract class GraphicsDatabase {
             }
         });
         B26 = new Button("B26", 550, 0, 75, 75, () -> {
+            DataCache.enabledCannons = !DataCache.enabledCannons;
             DataCache.enabledCannons = !DataCache.enabledCannons;
         });
 
@@ -564,7 +573,9 @@ public abstract class GraphicsDatabase {
 
                 Game.Graphics().drawString(DataCache.ships.get(DataCache.shipIndex).name(), 23, 580);
                 
+                
                 DataCache.ships.get(DataCache.shipIndex).retrieveData().drawShip(-150, 0);
+                
                 
             });
     
