@@ -5,6 +5,11 @@ import java.util.Arrays;
 import java.util.stream.Stream;
 
 import javax.swing.ImageIcon;
+import java.awt.Font;
+import java.util.Arrays;
+import java.util.stream.Stream;
+
+import javax.swing.ImageIcon;
 
 import Structure.*;
 
@@ -85,7 +90,10 @@ public abstract class GraphicsDatabase {
             }
             entry.recordMetadata();
             DataCache.myShip.retrieveData().Notebook.replaceEntry(2, entry);
+            entry.recordMetadata();
+            DataCache.myShip.retrieveData().Notebook.replaceEntry(2, entry);
             Game.setScreen(S07);
+            ScreenScripts.PullNotebookPageToTextBox();
             ScreenScripts.PullNotebookPageToTextBox();
         });
         B09 = new Button("B09", 0, 0, 50, 50, () -> {Game.previousScreen();}); //Back/Previous
@@ -483,8 +491,7 @@ public abstract class GraphicsDatabase {
             });
     
         S14 = new Screen("S14");
-            Button[] BS14 = {B01};
-            S14.addButtons(BS14);
+        Button[] BS14 = {B01};
     
         S15 = new Screen("S15");
             Button[] BS15 = {B01, B09};
